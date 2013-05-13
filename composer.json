@@ -14,12 +14,30 @@
 			"homepage": "http://nette.org/contributors"
 		}
 	],
+	"repositories": [{
+		"type": "package",
+		"package": {
+			"name": "PetrP/Orm",
+			"version": "v0.4",
+			"dist": {
+				"type": "zip",
+				"url": "http://orm.petrprochazka.com/download/Orm-v0.4.0-RC6.zip"
+			}
+		}
+	}],
 	"require": {
-		"php": ">= 5.3.7",
+		"php": ">= 5.3.0",
 		"nette/nette": "@dev",
-		"dg/adminer-custom": "1.*"
+		"dg/adminer-custom": "1",
+		"dg/dibi": "dev-master",
+		"PetrP/Orm": "v0.4"
 	},
-	"require-dev": {
+    "require-dev": {
 		"nette/tester": "@dev"
+    },
+	"scripts":
+	{
+		"post-install-cmd": "rm -rf ./vendor/PetrP/Orm/php52",
+		"post-update-cmd": "rm -rf ./vendor/PetrP/Orm/php52"
 	}
 }
