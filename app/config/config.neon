@@ -6,23 +6,28 @@
 #
 parameters:
 
-
 php:
 	date.timezone: Europe/Prague
+	session.save_path: "%tempDir%/sessions"
 	# zlib.output_compression: yes
-
 
 nette:
 	application:
 		errorPresenter: Error
 		mapping:
-			*: App\*Module\Presenters\*Presenter
+			*: App\*Module\*Presenter
+		presenterFactory: App\PresenterFactory(%appDir%)
+		templateFactory: App\TemplateFactory(Nette.templateCacheStorage)
 
 	session:
 		expiration: 14 days
 
 
 services:
-	- App\Model\UserManager
 	- App\RouterFactory
 	router: @App\RouterFactory::createRouter
+
+	dibiConnection: DibiConnection(%database%)
+	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
+	serviceContainerFactory: App\ServiceContainerFactory(@dibiConnection, @performanceHelperCache)
+	repositoryContainer: App\RepositoryContainer(@serviceContainerFactory)

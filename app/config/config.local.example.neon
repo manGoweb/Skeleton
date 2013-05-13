@@ -1,0 +1,19 @@
+# Ukázkový lokální config - soubor zkopíruj a přejmenuj na config.local.neon
+# Obsahuje konfigurace pro dané lokální prostředí aplikace
+
+parameters:
+	database:
+		driver: mysqli
+		host: localhost
+		username:
+		password:
+		database:
+		charset: utf8
+		sqlmode: TRADITIONAL
+		profiler: on
+
+nette:
+
+services:
+
+factories:
