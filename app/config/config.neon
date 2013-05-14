@@ -24,8 +24,7 @@ nette:
 
 
 services:
-	- App\RouterFactory
-	router: @App\RouterFactory::createRouter
+	router: App\Router
 
 	dibiConnection: DibiConnection(%database%)
 	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
