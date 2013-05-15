@@ -1,0 +1,37 @@
+
+parameters:
+
+	testDbPrefix: app_test_
+	testDbName: NULL
+
+	migrations:
+		# vypne migrace při testech. testy poběží na výchozí databázi (pak nemusí procházet některé testy!)
+		enabled: TRUE
+		path: ../migrations/
+		dropDatabaseOnSuccess: TRUE
+		dropDatabaseOnFailure: TRUE
+
+	selenium:
+		seleniumServer: http://localhost:4444
+		desiredCapabilities:
+			browserName: firefox
+		testUser:
+			username: test
+			password: skeleton21
+
+services:
+
+	router:
+		class: Tests\Selenium\SeleniumRouteList(@container)
+
+	templateFactory:
+		factory: Tests\Selenium\SeleniumTemplateFactory(@nette.templateCacheStorage, [@container, createServiceNette__Template])
+
+nette:
+
+	session:
+		autoStart: true
+
+	security:
+		frames: NULL
+
