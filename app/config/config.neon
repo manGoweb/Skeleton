@@ -25,9 +25,23 @@ nette:
 
 services:
 	router: App\Router
+	authenticator: App\Authenticator
+
 	templateFactory: Clevispace\TemplateFactory(@nette.templateCacheStorage, [@container, createNette__Template])
+	passwordHashCalculator: Clevispace\PasswordHashCalculator
 
 	dibiConnection: DibiConnection(%database%)
 	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
 	serviceContainerFactory: App\ServiceContainerFactory(@dibiConnection, @performanceHelperCache)
 	repositoryContainer: App\RepositoryContainer(@serviceContainerFactory)
+
+	orm:
+		factory: App\RepositoryContainer(
+			App\ServiceContainerFactory(
+				@dibiConnection,
+				Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
+			)
+		)
+	usersRepository:
+		class: App\UsersRepository
+		factory: @orm::getRepository(users)

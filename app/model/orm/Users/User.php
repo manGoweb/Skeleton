@@ -6,7 +6,8 @@ namespace App;
 /**
  * Entity representing one user
  *
- * @property string $name
+ * @property string $username
+ * @property string $password
  */
 class User extends Entity
 {
