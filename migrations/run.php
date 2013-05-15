@@ -1,6 +1,6 @@
 <?php
 
-use App\Migration\Extensions\OrmPhp;
+use Migration\Extensions\OrmPhp;
 
 require_once __DIR__ . '/../libs/autoload.php';
 require_once __DIR__ . '/../app/config/Configurator.php';
@@ -10,9 +10,7 @@ ini_set('memory_limit', '1G');
 
 $configurator = new App\Configurator;
 $configurator->enableDebugger();
-$configurator->createRobotLoader()
-	->addDirectory(__DIR__ . '/OrmPhp.php')
-	->register();
+$configurator->createRobotLoader()->register();
 
 $context = $configurator->createContainer();
 $reset = isset($_GET['reset']);
