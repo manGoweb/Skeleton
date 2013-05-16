@@ -92,9 +92,12 @@ abstract class TestCase extends ObjectTestCase
 		if ($this->getTestResultObject()->getCollectCodeCoverageInformation())
 		{
 			$annotations = $this->getAnnotations();
-			if (!isset($annotations['class']['covers']) && !isset($annotations['method']['covers']))
+			if (
+				!isset($annotations['class']['covers']) && !isset($annotations['method']['covers'])
+				&& !isset($annotations['class']['coversNothing']) && !isset($annotations['method']['coversNothing'])
+			)
 			{
-				throw new \Exception('Chybí povinná @covers anotace!');
+				throw new \Exception('Chybí povinná @covers/@coversNothing anotace!');
 			}
 		}
 		return parent::runTest();
