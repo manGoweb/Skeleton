@@ -40,12 +40,12 @@ class Authenticator extends Object implements Security\IAuthenticator
 		$user = $this->users->getByUsername($username);
 		if (!$user)
 		{
-			throw new Security\AuthenticationException();
+			throw new Security\AuthenticationException('Username does not exist.');
 		}
 
 		if (!$this->calculator->verify($password, $user->password, $user->username))
 		{
-			throw new Security\AuthenticationException();
+			throw new Security\AuthenticationException('Wrong username or password.');
 		}
 
 		return new Security\Identity($user->id, NULL, $user->toArray(EntityToArray::AS_ID));
