@@ -17,7 +17,7 @@ parameters:
 			browserName: firefox
 		testUser:
 			username: test
-			password: skeleton21
+			password: test
 
 services:
 
