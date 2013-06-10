@@ -159,7 +159,7 @@ class MissingLocalConfigException extends RuntimeException
 	 */
 	public function __construct(FileNotFoundException $e)
 	{
-		parent::__construct('Pro spuštění aplikace si do složky "app/config" doplň konfigurační soubor "local.neon". Můžeš za tím účelem zkopírovat "config.local.example.neon", který se nenačítá a slouží jako vzor.', NULL, $e);
+		parent::__construct('Pro spuštění aplikace si do složky "app/config" doplň konfigurační soubor "config.local.neon". Můžeš za tím účelem zkopírovat "config.local.example.neon", který se nenačítá a slouží jako vzor.', NULL, $e);
 	}
 
 }
