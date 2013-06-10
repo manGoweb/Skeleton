@@ -27,7 +27,7 @@ services:
 	router: App\Router
 	authenticator: App\Authenticator
 
-	templateFactory: Clevispace\TemplateFactory(@nette.templateCacheStorage, [@container, createNette__Template])
+	templateFactory: Clevispace\TemplateFactory(@nette.templateCacheStorage, [@container, createServiceNette__template])
 	passwordHashCalculator: Clevispace\PasswordHashCalculator
 
 	dibiConnection: DibiConnection(%database%)
