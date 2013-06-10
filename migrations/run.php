@@ -13,7 +13,7 @@ $configurator->enableDebugger();
 $configurator->createRobotLoader()->register();
 
 $context = $configurator->createContainer();
-$reset = isset($_GET['reset']);
+$reset = php_sapi_name() === "cli" ? in_array('reset', $argv) : isset($_GET['reset']);
 if ($reset AND $context->parameters['productionMode'])
 {
 	throw new Exception('Reset není povolen na produkčním prostředí.');
