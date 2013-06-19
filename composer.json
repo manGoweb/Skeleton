@@ -58,7 +58,7 @@
 		},
 		{
 			"type": "vcs",
-			"url": "https://github.com/Clevisaci/Migration.git"
+			"url": "https://github.com/Clevis/Migration.git"
 		},
 		{
 			"type": "vcs",
@@ -66,11 +66,11 @@
 		},
 		{
 			"type": "vcs",
-			"url": "https://github.com/Clevisaci/HttpPHPUnit.git"
+			"url": "https://github.com/Clevis/HttpPHPUnit.git"
 		},
 		{
 			"type": "vcs",
-			"url": "https://github.com/Clevisaci/Se34.git"
+			"url": "https://github.com/Clevis/Se34.git"
 		}
 	]
 }
