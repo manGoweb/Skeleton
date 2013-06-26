@@ -34,10 +34,12 @@
 	"scripts":
 	{
 		"post-install-cmd": [
-			"rm -rf ./vendor/petrp/orm/php52"
+			"rm -rf ./vendor/petrp/orm/php52",
+			"mv ./vendor/clevis/migration/migrations/* ./migrations"
 		],
 		"post-update-cmd": [
-			"rm -rf ./vendor/petrp/orm/php52"
+			"rm -rf ./vendor/petrp/orm/php52",
+			"mv ./vendor/clevis/migration/migrations/* ./migrations"
 		]
 	},
 
