@@ -80,7 +80,7 @@ class Configurator extends Config\Configurator
 	public function onInitExtensions()
 	{
 		$this->onCompile['dibi'] = function ($configurator, DI\Compiler $compiler) {
-			//$compiler->addExtension('dibi', new \DibiNetteExtension);
+			$compiler->addExtension('dibi', new \DibiNette21Extension);
 		};
 	}
 
