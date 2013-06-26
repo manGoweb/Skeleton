@@ -4,7 +4,6 @@ namespace App;
 
 use Nette;
 use Nette\DI;
-use Nette\Config;
 use Nette\Loaders\RobotLoader;
 use Nette\FileNotFoundException;
 use RuntimeException;
@@ -17,7 +16,7 @@ use SystemContainer;
  * @author Petr Procházka
  * @author Vojtěch Dobeš
  */
-class Configurator extends Config\Configurator
+class Configurator extends Nette\Configurator
 {
 
 	/** @var array of function(Configurator $sender); Occurs before first Container is created */
