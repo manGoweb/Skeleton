@@ -52,10 +52,11 @@ class SignPresenter extends BasePresenter
 			$this->getUser()->setExpiration('20 minutes', TRUE);
 		}
 
-		try {
+		try
+		{
 			$this->getUser()->login($values->username, $values->password);
+			$this->flashMessage('You have been signed in.');
 			$this->redirect('Homepage:');
-
 		}
 		catch (Nette\Security\AuthenticationException $e)
 		{
