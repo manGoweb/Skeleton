@@ -19,7 +19,7 @@ class SignIn extends PageObject
 {
 
 	protected $presenterName = 'Sign';
-	protected $parameters = 'action=in';
+	protected $presenterParameters = 'action=in';
 
 	/**
 	 * @return SignIn|Homepage
