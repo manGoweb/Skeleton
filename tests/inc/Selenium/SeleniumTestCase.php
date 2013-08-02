@@ -4,7 +4,7 @@ namespace Tests\Selenium;
 
 use Se34\TestCase;
 use SystemContainer;
-use Tests\MigrationsLoader;
+use Clevis\Migration\Tests\MigrationsLoader;
 
 
 /**

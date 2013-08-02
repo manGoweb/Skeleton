@@ -47,8 +47,7 @@
 			"rm -rf ./vendor/petrp/access/tests",
 			"rm -rf ./vendor/petrp/httpphpunit/libs",
 			"rm -rf ./vendor/petrp/httpphpunit/tests",
-			"rm -rf ./vendor/phpunit/php-code-coverage/Tests",
-			"mv ./vendor/clevis/migration/migrations/* ./migrations"
+			"rm -rf ./vendor/phpunit/php-code-coverage/Tests"
 		]
 	},
 
