@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Clevispace;
+use Clevis\Skeleton;
 
 
 /**
@@ -10,7 +10,7 @@ use Clevispace;
  *
  * @property-read RepositoryContainer $orm
  */
-abstract class BasePresenter extends Clevispace\BasePresenter
+abstract class BasePresenter extends Skeleton\BasePresenter
 {
 
 	/**

@@ -17,7 +17,7 @@ nette:
 		errorPresenter: Error
 		mapping:
 			*: App\*Module\*Presenter
-		templateFactory: App\TemplateFactory(Nette.templateCacheStorage)
+		templateFactory: Clevis\Skeleton\TemplateFactory(Nette.templateCacheStorage)
 
 	session:
 		expiration: 14 days
@@ -27,17 +27,17 @@ services:
 	router: App\Router
 	authenticator: App\Authenticator
 
-	templateFactory: Clevispace\TemplateFactory(@nette.templateCacheStorage, [@container, createServiceNette__template])
+	templateFactory: Clevis\Skeleton\TemplateFactory(@nette.templateCacheStorage, [@container, createServiceNette__template])
 	passwordHashCalculator: Clevispace\PasswordHashCalculator
 
 	dibiConnection: DibiConnection(%database%)
 	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
-	serviceContainerFactory: App\ServiceContainerFactory(@dibiConnection, @performanceHelperCache)
 	repositoryContainer: App\RepositoryContainer(@serviceContainerFactory)
+	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @performanceHelperCache)
 
 	orm:
 		factory: App\RepositoryContainer(
-			App\ServiceContainerFactory(
+			Clevis\Skeleton\Orm\ServiceContainerFactory(
 				@dibiConnection,
 				Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
 			)

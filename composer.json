@@ -20,6 +20,7 @@
 		"dg/adminer-custom": "1",
 		"dg/dibi": "2.1.*",
 		"petrp/orm": "v0.4",
+		"clevis/skeleton-core": "*",
 		"clevis/migration": "*"
 	},
 	"require-dev": {
@@ -69,6 +70,10 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/Clevis/Migration.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/Clevis/SkeletonCore.git"
 		},
 		{
 			"type": "vcs",

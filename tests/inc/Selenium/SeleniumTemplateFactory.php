@@ -2,7 +2,7 @@
 
 namespace Tests\Selenium;
 
-use Clevispace\TemplateFactory;
+use Clevis\Skeleton\TemplateFactory;
 use Nette\Application\UI\Control;
 
 /**
