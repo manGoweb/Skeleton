@@ -92,7 +92,7 @@ class Configurator extends Nette\Configurator
 	}
 
 	/**
-	 * Vytvoří RobotLoader a zaregistruje adresáře 'app' a 'libs/clevispace'
+	 * Vytvoří RobotLoader a zaregistruje adresář 'app'
 	 *
 	 * @return RobotLoader
 	 */
@@ -102,7 +102,6 @@ class Configurator extends Nette\Configurator
 		$loader = parent::createRobotLoader();
 		$loader->addDirectory($params['appDir']);
 		$loader->addDirectory($params['libsDir'] . '/others');
-		$loader->addDirectory($params['libsDir'] . '/clevispace');
 
 		return $loader;
 	}

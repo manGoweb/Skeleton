@@ -22,12 +22,9 @@ nette:
 
 services:
 	router: App\Router
-	authenticator: App\Authenticator
 
 	nette.presenterFactory: Clevis\Skeleton\PresenterFactory(%appDir%, @container, %appNamespace%)
 	templateFactory: Clevis\Skeleton\TemplateFactory(@nette.templateCacheStorage, [@container, createServiceNette__template])
-
-	passwordHashCalculator: Clevispace\PasswordHashCalculator
 
 	dibiConnection: DibiConnection(%database%)
 	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
@@ -41,6 +38,3 @@ services:
 				Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
 			)
 		)
-	usersRepository:
-		class: App\UsersRepository
-		factory: @orm::getRepository(users)

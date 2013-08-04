@@ -19,7 +19,7 @@ Debugger::enable();
 
 $loader = new Nette\Loaders\RobotLoader;
 $loader->setCacheStorage(new Nette\Caching\Storages\FileStorage(TEMP_DIR . '/cache'));
-$loader->addDirectory(array(APP_DIR, TESTS_DIR . '/cases', TESTS_DIR . '/inc', LIBS_DIR . '/clevispace'));
+$loader->addDirectory(array(APP_DIR, TESTS_DIR . '/cases', TESTS_DIR . '/inc'));
 $loader->register();
 
 $configurator = new TestsConfigurator;

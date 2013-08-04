@@ -12,8 +12,6 @@ use Clevis\Skeleton;
  * Cares about repository initialization.
  * It is the entry point into model from other parts of application.
  * Stores container of services which other objects may need.
- *
- * @property-read UsersRepository $users
  */
 class RepositoryContainer extends Skeleton\Orm\RepositoryContainer
 {
