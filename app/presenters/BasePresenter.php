@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace Clevis\Skeleton;
 
-use Clevis\Skeleton;
+use Nette;
+use App\RepositoryContainer;
 
 
 /**
@@ -10,7 +11,7 @@ use Clevis\Skeleton;
  *
  * @property-read RepositoryContainer $orm
  */
-abstract class BasePresenter extends Skeleton\BasePresenter
+abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 
 	/**
@@ -22,6 +23,22 @@ abstract class BasePresenter extends Skeleton\BasePresenter
 	public function getOrm()
 	{
 		return $this->context->getService('repositoryContainer');
+	}
+
+	/**
+	 * Creates configured template.
+	 *
+	 * @author Jan Tvrdík
+	 * @return Nette\Templating\ITemplate
+	 */
+	protected function createTemplate($class = NULL)
+	{
+		if ($class !== NULL)
+		{
+			throw new \NotImplementedException('Specifying template class is not yet implemented.');
+		}
+
+		return $this->context->getService('templateFactory')->createTemplate(NULL, $this);
 	}
 
 }
