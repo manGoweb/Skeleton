@@ -3,6 +3,7 @@
 namespace Clevis\Skeleton;
 
 use Nette;
+use StdClass;
 use App\RepositoryContainer;
 
 
@@ -10,6 +11,7 @@ use App\RepositoryContainer;
  * Base presenter for all application presenters.
  *
  * @property-read RepositoryContainer $orm
+ * @property StdClass $template
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
@@ -35,7 +37,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		if ($class !== NULL)
 		{
-			throw new \NotImplementedException('Specifying template class is not yet implemented.');
+			throw new \Nette\NotImplementedException('Specifying template class is not yet implemented.');
 		}
 
 		return $this->context->getService('templateFactory')->createTemplate(NULL, $this);
