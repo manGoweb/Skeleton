@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Presenters;
+namespace App;
 
-use Nette,
-	App\Model;
+use Nette;
 
 
 /**

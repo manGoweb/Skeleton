@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Presenters;
+namespace App;
 
-use Nette,
-	App\Model,
-	Nette\Diagnostics\Debugger;
+use Nette;
+use Nette\Diagnostics\Debugger;
 
 
 /**
