@@ -25,7 +25,8 @@
 		"dg/dibi": "2.1.*",
 		"petrp/orm": "v0.4",
 		"clevis/skeleton-core": "*",
-		"clevis/migration": "*"
+		"clevis/migration": "*",
+		"clevis/users-package": "*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": ">=3.7.20",
@@ -69,6 +70,10 @@
 					"files": ["php53/Orm/Orm.php"]
 				}
 			}
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/Clevis/UsersPackage.git"
 		},
 		{
 			"type": "vcs",
