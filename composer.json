@@ -26,6 +26,7 @@
 		"petrp/orm": "v0.4",
 		"clevis/skeleton-core": "*",
 		"clevis/migration": "*",
+		"clevis/skeleton-package-installer": "*",
 		"clevis/users-package": "*"
 	},
 	"require-dev": {
@@ -70,6 +71,10 @@
 					"files": ["php53/Orm/Orm.php"]
 				}
 			}
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/Clevis/SkeletonPackageInstaller.git"
 		},
 		{
 			"type": "vcs",
