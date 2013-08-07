@@ -32,9 +32,7 @@
 	"require-dev": {
 		"phpunit/phpunit": ">=3.7.20",
 		"petrp/httpphpunit": "dev-master",
-		"clevis/se34": "*",
-		"mockery/mockery": "dev-master",
-		"petrp/access": "dev-master"
+		"clevis/se34": "*"
 	},
 	"minimum-stability": "dev",
 
@@ -42,7 +40,6 @@
 	{
 		"post-install-cmd": [
 			"rm -rf ./vendor/petrp/orm/php52",
-			"rm -rf ./vendor/petrp/access/tests",
 			"rm -rf ./vendor/petrp/httpphpunit/libs",
 			"rm -rf ./vendor/petrp/httpphpunit/tests",
 			"rm -rf ./vendor/phpunit/php-code-coverage/Tests",
@@ -50,7 +47,6 @@
 		],
 		"post-update-cmd": [
 			"rm -rf ./vendor/petrp/orm/php52",
-			"rm -rf ./vendor/petrp/access/tests",
 			"rm -rf ./vendor/petrp/httpphpunit/libs",
 			"rm -rf ./vendor/petrp/httpphpunit/tests",
 			"rm -rf ./vendor/phpunit/php-code-coverage/Tests"
@@ -87,10 +83,6 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/Clevis/SkeletonCore.git"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/PetrP/Access.git"
 		},
 		{
 			"type": "vcs",
