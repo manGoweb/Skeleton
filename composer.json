@@ -23,7 +23,7 @@
 		"nette/nette": "@dev",
 		"dg/adminer-custom": "1",
 		"dg/dibi": "2.1.*",
-		"petrp/orm": "v0.4",
+		"clevis/orm": "dev-master",
 		"clevis/skeleton-core": "*",
 		"clevis/migration": "*",
 		"clevis/skeleton-package-installer": "*",
@@ -39,14 +39,12 @@
 	"scripts":
 	{
 		"post-install-cmd": [
-			"rm -rf ./vendor/petrp/orm/php52",
 			"rm -rf ./vendor/petrp/httpphpunit/libs",
 			"rm -rf ./vendor/petrp/httpphpunit/tests",
 			"rm -rf ./vendor/phpunit/php-code-coverage/Tests",
 			"mv ./vendor/clevis/migration/migrations/* ./migrations"
 		],
 		"post-update-cmd": [
-			"rm -rf ./vendor/petrp/orm/php52",
 			"rm -rf ./vendor/petrp/httpphpunit/libs",
 			"rm -rf ./vendor/petrp/httpphpunit/tests",
 			"rm -rf ./vendor/phpunit/php-code-coverage/Tests"
@@ -55,18 +53,8 @@
 
 	"repositories": [
 		{
-			"type": "package",
-			"package": {
-				"name": "petrp/orm",
-				"version": "v0.4",
-				"dist": {
-					"type": "zip",
-					"url": "http://orm.petrprochazka.com/download/Orm-v0.4.0-RC6.zip"
-				},
-				"autoload": {
-					"files": ["php53/Orm/Orm.php"]
-				}
-			}
+			"type": "vcs",
+			"url": "https://github.com/Clevis/SkeletonCore.git"
 		},
 		{
 			"type": "vcs",
@@ -82,7 +70,11 @@
 		},
 		{
 			"type": "vcs",
-			"url": "https://github.com/Clevis/SkeletonCore.git"
+			"url": "https://github.com/Clevis/OrmInstaller.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/Clevis/Orm.git"
 		},
 		{
 			"type": "vcs",
