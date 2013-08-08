@@ -25,7 +25,7 @@ abstract class BasePresenter extends Core\BasePresenter
 	 */
 	public function getOrm()
 	{
-		return $this->context->getService('repositoryContainer');
+		return $this->context->getService('orm');
 	}
 
 }

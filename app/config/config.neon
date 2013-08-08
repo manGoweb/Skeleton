@@ -6,6 +6,7 @@
 #
 parameters:
 	appNamespace: App
+	repositories: []
 
 php:
 	date.timezone: Europe/Prague
@@ -27,14 +28,7 @@ services:
 	templateFactory: Clevis\Skeleton\TemplateFactory(@nette.templateCacheStorage, [@container, createServiceNette__template])
 
 	dibiConnection: DibiConnection(%database%)
-	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
-	repositoryContainer: App\RepositoryContainer(@serviceContainerFactory)
-	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @performanceHelperCache)
 
-	orm:
-		factory: App\RepositoryContainer(
-			Clevis\Skeleton\Orm\ServiceContainerFactory(
-				@dibiConnection,
-				Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
-			)
-		)
+	orm: App\RepositoryContainer(@serviceContainerFactory, %repositories%, @container)
+	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @performanceHelperCache)
+	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
