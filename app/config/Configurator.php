@@ -13,8 +13,8 @@ use SystemContainer;
 /**
  * Nastavení aplikace (nahrazuje boostrap)
  *
- * @author Petr Procházka
- * @author Vojtěch Dobeš
+ * @method void onInit
+ * @author void onAfter
  */
 class Configurator extends Nette\Configurator
 {
@@ -26,10 +26,9 @@ class Configurator extends Nette\Configurator
 	public $onAfter = array();
 
 
-
 	/**
-	 * @param  string|NULL null mean autodetect
-	 * @param  array|NULL
+	 * @param string|NULL null mean autodetect
+	 * @param array|NULL
 	 */
 	public function __construct($tempDirectory = NULL, array $params = NULL)
 	{
@@ -46,7 +45,7 @@ class Configurator extends Nette\Configurator
 		$this->setTempDirectory($tempDirectory);
 
 		foreach (get_class_methods($this) as $name) {
-			if ($pos = strpos($name, 'onInit') === 0) {
+			if ($pos = strpos($name, 'onInit') === 0 && $name !== 'onInitPackages') {
 				$this->onInit[lcfirst(substr($name, $pos + 5))] = array($this, $name);
 			}
 		}
@@ -58,6 +57,14 @@ class Configurator extends Nette\Configurator
 		}
 	}
 
+
+	/**
+	 * Zaregistruje balíčky
+	 */
+	public function onInitPackages()
+	{
+		\Clevis\Users\Package::register($this);
+	}
 
 
 	/**
@@ -71,10 +78,8 @@ class Configurator extends Nette\Configurator
 	}
 
 
-
 	/**
-	 * Zaregistruje rozšíření konfigurace:
-	 * - dibi
+	 * Zaregistruje rozšíření konfigurace
 	 */
 	public function onInitExtensions()
 	{
@@ -91,6 +96,7 @@ class Configurator extends Nette\Configurator
 		//App\Some\Module::register($this);
 	}
 
+
 	/**
 	 * Vytvoří RobotLoader a zaregistruje adresář 'app'
 	 *
@@ -106,6 +112,7 @@ class Configurator extends Nette\Configurator
 		return $loader;
 	}
 
+
 	/**
 	 * @return array
 	 */
@@ -114,6 +121,7 @@ class Configurator extends Nette\Configurator
 		return $this->parameters;
 	}
 
+
 	/**
 	 * Vytvoří systémový DI kontejner
 	 *
@@ -121,6 +129,7 @@ class Configurator extends Nette\Configurator
 	 */
 	public function createContainer()
 	{
+		$this->onInitPackages($this);
 		$this->onInit($this);
 		$this->onInit = array();
 
