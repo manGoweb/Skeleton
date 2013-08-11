@@ -14,7 +14,7 @@ use SystemContainer;
  * Nastavení aplikace (nahrazuje boostrap)
  *
  * @method void onInit
- * @author void onAfter
+ * @method void onAfter
  */
 class Configurator extends Nette\Configurator
 {
@@ -59,7 +59,7 @@ class Configurator extends Nette\Configurator
 
 
 	/**
-	 * Zaregistruje balíčky
+	 * Zaregistruje balíčky. Musí být načteny jako první
 	 */
 	public function onInitPackages()
 	{
@@ -94,6 +94,16 @@ class Configurator extends Nette\Configurator
 	public function onInitModules()
 	{
 		//App\Some\Module::register($this);
+	}
+
+
+	/**
+	 * Zaregistruje relace entit
+	 */
+	public function onAfterEntities(SystemContainer $container)
+	{
+		$registry = $container->getService('entityRelationsRegistry');
+		\Clevis\Skeleton\Entity::$relationsRegistry = $registry;
 	}
 
 

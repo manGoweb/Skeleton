@@ -31,4 +31,5 @@ services:
 
 	orm: App\RepositoryContainer(@serviceContainerFactory, %repositories%, @container)
 	serviceContainerFactory: Clevis\Skeleton\Orm\ServiceContainerFactory(@dibiConnection, @performanceHelperCache)
+	entityRelationsRegistry: Clevis\Skeleton\Orm\EntityRelationsRegistry
 	performanceHelperCache:	Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
