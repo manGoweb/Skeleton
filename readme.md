@@ -21,6 +21,7 @@ Vytvoření nového projektu:
 --------------------------
 
 - Naklonujte tento repozitář
+- Odeberte licence Skeletonu a Sandboxu
 - Změňte globální namespace aplikace `App` v konfiguraci a v kódu
 - Zkopírujte vytvořte lokální konfigurační soubor `app/config.local.neon`. Můžete použít vzor `config.local.examle.neon`
 - Ujistěte se, že adresáře `temp` a `log` jsou zapisovatelné
