@@ -7,4 +7,4 @@ vendor/*
 .DS_Store
 !.gitignore
 !.htaccess
-app/config/config.local.neon
+/app/config/config.local.neon
