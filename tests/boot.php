@@ -15,7 +15,10 @@ require_once LIBS_DIR . '/autoload.php';
 
 
 Debugger::$strictMode = TRUE;
-Debugger::enable();
+if (file_exists(__DIR__ . '/../.dev'))
+{
+	Debugger::enable(FALSE);
+}
 
 $loader = new Nette\Loaders\RobotLoader;
 $loader->setCacheStorage(new Nette\Caching\Storages\FileStorage(TEMP_DIR . '/cache'));

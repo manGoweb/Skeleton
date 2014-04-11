@@ -11,7 +11,10 @@ require __DIR__ . '/config/Configurator.php';
 $configurator = new App\Configurator(__DIR__ . '/../temp');
 
 // Enable Nette Debugger for error visualisation & logging
-//$configurator->setDebugMode($configurator::AUTO);
+if (file_exists(__DIR__ . '/../.dev'))
+{
+	$configurator->setDebugMode(TRUE); // setup debug environment just by creating a file
+}
 $configurator->enableDebugger(__DIR__ . '/../log', 'error@clevis.cz');
 Debugger::$showLocation = TRUE;
 
