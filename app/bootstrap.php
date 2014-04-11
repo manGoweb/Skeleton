@@ -12,7 +12,7 @@ $configurator = new App\Configurator(__DIR__ . '/../temp');
 
 // Enable Nette Debugger for error visualisation & logging
 //$configurator->setDebugMode($configurator::AUTO);
-$configurator->enableDebugger(__DIR__ . '/../log', 'error@example.cz');
+$configurator->enableDebugger(__DIR__ . '/../log', 'error@clevis.cz');
 Debugger::$showLocation = TRUE;
 
 // Enable RobotLoader - this will load all classes automatically
