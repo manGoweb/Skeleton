@@ -63,7 +63,7 @@ class Configurator extends Nette\Configurator
 	 */
 	public function onInitPackages()
 	{
-		\Clevis\Users\Package::register($this);
+	//	\Clevis\Users\Package::register($this);
 	}
 
 

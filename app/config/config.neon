@@ -16,9 +16,9 @@ php:
 nette:
 	application:
 		errorPresenter: Error
-		templateFactory: Clevis\Skeleton\TemplateFactory(Nette.templateCacheStorage)
 
 	session:
+		autoStart: smart
 		expiration: 14 days
 
 services:

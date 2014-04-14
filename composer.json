@@ -20,7 +20,7 @@
 
 	"require": {
 		"php": ">= 5.3.7",
-		"nette/nette": "@dev",
+		"nette/nette": "2.1.*",
 		"dg/adminer-custom": "1.0",
 		"dg/dibi": "~2.1",
 		"clevis/orm": "@dev",

@@ -25,6 +25,6 @@ $loader->register();
 // Create Dependency Injection container from configuration files
 $container = $configurator->createContainer();
 
-$container->application->catchExceptions = Debugger::$productionMode;
+$container->getService('application')->catchExceptions = Debugger::$productionMode;
 
 return $container;
