@@ -1,0 +1,7 @@
+console:
+	url: http://localhost.dev/
+
+services:
+	-
+		class: Bin\Commands\Schema\Diff
+		tags: [kdyby.console.command]

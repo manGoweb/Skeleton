@@ -1,5 +1,6 @@
 extensions:
 	orm: Nextras\Orm\DI\OrmExtension
+	console: Kdyby\Console\DI\ConsoleExtension
 
 php:
 	date.timezone: Europe/Prague
@@ -12,3 +13,10 @@ nette:
 
 	session:
 		expiration: 14 days
+
+database:
+	dsn: 'mysql:host=127.0.0.1;dbname=%database.dbname%'
+	user: %database.user%
+	password: %database.password%
+	options:
+		lazy: yes

@@ -1,0 +1,4 @@
+services:
+	- Bin\Services\SchemaBuilder
+	- \Doctrine\DBAL\Configuration
+	- \Doctrine\DBAL\DriverManager::getConnection(%database%)

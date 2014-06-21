@@ -12,4 +12,12 @@ use Nextras\Orm\Model\DIModel;
 class Model extends DIModel
 {
 
+	/**
+	 * @return array
+	 */
+	public function getRepositories()
+	{
+		return $this->repositories;
+	}
+
 }

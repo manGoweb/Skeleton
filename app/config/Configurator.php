@@ -8,6 +8,7 @@ use Nette\FileNotFoundException;
 use Nette\Loaders\RobotLoader;
 use RuntimeException;
 use SystemContainer;
+use Tracy\Debugger;
 
 
 /**
@@ -37,6 +38,7 @@ class Configurator extends Nette\Configurator
 		$this->setTempDirectory(realpath("$root/temp"));
 		$this->addParameters((array) $params + array_map('realpath', [
 			'appDir' => "$root/app",
+			'binDir' => "$root/bin",
 			'libsDir' => "$root/vendor",
 			'wwwDir' => "$root/www",
 		]));
@@ -58,6 +60,7 @@ class Configurator extends Nette\Configurator
 		}
 
 		$this->enableDebugger("$root/log");
+		Debugger::enable(Debugger::DEVELOPMENT);
 
 		$this->createRobotLoader()->register();
 	}
@@ -65,7 +68,7 @@ class Configurator extends Nette\Configurator
 	public function onInitConfigs()
 	{
 		$params = $this->getParameters();
-		foreach (['system', 'config', 'config.local'] as $config)
+		foreach (['system', 'bin', 'console', 'config', 'config.local'] as $config)
 		{
 			$this->addConfig($params['appDir'] . "/config/$config.neon", FALSE);
 		}
@@ -79,6 +82,7 @@ class Configurator extends Nette\Configurator
 		$params = $this->getParameters();
 		$loader = parent::createRobotLoader();
 		$loader->addDirectory($params['appDir']);
+		$loader->addDirectory($params['binDir']);
 
 		return $loader;
 	}
