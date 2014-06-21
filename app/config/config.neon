@@ -8,3 +8,6 @@ parameters:
 
 services:
 	router: App\RouterFactory()::createRouter()
+
+orm:
+	model: App\Models\Model
