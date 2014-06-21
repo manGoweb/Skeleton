@@ -1,0 +1,12 @@
+<?php
+// source: %a%
+
+// prolog Latte\Macros\CoreMacros
+list($_b, $_g, $_l) = $template->initialize('%[a-z0-9]+%', 'html')
+;
+//
+// main template
+//
+?>
+<p>Included file #3 (<?php echo Latte\Runtime\Filters::escapeHtml($localvar, ENT_NOQUOTES) ?>
+, <?php echo Latte\Runtime\Filters::escapeHtml($hello, ENT_NOQUOTES) ?>)</p>

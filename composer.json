@@ -1,0 +1,26 @@
+{
+	"name": "khanovaskola/maraton",
+	"description": "Event registration system",
+	"homepage": "https://maraton.khanovaskola.cz",
+	"type": "project",
+	"license": ["MIT"],
+	"authors": [
+		{
+			"name": "David Grudl",
+			"homepage": "http://davidgrudl.com"
+		},
+		{
+			"name": "Nette Community",
+			"homepage": "http://nette.org/contributors"
+		}
+	],
+	"require": {
+		"php": "~5.5",
+		"nextras/nette-framework": "~2.2.0",
+		"nextras/orm": "@dev"
+	},
+	"require-dev": {
+		"nette/tester": "~1.0"
+	},
+	"minimum-stability": "dev"
+}

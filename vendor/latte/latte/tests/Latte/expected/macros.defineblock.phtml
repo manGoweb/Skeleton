@@ -1,0 +1,36 @@
+<?php
+// source: %a%
+
+// prolog Latte\Macros\CoreMacros
+list($_b, $_g, $_l) = $template->initialize('%[a-z0-9]+%', 'html')
+;
+// prolog Latte\Macros\BlockMacros
+//
+// block test
+//
+if (!function_exists($_b->blocks['test'][] = '_%[a-z0-9]+%_test')) { function _%[a-z0-9]+%_test($_b, $_args) { foreach ($_args as $__k => $__v) $$__k = $__v
+?>	This is definition #<?php echo Latte\Runtime\Filters::escapeHtml($var, ENT_NOQUOTES) ?>
+
+<?php
+}}
+
+//
+// end of blocks
+//
+
+// template extending
+
+$_l->extends = empty($_g->extended) && isset($_control) && $_control instanceof Nette\Application\UI\Presenter ? $_control->findLayoutTemplateFile() : NULL; $_g->extended = TRUE;
+
+if ($_l->extends) { ob_start();}
+
+//
+// main template
+//
+?>
+
+<?php $var = 10 ?>
+
+<?php if ($_l->extends) { ob_end_clean(); return $template->renderChildTemplate($_l->extends, get_defined_vars()); } ?>
+
+<?php call_user_func(reset($_b->blocks['test']), $_b, array('var' => 20) + get_defined_vars()) ;
