@@ -4,29 +4,38 @@
  *}
 
 <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html> <!--<![endif]-->
 <html>
 <head>
 	<meta charset="utf-8">
 
 	<title>{ifset #title}{include title|striptags} | {/ifset}Nette Sandbox</title>
 
-	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
-	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link type="text/plain" rel="author" href="humans.txt">
+
+	<link rel="stylesheet" href="{$basePath}/build/screen.css">
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
-	{block head}{/block}
+
+	<!--[if lt IE 9]>
+		<script src="{$basePath}/libs/html5shiv/dist/html5shiv.js"></script>
+		<script src="{$basePath}/libs/respond/dest/respond.min.js"></script>
+	<![endif]-->
 </head>
-
 <body>
-	<script> document.documentElement.className+=' js' </script>
-
 	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 
 	{include content}
 
-	{block scripts}
-	<script src="{$basePath}/js/jquery.js"></script>
-	<script src="{$basePath}/js/netteForms.js"></script>
-	<script src="{$basePath}/js/main.js"></script>
-	{/block}
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{$basePath|noescape}/libs/jquery/dist/jquery.min.js"><\/script>')</script>
+	<script defer src="{$basePath}/build/app.js"></script>
 </body>
 </html>
