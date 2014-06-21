@@ -1,0 +1,16 @@
+{
+  "name": "Frontbase",
+  "version": "0.0.0",
+  "main": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "latest",
+    "respond": "latest",
+    "html5shiv": "latest"
+  }
+}

@@ -1,0 +1,358 @@
+/*
+	# Frontbase stylesheet
+	by Clevisaci | http://www.clevis.cz
+*/
+@-moz-keyframes shaking {
+  0% {
+    -webkit-transform: translate(0px, 0px);
+    -moz-transform: translate(0px, 0px);
+    -o-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+  }
+  50% {
+    -webkit-transform: translate(-1px, 0px);
+    -moz-transform: translate(-1px, 0px);
+    -o-transform: translate(-1px, 0px);
+    -ms-transform: translate(-1px, 0px);
+    transform: translate(-1px, 0px);
+  }
+}
+@-webkit-keyframes shaking {
+  0% {
+    -webkit-transform: translate(0px, 0px);
+    -moz-transform: translate(0px, 0px);
+    -o-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+  }
+  50% {
+    -webkit-transform: translate(-1px, 0px);
+    -moz-transform: translate(-1px, 0px);
+    -o-transform: translate(-1px, 0px);
+    -ms-transform: translate(-1px, 0px);
+    transform: translate(-1px, 0px);
+  }
+}
+@-o-keyframes shaking {
+  0% {
+    -webkit-transform: translate(0px, 0px);
+    -moz-transform: translate(0px, 0px);
+    -o-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+  }
+  50% {
+    -webkit-transform: translate(-1px, 0px);
+    -moz-transform: translate(-1px, 0px);
+    -o-transform: translate(-1px, 0px);
+    -ms-transform: translate(-1px, 0px);
+    transform: translate(-1px, 0px);
+  }
+}
+@keyframes shaking {
+  0% {
+    -webkit-transform: translate(0px, 0px);
+    -moz-transform: translate(0px, 0px);
+    -o-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+  }
+  50% {
+    -webkit-transform: translate(-1px, 0px);
+    -moz-transform: translate(-1px, 0px);
+    -o-transform: translate(-1px, 0px);
+    -ms-transform: translate(-1px, 0px);
+    transform: translate(-1px, 0px);
+  }
+}
+@-moz-keyframes takeoff {
+  0% {
+    -webkit-transform: translate(0px, 0px);
+    -moz-transform: translate(0px, 0px);
+    -o-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+  }
+  100% {
+    -webkit-transform: translate(4663px, -10000px);
+    -moz-transform: translate(4663px, -10000px);
+    -o-transform: translate(4663px, -10000px);
+    -ms-transform: translate(4663px, -10000px);
+    transform: translate(4663px, -10000px);
+  }
+}
+@-webkit-keyframes takeoff {
+  0% {
+    -webkit-transform: translate(0px, 0px);
+    -moz-transform: translate(0px, 0px);
+    -o-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+  }
+  100% {
+    -webkit-transform: translate(4663px, -10000px);
+    -moz-transform: translate(4663px, -10000px);
+    -o-transform: translate(4663px, -10000px);
+    -ms-transform: translate(4663px, -10000px);
+    transform: translate(4663px, -10000px);
+  }
+}
+@-o-keyframes takeoff {
+  0% {
+    -webkit-transform: translate(0px, 0px);
+    -moz-transform: translate(0px, 0px);
+    -o-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+  }
+  100% {
+    -webkit-transform: translate(4663px, -10000px);
+    -moz-transform: translate(4663px, -10000px);
+    -o-transform: translate(4663px, -10000px);
+    -ms-transform: translate(4663px, -10000px);
+    transform: translate(4663px, -10000px);
+  }
+}
+@keyframes takeoff {
+  0% {
+    -webkit-transform: translate(0px, 0px);
+    -moz-transform: translate(0px, 0px);
+    -o-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+  }
+  100% {
+    -webkit-transform: translate(4663px, -10000px);
+    -moz-transform: translate(4663px, -10000px);
+    -o-transform: translate(4663px, -10000px);
+    -ms-transform: translate(4663px, -10000px);
+    transform: translate(4663px, -10000px);
+  }
+}
+@-moz-keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+@-webkit-keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+@-o-keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+@keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+/*
+	Frontbase by Clevisaci
+	- a starter fuel for web projects */
+html {
+  font-size: 16px;
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+body {
+  font-family: Raleway, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  overflow-y: scroll;
+}
+@-ms-viewport {
+  width: device-width;
+}
+@media screen and (max-width: 400px) {
+  @-ms-viewport {
+    width: 320px;
+  }
+}
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+.accessible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+}
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+svg {
+  max-height: 100%;
+}
+body {
+  font-family: Raleway, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.618;
+  color: #000;
+  background: #fff;
+}
+a {
+  color: #093;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Raleway, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  line-height: 1;
+  margin: 0 0 26px 0;
+  text-rendering: optimizeLegibility;
+}
+h1 {
+  font-size: 6.472em;
+}
+h2 {
+  font-size: 4.854em;
+}
+h3 {
+  font-size: 3.236em;
+}
+h4 {
+  font-size: 1.618em;
+}
+h5,
+h6 {
+  font-size: 1em;
+  font-weight: bold;
+}
+p {
+  margin: 0 0 26px;
+}
+blockquote {
+  font-style: italic;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+.fleft {
+  float: left;
+}
+.fright {
+  float: right;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  position: relative;
+}
+.browsehappy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  padding: 13px 26px;
+  background: #ffffe0;
+  color: #000;
+}
+.example {
+  color: #000;
+}
+.example:before {
+  content: '0';
+}
+.example ._smth {
+  color: #808080;
+}
+.example.state-active {
+  background: #ffffe0;
+}
+.example.view-mini ._smth {
+  display: none;
+}
+.intro {
+  height: 100%;
+  background: #000 url("../img/stars.png") repeat top center;
+  text-align: center;
+  overflow: hidden;
+}
+.intro:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.intro:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url("../img/twinkling.png") repeat top center;
+  -webkit-animation: move-twink-back 200s linear infinite;
+  -moz-animation: move-twink-back 200s linear infinite;
+  -o-animation: move-twink-back 200s linear infinite;
+  -ms-animation: move-twink-back 200s linear infinite;
+  animation: move-twink-back 200s linear infinite;
+}
+.intro-head {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  color: #eee;
+  position: relative;
+  z-index: 10;
+}
+.intro-icon {
+  display: inline-block;
+  margin-bottom: -156px;
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+.intro-icon:hover {
+  -webkit-animation: shaking 150ms linear infinite;
+  -moz-animation: shaking 150ms linear infinite;
+  -o-animation: shaking 150ms linear infinite;
+  -ms-animation: shaking 150ms linear infinite;
+  animation: shaking 150ms linear infinite;
+}
+.intro:target .intro-icon {
+  -webkit-animation: takeoff 2000ms ease forwards;
+  -moz-animation: takeoff 2000ms ease forwards;
+  -o-animation: takeoff 2000ms ease forwards;
+  -ms-animation: takeoff 2000ms ease forwards;
+  animation: takeoff 2000ms ease forwards;
+}
+.intro-title {
+  text-shadow: 0 0 20px #000;
+  position: relative;
+  z-index: 10;
+}
+.intro-subtitle {
+  font-size: 3.236em;
+}
+.site-header,
+.site-content {
+  max-width: 50em;
+  margin: 26px auto;
+}
