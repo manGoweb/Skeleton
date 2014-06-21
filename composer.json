@@ -17,7 +17,9 @@
 	"require": {
 		"php": "~5.5",
 		"nextras/nette-framework": "~2.2.0",
-		"nextras/orm": "@dev"
+		"nextras/orm": "@dev",
+		"kdyby/console": "@dev",
+		"doctrine/dbal": "@dev"
 	},
 	"require-dev": {
 		"nette/tester": "~1.0"

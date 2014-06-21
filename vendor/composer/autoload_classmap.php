@@ -6,6 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'KdybyModule\\CliPresenter' => $vendorDir . '/kdyby/console/src/Kdyby/Console/CliPresenter.php',
+    'Kdyby\\Console\\Exception' => $vendorDir . '/kdyby/console/src/Kdyby/Console/exceptions.php',
+    'Kdyby\\Console\\InvalidArgumentException' => $vendorDir . '/kdyby/console/src/Kdyby/Console/exceptions.php',
+    'Kdyby\\Console\\InvalidStateException' => $vendorDir . '/kdyby/console/src/Kdyby/Console/exceptions.php',
+    'Kdyby\\Console\\UnknownCommandException' => $vendorDir . '/kdyby/console/src/Kdyby/Console/exceptions.php',
     'Latte\\CompileException' => $vendorDir . '/latte/latte/src/Latte/exceptions.php',
     'Latte\\Compiler' => $vendorDir . '/latte/latte/src/Latte/Compiler.php',
     'Latte\\Engine' => $vendorDir . '/latte/latte/src/Latte/Engine.php',
