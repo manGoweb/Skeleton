@@ -19,7 +19,8 @@
 		"nextras/nette-framework": "~2.2.0",
 		"nextras/orm": "@dev",
 		"kdyby/console": "@dev",
-		"doctrine/dbal": "@dev"
+		"doctrine/dbal": "@dev",
+		"kdyby/monolog": "@dev"
 	},
 	"require-dev": {
 		"nette/tester": "~1.0"

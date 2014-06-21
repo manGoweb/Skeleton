@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Nextras\\Orm\\' => array($vendorDir . '/nextras/orm/src'),
+    'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
 );
