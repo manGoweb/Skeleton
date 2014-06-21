@@ -1,0 +1,17 @@
+extensions:
+	orm: Nextras\Orm\DI\OrmExtension
+
+orm:
+	model: App\Models\Model
+
+php:
+	date.timezone: Europe/Prague
+
+nette:
+	application:
+		errorPresenter: Error
+		mapping:
+			*: App\Presenters\*\*
+
+	session:
+		expiration: 14 days

@@ -6,24 +6,5 @@
 #
 parameters:
 
-extensions:
-	orm: Nextras\Orm\DI\OrmExtension
-
-orm:
-	model: App\Models\Model
-
-php:
-	date.timezone: Europe/Prague
-
-nette:
-	application:
-		errorPresenter: Error
-		mapping:
-			*: App\*Module\Presenters\*Presenter
-
-	session:
-		expiration: 14 days
-
 services:
-	- App\Model\UserManager
-	router: App\RouterFactory()::createRouter
+	router: App\RouterFactory()::createRouter()
