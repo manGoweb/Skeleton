@@ -78,7 +78,11 @@ class Configurator extends Nette\Configurator
 	public function onAfterConsole($c)
 	{
 		/** @var SystemContainer $c */
-		$c->getService('console.router')->setInput(new VariadicArgvInput());
+		$s = 'console.router';
+		if ($c->hasService($s))
+		{
+			$c->getService($s)->setInput(new VariadicArgvInput());
+		}
 	}
 
 	/**
