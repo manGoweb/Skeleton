@@ -2,6 +2,7 @@
 
 namespace Bin\Services;
 
+use App\InvalidStateException;
 use Inflect\Inflect;
 use Latte\Engine;
 use Nette\Object;
@@ -28,6 +29,7 @@ class Scaffolding extends Object
 			'class' => $singularName,
 			'properties' => $params,
 		]);
+		return $path;
 	}
 
 	public function createRepository($singularName)
@@ -38,6 +40,7 @@ class Scaffolding extends Object
 		$this->buildFromTemplate($path, 'rme_repository', [
 			'class' => $class,
 		]);
+		return $path;
 	}
 
 	public function createMapper($singularName)
@@ -48,10 +51,16 @@ class Scaffolding extends Object
 		$this->buildFromTemplate($path, 'rme_mapper', [
 			'class' => $class,
 		]);
+		return $path;
 	}
 
 	protected function buildFromTemplate($file, $template, $args = [])
 	{
+		if (is_file($file))
+		{
+			throw new InvalidStateException("File '$file' already exists");
+		}
+
 		$dir = dirname($file);
 		if (!is_dir($dir))
 		{
