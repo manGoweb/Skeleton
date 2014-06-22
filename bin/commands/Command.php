@@ -2,6 +2,8 @@
 
 namespace Bin\Commands;
 
+use App\IncompleteDefinitionException;
+use Bin\Support\VariadicArgvInput;
 use Nette\DI\Container;
 use Symfony\Component\Console\Command\Command as SCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,7 +15,7 @@ abstract class Command extends SCommand
 {
 
 	/**
-	 * @var InputInterface
+	 * @var VariadicArgvInput
 	 */
 	protected $in;
 
@@ -26,6 +28,12 @@ abstract class Command extends SCommand
 	{
 		$this->in = $input;
 		$this->out = $output;
+
+		if (!method_exists($this, 'invoke'))
+		{
+			$class = get_class($this);
+			throw new IncompleteDefinitionException("Command $class must define method 'invoke'.");
+		}
 
 		/** @var Container $container */
 		$container = $this->getHelper('container')->getContainer();

@@ -5,3 +5,6 @@ services:
 	-
 		class: Bin\Commands\Schema\Diff
 		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Scaffolding\Rme
+		tags: [kdyby.console.command]

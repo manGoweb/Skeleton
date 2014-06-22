@@ -1,4 +1,5 @@
 services:
+	- Bin\Services\Scaffolding(%appDir%)
 	- Bin\Services\SchemaBuilder
-	- \Doctrine\DBAL\Configuration
-	- \Doctrine\DBAL\DriverManager::getConnection(%database%)
+	- Doctrine\DBAL\Configuration
+	- Doctrine\DBAL\DriverManager::getConnection(%database%)

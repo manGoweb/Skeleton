@@ -2,6 +2,7 @@
 
 namespace App\Config;
 
+use Bin\Support\VariadicArgvInput;
 use Nette;
 use Nette\DI;
 use Nette\FileNotFoundException;
@@ -72,6 +73,12 @@ class Configurator extends Nette\Configurator
 		{
 			$this->addConfig($params['appDir'] . "/config/$config.neon", FALSE);
 		}
+	}
+
+	public function onAfterConsole($c)
+	{
+		/** @var SystemContainer $c */
+		$c->getService('console.router')->setInput(new VariadicArgvInput());
 	}
 
 	/**
