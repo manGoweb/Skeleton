@@ -44,10 +44,36 @@ function get_php_classes($php_code)
 
 function runTests($path, Container $container)
 {
+	global $argv;
+
+	$tests = $argv;
+	array_shift($tests);
+
 	foreach (file_get_php_classes($path) as $class)
 	{
 		/** @var TestCase $test */
 		$test = new $class($container);
-		$test->run();
+		if (!$tests)
+		{
+			$test->run();
+		}
+
+		$first = TRUE;
+		foreach ($test->getTests() as $method)
+		{
+			foreach ($tests as $name)
+			{
+				if (strpos(strToLower($method), strToLower($name)) !== FALSE)
+				{
+					if (!$first)
+					{
+						echo "\n";
+					}
+					echo "\033[01;33m$method\033[0m\n";
+					$test->runTest($method);
+					$first = FALSE;
+				}
+			}
+		}
 	}
 }

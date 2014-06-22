@@ -3,6 +3,8 @@
 namespace Tests;
 
 use Nette\DI\Container;
+use Nette\Reflection\ClassType;
+use Nette\Reflection\Method;
 use Tester;
 
 
@@ -43,7 +45,20 @@ class TestCase extends Tester\TestCase
 		{
 			throw $e;
 		}
-		parent::runTest($name, $args);
+	}
+
+	public function getTests()
+	{
+		$tests = [];
+		foreach (ClassType::from($this)->getMethods(Method::IS_PUBLIC) as $method)
+		{
+			$name = $method->getShortName();
+			if (preg_match(TestCase::METHOD_PATTERN, $name))
+			{
+				$tests[] = $name;
+			}
+		}
+		return $tests;
 	}
 
 }

@@ -19,6 +19,7 @@ class DummyTest extends TestCase
 
 	function testSomething()
 	{
+		echo "something\n";
 		Assert::true(TRUE);
 	}
 
