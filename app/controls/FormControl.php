@@ -25,7 +25,7 @@ class FormControl extends Control
 
 	public function __construct($formClass)
 	{
-		if (class_exists($formClass))
+		if (!class_exists($formClass))
 		{
 			throw new InvalidArgumentException("Class $formClass does not exist.");
 		}
