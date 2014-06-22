@@ -13,6 +13,14 @@ use Nette\Application\UI\Form as NForm;
 abstract class Form extends NForm
 {
 
+	public function __construct(Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+	{
+		parent::__construct($parent, $name);
+		$this->setup();
+	}
+
+	abstract public function setup();
+
 	/**
 	 * @param NULL|string $name
 	 * @param NULL|string $caption
