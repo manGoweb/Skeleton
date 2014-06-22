@@ -10,6 +10,17 @@ use Nette\Reflection\Method;
 
 
 /**
+ * Unlike NControl this class has support for custom rendering methods
+ * that automatically set template file.
+ * - `renderDefault` is invoked by both {control foo} and {control foo:default}
+ * - `renderBar` is invoked by {control foo:bar}
+ * - `render` method handles the method magic and should never be called directly.
+ * Render* methods must be declared as protected, otherwise the render method will
+ * never be called. This is enforced in constructor.
+ *
+ * Controls under App\Controls namespace do not need factories in Presenter
+ * as they are invoked dynamically.
+ *
  * @property-read Template $template
  */
 abstract class Control extends NControl
