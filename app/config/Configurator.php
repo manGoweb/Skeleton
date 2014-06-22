@@ -94,6 +94,7 @@ class Configurator extends Nette\Configurator
 		$loader = parent::createRobotLoader();
 		$loader->addDirectory($params['appDir']);
 		$loader->addDirectory($params['binDir']);
+		$loader->addDirectory($params['appDir'] . '/../tests');
 
 		return $loader;
 	}

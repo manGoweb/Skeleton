@@ -5,4 +5,3 @@ require __DIR__ . '/exceptions.php';
 require __DIR__ . '/config/Configurator.php';
 
 return (new \App\Config\Configurator())->createContainer();
-
