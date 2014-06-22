@@ -1343,65 +1343,6 @@
         ]
     },
     {
-        "name": "nette/tester",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/nette/tester.git",
-            "reference": "d9c33e55a0fe4cdb07c3d0ce09782413c8a69f24"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/nette/tester/zipball/d9c33e55a0fe4cdb07c3d0ce09782413c8a69f24",
-            "reference": "d9c33e55a0fe4cdb07c3d0ce09782413c8a69f24",
-            "shasum": ""
-        },
-        "require": {
-            "ext-iconv": "*",
-            "php": ">=5.3.0"
-        },
-        "time": "2014-06-16 15:17:31",
-        "bin": [
-            "Tester/tester"
-        ],
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.2-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "classmap": [
-                "Tester/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "David Grudl",
-                "homepage": "http://davidgrudl.com"
-            },
-            {
-                "name": "Nette Community",
-                "homepage": "http://nette.org/contributors"
-            }
-        ],
-        "description": "An easy-to-use PHP unit testing framework.",
-        "homepage": "http://nette.org",
-        "keywords": [
-            "nette",
-            "testing",
-            "unit"
-        ]
-    },
-    {
         "name": "symfony/console",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -1461,6 +1402,73 @@
         ],
         "description": "Symfony Console Component",
         "homepage": "http://symfony.com"
+    },
+    {
+        "name": "kdyby/console",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Kdyby/Console.git",
+            "reference": "5d6f2e587b2519a45c5ad705ce0ad8095e8c4716"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Kdyby/Console/zipball/5d6f2e587b2519a45c5ad705ce0ad8095e8c4716",
+            "reference": "5d6f2e587b2519a45c5ad705ce0ad8095e8c4716",
+            "shasum": ""
+        },
+        "require": {
+            "nette/application": "~2.2@dev",
+            "nette/di": "~2.2@dev",
+            "nette/http": "~2.2@dev",
+            "symfony/console": "~2.4"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "~0.6",
+            "kdyby/events": "@dev",
+            "nette/bootstrap": "~2.2@dev",
+            "nette/nette": "~2.2@dev",
+            "nette/tester": "@dev",
+            "symfony/event-dispatcher": "~2.4"
+        },
+        "time": "2014-06-21 20:19:10",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Kdyby\\Console\\": "src/"
+            },
+            "classmap": [
+                "src/Kdyby/Console/CliPresenter.php",
+                "src/Kdyby/Console/exceptions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Filip Procházka",
+                "email": "filip@prochazka.su",
+                "homepage": "http://filip-prochazka.com"
+            }
+        ],
+        "description": "Symfony Console integration for Kdyby components",
+        "homepage": "http://kdyby.org",
+        "keywords": [
+            "console",
+            "kdyby",
+            "nette"
+        ]
     },
     {
         "name": "doctrine/lexer",
@@ -1976,49 +1984,38 @@
         ]
     },
     {
-        "name": "kdyby/console",
+        "name": "nette/tester",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/Kdyby/Console.git",
-            "reference": "5d6f2e587b2519a45c5ad705ce0ad8095e8c4716"
+            "url": "https://github.com/nette/tester.git",
+            "reference": "d9c33e55a0fe4cdb07c3d0ce09782413c8a69f24"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Console/zipball/5d6f2e587b2519a45c5ad705ce0ad8095e8c4716",
-            "reference": "5d6f2e587b2519a45c5ad705ce0ad8095e8c4716",
+            "url": "https://api.github.com/repos/nette/tester/zipball/d9c33e55a0fe4cdb07c3d0ce09782413c8a69f24",
+            "reference": "d9c33e55a0fe4cdb07c3d0ce09782413c8a69f24",
             "shasum": ""
         },
         "require": {
-            "nette/application": "~2.2@dev",
-            "nette/di": "~2.2@dev",
-            "nette/http": "~2.2@dev",
-            "symfony/console": "~2.4"
+            "ext-iconv": "*",
+            "php": ">=5.3.0"
         },
-        "require-dev": {
-            "jakub-onderka/php-parallel-lint": "~0.6",
-            "kdyby/events": "@dev",
-            "nette/bootstrap": "~2.2@dev",
-            "nette/nette": "~2.2@dev",
-            "nette/tester": "@dev",
-            "symfony/event-dispatcher": "~2.4"
-        },
-        "time": "2014-06-21 20:19:10",
+        "time": "2014-06-16 15:17:31",
+        "bin": [
+            "Tester/tester"
+        ],
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.3-dev"
+                "dev-master": "1.2-dev"
             }
         },
         "installation-source": "source",
         "autoload": {
-            "psr-0": {
-                "Kdyby\\Console\\": "src/"
-            },
             "classmap": [
-                "src/Kdyby/Console/CliPresenter.php",
-                "src/Kdyby/Console/exceptions.php"
+                "Tester/"
             ]
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -2029,17 +2026,20 @@
         ],
         "authors": [
             {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
+                "name": "David Grudl",
+                "homepage": "http://davidgrudl.com"
+            },
+            {
+                "name": "Nette Community",
+                "homepage": "http://nette.org/contributors"
             }
         ],
-        "description": "Symfony Console integration for Kdyby components",
-        "homepage": "http://kdyby.org",
+        "description": "An easy-to-use PHP unit testing framework.",
+        "homepage": "http://nette.org",
         "keywords": [
-            "console",
-            "kdyby",
-            "nette"
+            "nette",
+            "testing",
+            "unit"
         ]
     },
     {
@@ -2163,14 +2163,8 @@
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/Kdyby/Monolog.git",
-            "reference": "6fbec64ffcd71cfaf606b0d08f5f9d4148578d8f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Monolog/zipball/6fbec64ffcd71cfaf606b0d08f5f9d4148578d8f",
-            "reference": "6fbec64ffcd71cfaf606b0d08f5f9d4148578d8f",
-            "shasum": ""
+            "url": "/tmp/Monolog",
+            "reference": "c5516d3324a9dcd81cf5cec94c027580bdf8cce7"
         },
         "require": {
             "monolog/monolog": "~1.9",
@@ -2184,7 +2178,7 @@
             "nette/nette": "~2.2@dev",
             "nette/tester": "@dev"
         },
-        "time": "2014-06-19 14:09:18",
+        "time": "2014-06-21 23:45:07",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2197,7 +2191,6 @@
                 "Kdyby\\Monolog\\": "src/"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "BSD-3-Clause",
             "GPL-2.0",
@@ -2205,14 +2198,14 @@
         ],
         "authors": [
             {
-                "name": "Filip Procházka",
-                "email": "filip@prochazka.su",
-                "homepage": "http://filip-prochazka.com"
-            },
-            {
                 "name": "Martin Bažík",
                 "email": "martin@bazo.sk",
                 "homepage": "http://bazo.sk"
+            },
+            {
+                "name": "Filip Procházka",
+                "homepage": "http://filip-prochazka.com",
+                "email": "filip@prochazka.su"
             }
         ],
         "description": "Integration of Monolog into Nette Framework",
@@ -2222,6 +2215,10 @@
             "logging",
             "monolog",
             "nette"
-        ]
+        ],
+        "support": {
+            "email": "filip@prochazka.su",
+            "issues": "https://github.com/kdyby/monolog/issues"
+        }
     }
 ]

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "818c5df465c3839755a13f2546471f8c",
+    "hash": "b8af39218aee9f90ddb2df9da09fab18",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -575,14 +575,8 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Kdyby/Monolog.git",
-                "reference": "6fbec64ffcd71cfaf606b0d08f5f9d4148578d8f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Monolog/zipball/6fbec64ffcd71cfaf606b0d08f5f9d4148578d8f",
-                "reference": "6fbec64ffcd71cfaf606b0d08f5f9d4148578d8f",
-                "shasum": ""
+                "url": "/tmp/Monolog",
+                "reference": "c5516d3324a9dcd81cf5cec94c027580bdf8cce7"
             },
             "require": {
                 "monolog/monolog": "~1.9",
@@ -607,7 +601,6 @@
                     "Kdyby\\Monolog\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause",
                 "GPL-2.0",
@@ -615,14 +608,14 @@
             ],
             "authors": [
                 {
-                    "name": "Filip Procházka",
-                    "email": "filip@prochazka.su",
-                    "homepage": "http://filip-prochazka.com"
-                },
-                {
                     "name": "Martin Bažík",
                     "email": "martin@bazo.sk",
                     "homepage": "http://bazo.sk"
+                },
+                {
+                    "name": "Filip Procházka",
+                    "homepage": "http://filip-prochazka.com",
+                    "email": "filip@prochazka.su"
                 }
             ],
             "description": "Integration of Monolog into Nette Framework",
@@ -633,7 +626,11 @@
                 "monolog",
                 "nette"
             ],
-            "time": "2014-06-19 14:09:18"
+            "support": {
+                "email": "filip@prochazka.su",
+                "issues": "https://github.com/kdyby/monolog/issues"
+            },
+            "time": "2014-06-21 23:45:07"
         },
         {
             "name": "latte/latte",

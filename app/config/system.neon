@@ -1,6 +1,7 @@
 extensions:
 	orm: Nextras\Orm\DI\OrmExtension
 	console: Kdyby\Console\DI\ConsoleExtension
+	monolog: Kdyby\Monolog\DI\MonologExtension
 
 php:
 	date.timezone: Europe/Prague
