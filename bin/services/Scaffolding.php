@@ -77,4 +77,20 @@ class Scaffolding extends Object
 		return "$this->appDir/models/rme/$pluralName";
 	}
 
+	protected function getUnitTestPath()
+	{
+		return "$this->appDir/../tests/cases/unit";
+	}
+
+	public function createUnitTest($name)
+	{
+		$name = ucFirst($name);
+		$class = "{$name}Test";
+		$path =  $this->getUnitTestPath() . "/$class.phpt";
+		$this->buildFromTemplate($path, 'test_unit', [
+			'class' => $class,
+		]);
+		return $path;
+	}
+
 }

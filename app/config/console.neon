@@ -8,3 +8,6 @@ services:
 	-
 		class: Bin\Commands\Scaffolding\Rme
 		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Scaffolding\Test\Unit
+		tags: [kdyby.console.command]
