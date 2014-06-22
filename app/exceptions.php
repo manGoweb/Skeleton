@@ -18,7 +18,7 @@ namespace App;
  *       |  `- App\InvalidArgumentException
  *       |     `- App\ArgumentOutOfRangeException
  *       |- App\NotImplementedException
- *       |- App\IncompleteDefinitionException
+ *       |- App\ImplementationException
  *       |- App\NotSupportedException
  *       |  `- App\DeprecatedException
  *       `- App\StaticClassException
@@ -48,7 +48,7 @@ class ArgumentOutOfRangeException extends InvalidArgumentException { }
 
 class NotImplementedException extends \LogicException { }
 
-class IncompleteDefinitionException extends \LogicException { }
+class ImplementationException extends \LogicException { }
 
 class NotSupportedException extends \LogicException { }
 

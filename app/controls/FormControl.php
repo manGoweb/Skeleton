@@ -2,8 +2,6 @@
 
 namespace App\Controls;
 
-
-use Nette\ComponentModel\IContainer;
 use Nette\Reflection\ClassType;
 
 
@@ -26,14 +24,12 @@ class FormControl extends Control
 		return new $this->formClass;
 	}
 
-	protected function getArgs()
+	protected function renderDefault()
 	{
-		return [
-			'form' => $this['form'],
-		];
+		$this->template->add('form', $this['form']);
 	}
 
-	protected function getTemplateFile()
+	protected function getTemplateFile($view = NULL)
 	{
 		$name = lcFirst(ClassType::from($this->formClass)->getShortName());
 		return __DIR__ . "/../templates/controls/forms/$name.latte";
