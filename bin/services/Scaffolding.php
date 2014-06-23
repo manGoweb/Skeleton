@@ -99,17 +99,23 @@ class Scaffolding extends Object
 		return $path;
 	}
 
+	private function getMigrationFile($name, $postfix = NULL)
+	{
+		if ($postfix)
+		{
+			$postfix = '-' . Strings::webalize(Strings::truncate($postfix, 30));
+		}
+
+		return $this->getMigrationPath() . "/{$name}{$postfix}";
+	}
+
 	public function createPhpMigration($postfix = NULL)
 	{
 		$name = date('YmdHis');
-
-		if ($postfix)
-		{
-			$postfix = '-' . Strings::webalize($postfix);
-		}
-		$path = $this->getMigrationPath() . "/{$name}{$postfix}.php";
+		$path = $this->getMigrationFile($name, $postfix) . '.php';
 		$this->buildFromTemplate($path, 'migration_php', [
 			'class' => "Migration$name",
+			'note' => $postfix,
 		]);
 		return $path;
 	}
@@ -117,12 +123,7 @@ class Scaffolding extends Object
 	public function createSqlMigration($postfix = NULL)
 	{
 		$name = date('YmdHis');
-
-		if ($postfix)
-		{
-			$postfix = '-' . Strings::webalize($postfix);
-		}
-		$path = $this->getMigrationPath() . "/{$name}{$postfix}.sql";
+		$path = $this->getMigrationFile($name, $postfix) . '.sql';
 		file_put_contents($path, '');
 		return $path;
 	}
