@@ -20,3 +20,6 @@ services:
 	-
 		class: Bin\Commands\Migrations\Migrate
 		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Tests\Run
+		tags: [kdyby.console.command]
