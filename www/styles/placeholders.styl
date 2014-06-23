@@ -1,0 +1,28 @@
+input:not([type="submit"])
+  box-sizing border-box
+  font-size 16px
+  line-height 2em
+  height 3em
+  width 100%
+  padding .5em 1.34em
+  margin-bottom 1em
+  background transparent
+  border 1px solid #ccc
+  -webkit-font-smoothing antialiased
+  &::-webkit-input-placeholder
+    transition all .2s cubic-bezier(.55,-0.55,1,1.55)
+    -webkit-transform-origin left
+
+  &:focus
+    border 1px solid #00bafa
+    &::-webkit-input-placeholder
+      color #00bafa
+
+  &:focus, &:valid
+    outline none
+    color #212121
+    &::-webkit-input-placeholder
+      -webkit-transform translate(0, -75%) scale(.9, .9)
+      visibility visible !important
+      overflow visible
+      text-shadow -1px 0 white, -2px 0 white, -3px  0   white, -4px  0   white, -5px  0   white, 1px  0   white, 2px  0   white, 3px  0   white, 4px  0   white, 5px  0   white, -1px -1px white, -2px -2px white, -3px -3px white, -4px -4px white, -5px -5px white

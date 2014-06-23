@@ -14,13 +14,11 @@
 		<li n:foreach="$form->ownErrors as $error">{$error}</li>
 	</ul>
 	<div class="form-group{if $form['email']->errors} has-error{/if}">
-		<label class="control-label" n:name="email">Email address</label>
-		<input type="email" class="form-control" n:name="email" placeholder="Enter email">
+		<input type="email" class="form-control" n:name="email" placeholder="Emailová adresa">
 		{include error, control => $form['email']}
 	</div>
 	<div class="form-group{if $form['password']->errors} has-error{/if}">
-        <label class="control-label" n:name="password">Password</label>
-        <input type="password" class="form-control" n:name="password" placeholder="Password">
+        <input type="password" class="form-control" n:name="password" placeholder="Heslo">
         {include error, control => $form['password']}
     </div>
 
