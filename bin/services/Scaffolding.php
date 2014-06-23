@@ -6,6 +6,7 @@ use App\InvalidStateException;
 use Inflect\Inflect;
 use Latte\Engine;
 use Nette\Object;
+use Nette\Utils\Strings;
 
 
 class Scaffolding extends Object
@@ -82,6 +83,11 @@ class Scaffolding extends Object
 		return "$this->appDir/../tests/cases/unit";
 	}
 
+	protected function getMigrationPath()
+	{
+		return "$this->appDir/../migrations/struct";
+	}
+
 	public function createUnitTest($name)
 	{
 		$name = ucFirst($name);
@@ -90,6 +96,34 @@ class Scaffolding extends Object
 		$this->buildFromTemplate($path, 'test_unit', [
 			'class' => $class,
 		]);
+		return $path;
+	}
+
+	public function createPhpMigration($postfix = NULL)
+	{
+		$name = date('YmdHis');
+
+		if ($postfix)
+		{
+			$postfix = '-' . Strings::webalize($postfix);
+		}
+		$path = $this->getMigrationPath() . "/{$name}{$postfix}.php";
+		$this->buildFromTemplate($path, 'migration_php', [
+			'class' => "Migration$name",
+		]);
+		return $path;
+	}
+
+	public function createSqlMigration($postfix = NULL)
+	{
+		$name = date('YmdHis');
+
+		if ($postfix)
+		{
+			$postfix = '-' . Strings::webalize($postfix);
+		}
+		$path = $this->getMigrationPath() . "/{$name}{$postfix}.sql";
+		file_put_contents($path, '');
 		return $path;
 	}
 

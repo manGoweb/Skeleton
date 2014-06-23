@@ -9,6 +9,12 @@ services:
 		class: Bin\Commands\Scaffolding\Rme
 		tags: [kdyby.console.command]
 	-
+		class: Bin\Commands\Scaffolding\Migration\Php
+		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Scaffolding\Migration\Sql
+		tags: [kdyby.console.command]
+	-
 		class: Bin\Commands\Scaffolding\Test\Unit
 		tags: [kdyby.console.command]
 	-

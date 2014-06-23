@@ -24,7 +24,8 @@ class PhpClass extends SimplePhp
 
 	public function execute(File $sql)
 	{
-		$class = 'App\\Migrations\\Migration' . basename($sql->name, '.php');
+		$version = (int) basename($sql->name, '.php');
+		$class = "App\\Migrations\\Migration$version";
 		extract($this->getParameters());
 		include $sql->getPath();
 		/** @var Migration $migration */
