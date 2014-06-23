@@ -28,7 +28,8 @@
 		"mikulas/lattecs": "~0.3.0-beta",
 		"mikulas/code-sniffs": "~1.0.0",
 		"squizlabs/php_codesniffer": "~1.5.3",
-		"symfony/process": "~2.5.0"
+		"symfony/process": "~2.5.0",
+		"jdorn/sql-formatter": "~1.2.17"
 	},
 	"minimum-stability": "dev",
 	"scripts": {

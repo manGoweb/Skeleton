@@ -444,6 +444,7 @@ return array(
     'PSR2_Sniffs_Methods_MethodDeclarationSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/PSR2/Sniffs/Methods/MethodDeclarationSniff.php',
     'PSR2_Sniffs_Namespaces_NamespaceDeclarationSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/PSR2/Sniffs/Namespaces/NamespaceDeclarationSniff.php',
     'PSR2_Sniffs_Namespaces_UseDeclarationSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/PSR2/Sniffs/Namespaces/UseDeclarationSniff.php',
+    'SqlFormatter' => $vendorDir . '/jdorn/sql-formatter/lib/SqlFormatter.php',
     'Squiz_Sniffs_Arrays_ArrayBracketSpacingSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Squiz/Sniffs/Arrays/ArrayBracketSpacingSniff.php',
     'Squiz_Sniffs_Arrays_ArrayDeclarationSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Squiz/Sniffs/Arrays/ArrayDeclarationSniff.php',
     'Squiz_Sniffs_CSS_ClassDefinitionClosingBraceSpaceSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Squiz/Sniffs/CSS/ClassDefinitionClosingBraceSpaceSniff.php',
