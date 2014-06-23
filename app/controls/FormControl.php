@@ -23,6 +23,9 @@ class FormControl extends Control
 	 */
 	private $formClass;
 
+	/**
+	 * @param string $formClass
+	 */
 	public function __construct($formClass)
 	{
 		if (!class_exists($formClass))

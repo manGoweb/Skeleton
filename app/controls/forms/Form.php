@@ -24,6 +24,8 @@ abstract class Form extends NForm
 
 	abstract public function setup();
 
+	abstract public function onSuccess();
+
 	/**
 	 * @param NULL|string $name
 	 * @param NULL|string $caption

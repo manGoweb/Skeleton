@@ -5,8 +5,12 @@ namespace App\Presenters;
 use App\Controls\FormControl;
 use App\Models\Model;
 use Nette\Application\UI\Presenter as NPresenter;
+use Nette\Bridges\ApplicationLatte\Template;
 
 
+/**
+ * @property-read Template $template
+ */
 abstract class Presenter extends NPresenter
 {
 
@@ -78,7 +82,7 @@ abstract class Presenter extends NPresenter
 			'message' => $message,
 			'type' => $type,
 		];
-		$this->template->flashes = $messages;
+		$this->template->add('flashes', $messages);
 		$this->getFlashSession()->$id = $messages;
 		return $flash;
 	}
