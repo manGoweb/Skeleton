@@ -10,6 +10,12 @@ use Nette\Application\UI\Presenter as NPresenter;
 abstract class Presenter extends NPresenter
 {
 
+	const FLASH_INFO = 'info';
+	const FLASH_SUCCESS = 'success';
+	const FLASH_WARNING = 'warning';
+	const FLASH_ERROR = 'danger';
+
+
 	/**
 	 * @var Model
 	 * @inject
@@ -35,6 +41,46 @@ abstract class Presenter extends NPresenter
 			}
 		}
 		return parent::createComponent($name);
+	}
+
+	public function flashInfo($headline, $message)
+	{
+		$this->flashMessage($headline, $message, self::FLASH_INFO);
+	}
+
+	public function flashSuccess($headline, $message)
+	{
+		$this->flashMessage($headline, $message, self::FLASH_SUCCESS);
+	}
+
+	public function flashWarning($headline, $message)
+	{
+		$this->flashMessage($headline, $message, self::FLASH_WARNING);
+	}
+
+	public function flashError($headline, $message)
+	{
+		$this->flashMessage($headline, $message, self::FLASH_ERROR);
+	}
+
+	/**
+	 * @param string $headline
+	 * @param NULL|string $message
+	 * @param NULL|string $type
+	 * @return \stdClass
+	 */
+	public function flashMessage($headline, $message = NULL, $type = self::FLASH_INFO)
+	{
+		$id = $this->getParameterId('flash');
+		$messages = $this->getFlashSession()->$id;
+		$messages[] = $flash = (object) [
+			'headline' => $headline,
+			'message' => $message,
+			'type' => $type,
+		];
+		$this->template->flashes = $messages;
+		$this->getFlashSession()->$id = $messages;
+		return $flash;
 	}
 
 }
