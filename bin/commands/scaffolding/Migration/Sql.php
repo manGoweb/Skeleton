@@ -2,7 +2,7 @@
 
 namespace Bin\Commands\Scaffolding\Migration;
 
-use Bin\Commands\Command;
+use Bin\Commands\Scaffolding\Command;
 use Bin\Services\Scaffolding;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -20,16 +20,8 @@ class Sql extends Command
 	public function invoke(Scaffolding $scaffolding)
 	{
 		$file = $scaffolding->createSqlMigration($this->in->getArgument('note'));
-		$this->out->writeln('<info>Created files:</info>');
-		$this->out->writeln('  ' . $this->formatPath($file));
-	}
-
-	private function formatPath($path)
-	{
-		$root = realpath(__DIR__ . '/../../../');
-		$path = realpath($path);
-		$relative = substr($path, strlen($root) + 1);
-		return preg_replace('~/([a-z0-9]+)(\.[a-z0-9]+)?$~ims', '/<fg=blue>$1</fg=blue>$2', $relative);
+		$this->writeCreatedFilesHeader();
+		$this->writeCreatedFile($file);
 	}
 
 }
