@@ -2,9 +2,16 @@
 
 namespace Bin\Commands\Scaffolding\Migration;
 
+use App\Models\Model;
 use Bin\Commands\Scaffolding\Command;
 use Bin\Services\Scaffolding;
+use Bin\Services\SchemaBuilder;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Platforms\MySqlPlatform;
+use Doctrine\DBAL\Schema\Comparator;
+use SqlFormatter;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 
 class Sql extends Command
@@ -14,12 +21,35 @@ class Sql extends Command
 	{
 		$this->setName('scaffolding:migration:sql')
 			->setDescription('Creates new sql migration')
-			->addArgument('note', InputArgument::OPTIONAL, 'Migration note');
+			->addArgument('note', InputArgument::OPTIONAL, 'Migration note')
+			->addOption('from-diff', 'd', InputOption::VALUE_NONE, 'Fill migration with changes from RMEs in app');
 	}
 
-	public function invoke(Scaffolding $scaffolding)
+	public function invoke(Scaffolding $scaffolding, Connection $connection, Model $model, SchemaBuilder $schema)
 	{
 		$file = $scaffolding->createSqlMigration($this->in->getArgument('note'));
+
+		if ($this->in->getOption('from-diff'))
+		{
+			$current = $connection->getSchemaManager()->createSchema();
+			$target = $schema->create($model);
+			$sqls = Comparator::compareSchemas($current, $target)->toSql(new MySqlPlatform());
+
+			$parts = [];
+			foreach ($sqls as $sql)
+			{
+				if ($sql === 'DROP TABLE migrations')
+				{
+					continue;
+				}
+				$sql = SqlFormatter::format("$sql;", FALSE);
+				$sql = preg_replace('~[ \t]+$~m', '', $sql);
+				$parts[] = $sql;
+			}
+
+			file_put_contents($file, implode("\n\n", $parts) . "\n");
+		}
+
 		$this->writeCreatedFilesHeader();
 		$this->writeCreatedFile($file);
 	}

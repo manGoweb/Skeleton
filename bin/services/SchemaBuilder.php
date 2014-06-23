@@ -9,7 +9,9 @@ use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\MySqlSchemaManager;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
+use Inflect\Inflect;
 use Nette\Object;
+use Nette\Reflection\ClassType;
 use Nextras\Orm\Repository\Repository;
 use Nextras\Orm\StorageReflection\UnderscoredDbStorageReflection;
 
@@ -37,13 +39,25 @@ class SchemaBuilder extends Object
 		$meta = $model->getMetadataStorage()->get($entityClass);
 		foreach ($meta->getProperties() as $param)
 		{
-			$type = array_keys($param->types)[0];
-			if ($param->name === 'id')
-			{
-				$type = 'integer';
-			}
 			$name = UnderscoredDbStorageReflection::underscore($param->name);
-			$table->addColumn($name, $type);
+			$type = array_keys($param->types)[0];
+
+			if (strpos($type, 'app\\') === 0)
+			{
+				$name = "{$name}_id";
+				$table->addColumn($name, 'integer');
+
+				$fTable = Inflect::pluralize(ClassType::from($type)->getShortName());
+				$table->addForeignKeyConstraint($fTable, [$name], ['id']);
+			}
+			else
+			{
+				if ($param->name === 'id')
+				{
+					$type = 'integer';
+				}
+				$table->addColumn($name, $type);
+			}
 		}
 		$table->setPrimaryKey($meta->primaryKey);
 	}
