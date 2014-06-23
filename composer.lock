@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b8af39218aee9f90ddb2df9da09fab18",
+    "hash": "86e7164b5140f866c753759c227263a1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1789,6 +1789,47 @@
             "description": "Nette Utility Classes",
             "homepage": "http://nette.org",
             "time": "2014-06-16 16:18:02"
+        },
+        {
+            "name": "nextras/migrations",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nextras/migrations.git",
+                "reference": "b705ed43f92fdc0099bd0cab08787dae40b76a06"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nextras/migrations/zipball/b705ed43f92fdc0099bd0cab08787dae40b76a06",
+                "reference": "b705ed43f92fdc0099bd0cab08787dae40b76a06",
+                "shasum": ""
+            },
+            "require": {
+                "nette/database": "~2.2",
+                "php": "~5.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.8",
+                "nette/tester": "~1.0.0",
+                "php": "~5.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nextras\\Migrations\\": "src/"
+                },
+                "classmap": [
+                    "src/exceptions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Simple database migrations runner",
+            "time": "2014-06-12 10:50:42"
         },
         {
             "name": "nextras/nette-framework",

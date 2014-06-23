@@ -11,3 +11,6 @@ services:
 	-
 		class: Bin\Commands\Scaffolding\Test\Unit
 		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Migrations\Migrate
+		tags: [kdyby.console.command]

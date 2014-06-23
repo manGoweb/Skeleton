@@ -37,7 +37,6 @@ class SchemaBuilder extends Object
 		$meta = $model->getMetadataStorage()->get($entityClass);
 		foreach ($meta->getProperties() as $param)
 		{
-//			dumP($param->types);
 			$type = array_keys($param->types)[0];
 			if ($param->name === 'id')
 			{

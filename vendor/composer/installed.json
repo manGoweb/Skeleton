@@ -2220,5 +2220,48 @@
             "email": "filip@prochazka.su",
             "issues": "https://github.com/kdyby/monolog/issues"
         }
+    },
+    {
+        "name": "nextras/migrations",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nextras/migrations.git",
+            "reference": "b705ed43f92fdc0099bd0cab08787dae40b76a06"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nextras/migrations/zipball/b705ed43f92fdc0099bd0cab08787dae40b76a06",
+            "reference": "b705ed43f92fdc0099bd0cab08787dae40b76a06",
+            "shasum": ""
+        },
+        "require": {
+            "nette/database": "~2.2",
+            "php": "~5.3"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.8",
+            "nette/tester": "~1.0.0",
+            "php": "~5.4"
+        },
+        "time": "2014-06-12 10:50:42",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Nextras\\Migrations\\": "src/"
+            },
+            "classmap": [
+                "src/exceptions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "description": "Simple database migrations runner"
     }
 ]

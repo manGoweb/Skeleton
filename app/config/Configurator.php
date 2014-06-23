@@ -93,8 +93,15 @@ class Configurator extends Nette\Configurator
 		$params = $this->getParameters();
 		$loader = parent::createRobotLoader();
 		$loader->addDirectory($params['appDir']);
+
+		// TODO only add when bin is called
 		$loader->addDirectory($params['binDir']);
+
+		// TODO only add when tests are run
 		$loader->addDirectory($params['appDir'] . '/../tests');
+
+		// TODO only add when migrations are run
+		$loader->addDirectory($params['appDir'] . '/../migrations');
 
 		return $loader;
 	}
