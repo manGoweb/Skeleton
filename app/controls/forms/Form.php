@@ -16,6 +16,9 @@ abstract class Form extends NForm
 	public function __construct(Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
 	{
 		parent::__construct($parent, $name);
+
+		$this->onSuccess[] = [$this, 'onSuccess'];
+
 		$this->setup();
 	}
 

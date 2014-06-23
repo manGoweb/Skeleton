@@ -1,19 +1,27 @@
+{define error}
+	{**
+	 * @param Control $control
+	 *}
+	<span n:if="$control->errors" class="help-block">
+		{foreach $form['email']->errors as $error}
+			{$error}
+		{/foreach}
+	</span>
+{/define}
+
 {form $form}
 	<ul class=error n:if="$form->ownErrors">
 		<li n:foreach="$form->ownErrors as $error">{$error}</li>
 	</ul>
-
-	<div class="form-group">
-		<label n:name="email">Email address</label>
+	<div class="form-group{if $form['email']->errors} has-error{/if}">
+		<label class="control-label" n:name="email">Email address</label>
 		<input type="email" class="form-control" n:name="email" placeholder="Enter email">
+		{include error, control => $form['email']}
 	</div>
-	<div class="form-group">
-        <label n:name="password">Password</label>
+	<div class="form-group{if $form['password']->errors} has-error{/if}">
+        <label class="control-label" n:name="password">Password</label>
         <input type="password" class="form-control" n:name="password" placeholder="Password">
-    </div>
-    <div class="form-group">
-        <label n:name="validation">Again</label>
-        <input type="password" class="form-control" n:name="validation" placeholder="Password again">
+        {include error, control => $form['password']}
     </div>
 
 	<button n:name="save" class="btn btn-primary">Submit</button>

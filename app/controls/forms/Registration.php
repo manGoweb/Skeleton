@@ -13,11 +13,14 @@ class Registration extends Form
 			->addRule($this::EMAIL);
 		$this->addPassword('password')
 			->setRequired();
-		$this->addPassword('validation')
-			->setRequired()
-			->addConditionOn($this['password'], $this::EQUAL);
 
 		$this->addSubmit();
+	}
+
+	public function onSuccess()
+	{
+		$this->addError('global erorr');
+		$this['email']->addError('email error');
 	}
 
 }
