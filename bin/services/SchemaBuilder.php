@@ -50,12 +50,13 @@ class SchemaBuilder extends Object
 				$fTable = Inflect::pluralize(ClassType::from($type)->getShortName());
 				$table->addForeignKeyConstraint($fTable, [$name], ['id']);
 			}
+			else if ($param->name === 'id')
+			{
+				$type = 'integer';
+				$table->addColumn($name, 'integer', ['autoincrement' => TRUE]);
+			}
 			else
 			{
-				if ($param->name === 'id')
-				{
-					$type = 'integer';
-				}
 				$table->addColumn($name, $type);
 			}
 		}
