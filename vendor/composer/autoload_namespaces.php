@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
+    'Mikulas\\LatteCS\\' => array($vendorDir . '/mikulas/lattecs/src'),
     'Kdyby\\Monolog\\' => array($vendorDir . '/kdyby/monolog/src'),
     'Kdyby\\Console\\' => array($vendorDir . '/kdyby/console/src'),
     'Inflect' => array($vendorDir . '/oodle/inflect/src'),

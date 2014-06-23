@@ -24,7 +24,10 @@
 		"nextras/migrations": "~2.3.0"
 	},
 	"require-dev": {
-		"nette/tester": "~1.0"
+		"nette/tester": "~1.0",
+		"mikulas/lattecs": "~0.3.0-beta",
+		"mikulas/code-sniffs": "~1.0.0",
+		"squizlabs/php_codesniffer": "~1.5.3"
 	},
 	"minimum-stability": "dev",
 	"scripts": {
@@ -35,6 +38,10 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/mikulas/monolog"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/mikulas/code-sniffs"
 		}
 	]
 }

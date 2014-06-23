@@ -1343,67 +1343,6 @@
         ]
     },
     {
-        "name": "symfony/console",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "target-dir": "Symfony/Component/Console",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/Console.git",
-            "reference": "9a491e7983209bf320d40917291c03e856eee947"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Console/zipball/9a491e7983209bf320d40917291c03e856eee947",
-            "reference": "9a491e7983209bf320d40917291c03e856eee947",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "psr/log": "~1.0",
-            "symfony/event-dispatcher": "~2.1",
-            "symfony/process": "~2.1"
-        },
-        "suggest": {
-            "psr/log": "For using the console logger",
-            "symfony/event-dispatcher": "",
-            "symfony/process": ""
-        },
-        "time": "2014-06-20 17:41:51",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.6-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "Symfony\\Component\\Console\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com",
-                "homepage": "http://fabien.potencier.org",
-                "role": "Lead Developer"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Console Component",
-        "homepage": "http://symfony.com"
-    },
-    {
         "name": "kdyby/console",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -2263,5 +2202,231 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "description": "Simple database migrations runner"
+    },
+    {
+        "name": "symfony/console",
+        "version": "2.4.x-dev",
+        "version_normalized": "2.4.9999999.9999999-dev",
+        "target-dir": "Symfony/Component/Console",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/Console.git",
+            "reference": "a5d3e9299980f6e0e1f98a17621109ab31603d91"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/Console/zipball/a5d3e9299980f6e0e1f98a17621109ab31603d91",
+            "reference": "a5d3e9299980f6e0e1f98a17621109ab31603d91",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "symfony/event-dispatcher": "~2.1"
+        },
+        "suggest": {
+            "symfony/event-dispatcher": ""
+        },
+        "time": "2014-06-20 17:36:47",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.4-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Console\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": "http://fabien.potencier.org",
+                "role": "Lead Developer"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Console Component",
+        "homepage": "http://symfony.com"
+    },
+    {
+        "name": "mikulas/lattecs",
+        "version": "v0.3.0-beta",
+        "version_normalized": "0.3.0.0-beta",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Mikulas/nette-lattecs.git",
+            "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
+            "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
+            "shasum": ""
+        },
+        "require": {
+            "latte/latte": "~2.2-rc2",
+            "nette/finder": "~2.2-rc1",
+            "symfony/console": "~2.4.4"
+        },
+        "require-dev": {
+            "nette/tester": "~1.1.0"
+        },
+        "time": "2014-05-02 16:39:29",
+        "bin": [
+            "bin/lattecs"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Mikulas\\LatteCS\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@dite.pro"
+            }
+        ],
+        "description": "Coding standard validator for Latte templates",
+        "keywords": [
+            "Coding Standard",
+            "checker",
+            "console",
+            "cs",
+            "latte",
+            "nette",
+            "tool",
+            "validator"
+        ]
+    },
+    {
+        "name": "squizlabs/php_codesniffer",
+        "version": "1.5.3",
+        "version_normalized": "1.5.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+            "reference": "396178ada8499ec492363587f037125bf7b07fcc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/396178ada8499ec492363587f037125bf7b07fcc",
+            "reference": "396178ada8499ec492363587f037125bf7b07fcc",
+            "shasum": ""
+        },
+        "require": {
+            "ext-tokenizer": "*",
+            "php": ">=5.1.2"
+        },
+        "suggest": {
+            "phpunit/php-timer": "dev-master"
+        },
+        "time": "2014-05-01 03:07:07",
+        "bin": [
+            "scripts/phpcs"
+        ],
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-phpcs-fixer": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "CodeSniffer.php",
+                "CodeSniffer/CLI.php",
+                "CodeSniffer/Exception.php",
+                "CodeSniffer/File.php",
+                "CodeSniffer/Report.php",
+                "CodeSniffer/Reporting.php",
+                "CodeSniffer/Sniff.php",
+                "CodeSniffer/Tokens.php",
+                "CodeSniffer/Reports/",
+                "CodeSniffer/CommentParser/",
+                "CodeSniffer/Tokenizers/",
+                "CodeSniffer/DocGenerators/",
+                "CodeSniffer/Standards/AbstractPatternSniff.php",
+                "CodeSniffer/Standards/AbstractScopeSniff.php",
+                "CodeSniffer/Standards/AbstractVariableSniff.php",
+                "CodeSniffer/Standards/IncorrectPatternException.php",
+                "CodeSniffer/Standards/Generic/Sniffs/",
+                "CodeSniffer/Standards/MySource/Sniffs/",
+                "CodeSniffer/Standards/PEAR/Sniffs/",
+                "CodeSniffer/Standards/PSR1/Sniffs/",
+                "CodeSniffer/Standards/PSR2/Sniffs/",
+                "CodeSniffer/Standards/Squiz/Sniffs/",
+                "CodeSniffer/Standards/Zend/Sniffs/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Greg Sherwood",
+                "role": "lead"
+            }
+        ],
+        "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+        "homepage": "http://www.squizlabs.com/php-codesniffer",
+        "keywords": [
+            "phpcs",
+            "standards"
+        ]
+    },
+    {
+        "name": "mikulas/code-sniffs",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mikulas/code-sniffs.git",
+            "reference": "f3f796ab3e8976995ef20d63f0c3fbe0a5ea80a2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mikulas/code-sniffs/zipball/f3f796ab3e8976995ef20d63f0c3fbe0a5ea80a2",
+            "reference": "f3f796ab3e8976995ef20d63f0c3fbe0a5ea80a2",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2014-06-23 10:35:27",
+        "type": "library",
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mikulas Dite",
+                "email": "mikulas@dite.pro"
+            }
+        ],
+        "description": "Code sniffer rules for Clevis coding standard",
+        "support": {
+            "source": "https://github.com/mikulas/code-sniffs/tree/v1.0.0",
+            "issues": "https://github.com/mikulas/code-sniffs/issues"
+        }
     }
 ]
