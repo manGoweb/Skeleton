@@ -19,8 +19,7 @@ class Registration extends Form
 
 	public function onSuccess()
 	{
-		$this->addError('global erorr');
-		$this['email']->addError('email error');
+		dump($this->values);
 	}
 
 }
