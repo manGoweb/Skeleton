@@ -23,8 +23,15 @@ class Diff extends Command
 	{
 		$current = $connection->getSchemaManager()->createSchema();
 		$target = $schema->create($model);
-		$sql = Comparator::compareSchemas($current, $target)->toSql(new MySqlPlatform());
-		$this->out->writeln($sql);
+		$sqls = Comparator::compareSchemas($current, $target)->toSql(new MySqlPlatform());
+		foreach ($sqls as $sql)
+		{
+			if ($sql === 'DROP TABLE migrations')
+			{
+				continue;
+			}
+			$this->out->writeln($sql);
+		}
 	}
 
 }
