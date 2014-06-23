@@ -82,7 +82,7 @@ abstract class Presenter extends NPresenter
 			'message' => $message,
 			'type' => $type,
 		];
-		$this->template->add('flashes', $messages);
+		$this->template->flashes = $messages;
 		$this->getFlashSession()->$id = $messages;
 		return $flash;
 	}
