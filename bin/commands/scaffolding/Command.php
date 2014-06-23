@@ -23,7 +23,7 @@ class Command extends Commands\Command
 		$root = realpath(__DIR__ . '/../../../');
 		$path = realpath($path);
 		$relative = substr($path, strlen($root) + 1);
-		return preg_replace('~/([a-z0-9]+)(\.[a-z0-9]+)?$~ims', '/<fg=blue>$1</fg=blue>$2', $relative);
+		return preg_replace('~/([a-z0-9-]+)(\.[a-z0-9]+)?$~ims', '/<fg=blue>$1</fg=blue>$2', $relative);
 	}
 
 }
