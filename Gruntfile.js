@@ -8,7 +8,8 @@ var STYLE_FILES = [
 
 var JS_FILES = [
 	'www/js/plugins.js',
-	'www/js/init.js'
+	'www/js/init.js',
+	'www/js/controls/*.js'
 ];
 
 var DIST_FOLDER = 'www/build';

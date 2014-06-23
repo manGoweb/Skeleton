@@ -6,6 +6,7 @@ use App\ImplementationException;
 use Nette\Application\UI\Control as NControl;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\ComponentModel\IContainer;
+use Nette\Object;
 use Nette\Reflection\Method;
 
 
@@ -41,14 +42,20 @@ abstract class Control extends NControl
 		}
 	}
 
-	final public function render($view = 'default')
+	final public function render()
+	{
+		$args = func_get_args();
+		call_user_func([$this, 'wrapRender'], 'default', $args);
+	}
+
+	private function wrapRender($view = 'default', array $args = [])
 	{
 		$this->template->setFile($this->getTemplateFile($view));
 
 		$method = "render$view";
 		if (method_exists($this, $method))
 		{
-			$this->$method();
+			call_user_func_array([$this, $method], $args);
 		}
 
 		$this->template->render();
@@ -61,7 +68,7 @@ abstract class Control extends NControl
 			return parent::__call($name, $args);
 		}
 
-		$this->render(lcFirst(substr($name, 6)));
+		$this->wrapRender(lcFirst(substr($name, 6)));
 		return NULL;
 	}
 
@@ -73,6 +80,11 @@ abstract class Control extends NControl
 			$name .= ".$view";
 		}
 		return __DIR__ . "/../templates/controls/$name.latte";
+	}
+
+	public function getHtmlId()
+	{
+		return $this->getUniqueId();
 	}
 
 }

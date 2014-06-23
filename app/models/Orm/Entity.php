@@ -12,4 +12,10 @@ use Nextras\Orm\Entity\Entity as NXEntity;
 class Entity extends NXEntity
 {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->createdAt = new DateTime();
+	}
+
 }

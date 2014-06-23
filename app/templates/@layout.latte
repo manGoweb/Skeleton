@@ -21,6 +21,8 @@
 	<meta name="author" content="">
 	<link type="text/plain" rel="author" href="humans.txt">
 
+	<link rel="stylesheet" href="{$basePath}/libs/leaflet/leaflet.css" />
+
 	<link rel="stylesheet" href="{$basePath}/build/screen.css">
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 
@@ -39,6 +41,11 @@
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="{$basePath|noescape}/libs/jquery/dist/jquery.min.js"><\/script>')</script>
+
+	<script src="//leaflet.cloudmade.com/dist/leaflet.js"></script>
+	<script>window.L || document.write('<script src="{$basePath|noescape}/libs/leaflet/leaflet.js"><\/script>')</script>
+
+	<script defer src="{$basePath}/libs/leaflet-providers/leaflet-providers.js"></script>
 	<script defer src="{$basePath}/build/app.js"></script>
 </body>
 </html>
