@@ -40,7 +40,7 @@ abstract class Presenter extends NPresenter
 			$formClass = 'App\\Controls\\Forms\\' . ucFirst(substr($name, 0, -4));
 			if (class_exists($formClass))
 			{
-				return new FormControl($formClass);
+				return $this->context->createInstance(FormControl::class, [$formClass]);
 			}
 		}
 		else
@@ -48,7 +48,7 @@ abstract class Presenter extends NPresenter
 			$controlClass = 'App\\Controls\\' . ucFirst($name);
 			if (class_exists($controlClass))
 			{
-				return new $controlClass;
+				return $this->context->createInstance($controlClass, [$this, $name]);
 			}
 		}
 		return parent::createComponent($name);
