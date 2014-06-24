@@ -3,10 +3,10 @@
 namespace App\Models\Services;
 
 use App\InvalidStateException;
-use App\Model\Tasks\Task;
+use App\Models\Tasks\Task;
 use Nette\Object;
-use Pheanstalk_Connection;
-use Pheanstalk_Pheanstalk as Pheanstalk;
+use Pheanstalk\Connection;
+use Pheanstalk\Pheanstalk;
 
 
 class Queue extends Object
@@ -18,15 +18,19 @@ class Queue extends Object
 	/** @var string url */
 	private $host;
 
-	public function __construct($host)
+	/** @var string */
+	private $tubeId;
+
+	public function __construct($host, $tubeId)
 	{
 		$this->stalk = new Pheanstalk($host);
 		$this->host = $host;
+		$this->tubeId = $tubeId;
 	}
 
 	protected function assertConnected()
 	{
-		/** @var Pheanstalk_Connection $conn */
+		/** @var Connection $conn */
 		$conn = $this->stalk->getConnection();
 		if (!$conn->isServiceListening())
 		{
@@ -39,7 +43,7 @@ class Queue extends Object
 		$this->assertConnected();
 
 		$this->stalk
-			->useTube('tasks')
+			->useTube($this->tubeId)
 			->put(serialize($task));
 	}
 
@@ -47,7 +51,7 @@ class Queue extends Object
 	{
 		$this->assertConnected();
 		$job = $this->stalk
-			->watch('tasks')
+			->watch($this->tubeId)
 			->ignore('default')
 			->reserve();
 

@@ -19,9 +19,11 @@ class Worker extends Command
 
 	public function invoke(Queue $queue, Container $container)
 	{
+		$this->out->writeln('<info>Worker is running...</info>');
 		while (TRUE)
 		{
 			$queue->watch(function(Task $task, callable $next) use ($container, $queue) {
+				$this->out->writeln(get_class($task));
 				try
 				{
 					$result = $container->callMethod([$task, 'run']);

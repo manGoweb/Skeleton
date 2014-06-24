@@ -3,7 +3,7 @@
 namespace App\Models\Tasks;
 
 use Nette\Object;
-use Pheanstalk_Job as Job;
+use Pheanstalk\Job;
 
 
 abstract class Task extends Object
