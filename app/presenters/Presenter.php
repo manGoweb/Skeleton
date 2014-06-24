@@ -94,4 +94,34 @@ abstract class Presenter extends NPresenter
 		return $flash;
 	}
 
+	public function formatTemplateFiles()
+	{
+		$name = $this->getName();
+		$presenter = substr($name, strrpos(':' . $name, ':'));
+		$dir = dirname($this->getReflection()->getFileName());
+		$dir = is_dir("$dir/templates") ? $dir : dirname($dir);
+		return array(
+			"$dir/templates/views/$presenter/$this->view.latte",
+			"$dir/templates/views/$presenter.$this->view.latte",
+		);
+	}
+
+	public function formatLayoutTemplateFiles()
+	{
+		$name = $this->getName();
+		$presenter = substr($name, strrpos(':' . $name, ':'));
+		$layout = $this->layout ? $this->layout : 'layout';
+		$dir = dirname($this->getReflection()->getFileName());
+		$dir = is_dir("$dir/templates/views") ? $dir : dirname($dir);
+		$list = array(
+			"$dir/templates/views/$presenter/@$layout.latte",
+			"$dir/templates/views/$presenter.@$layout.latte",
+		);
+		do {
+			$list[] = "$dir/templates/views/@$layout.latte";
+			$dir = dirname($dir);
+		} while ($dir && ($name = substr($name, 0, strrpos($name, ':'))));
+		return $list;
+	}
+
 }
