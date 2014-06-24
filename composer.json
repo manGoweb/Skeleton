@@ -21,7 +21,8 @@
 		"kdyby/console": "@dev",
 		"doctrine/dbal": "@dev",
 		"kdyby/monolog": "@dev",
-		"nextras/migrations": "~2.3.0"
+		"nextras/migrations": "~2.3.0",
+		"pda/pheanstalk": "~3.0.0"
 	},
 	"require-dev": {
 		"nette/tester": "~1.0",
