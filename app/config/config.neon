@@ -9,6 +9,7 @@ parameters:
 services:
 	router: App\RouterFactory()::createRouter()
 	- App\Models\Services\Mailer
+	- App\Models\Services\Queue
 
 orm:
 	model: App\Models\Model

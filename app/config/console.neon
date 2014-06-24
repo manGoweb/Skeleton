@@ -23,3 +23,6 @@ services:
 	-
 		class: Bin\Commands\Tests\Run
 		tags: [kdyby.console.command]
+	-
+		class: Bin\Commands\Worker
+		tags: [kdyby.console.command]
