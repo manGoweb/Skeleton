@@ -9,7 +9,6 @@ use Nette\FileNotFoundException;
 use Nette\Loaders\RobotLoader;
 use RuntimeException;
 use SystemContainer;
-use Tracy\Debugger;
 
 
 /**

@@ -2,7 +2,6 @@
 
 namespace App\Models\Tasks;
 
-
 use App\InvalidArgumentException;
 use App\Models\Services\Mailer;
 use Nette\Utils\Validators;

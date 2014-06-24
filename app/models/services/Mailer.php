@@ -3,7 +3,6 @@
 namespace App\Models\Services;
 
 use Latte\Engine;
-use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
 use Nette\Object;

@@ -6,7 +6,6 @@ use App\ImplementationException;
 use Nette\Application\UI\Control as NControl;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\ComponentModel\IContainer;
-use Nette\Object;
 use Nette\Reflection\Method;
 
 
