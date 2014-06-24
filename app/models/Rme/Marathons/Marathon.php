@@ -9,7 +9,6 @@ use Nextras\Orm\Relationships\ManyHasOne;
 
 /**
  * @property string $name
- * @property Venue $venue
  * @property DateTime $heldAt
  *
  * @property ManyHasOne|Venue $venue {m:1 VenuesRepository}

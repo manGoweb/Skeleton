@@ -2,6 +2,7 @@
 
 namespace App\Controls\Forms;
 
+use App\Presenters\Presenter;
 use Nette;
 use Nette\Application\UI\Form as NForm;
 
@@ -9,13 +10,15 @@ use Nette\Application\UI\Form as NForm;
 /**
  * Differences to NForm
  * - addSubmit name is optional
+ *
+ * @property-read Presenter $presenter
  */
 abstract class Form extends NForm
 {
 
-	public function __construct(Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+	public function __construct()
 	{
-		parent::__construct($parent, $name);
+		parent::__construct();
 
 		$this->onSuccess[] = [$this, 'onSuccess'];
 

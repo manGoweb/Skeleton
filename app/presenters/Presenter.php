@@ -48,7 +48,7 @@ abstract class Presenter extends NPresenter
 			$controlClass = 'App\\Controls\\' . ucFirst($name);
 			if (class_exists($controlClass))
 			{
-				return $this->context->createInstance($controlClass, [$this, $name]);
+				return $this->context->createInstance($controlClass);
 			}
 		}
 		return parent::createComponent($name);

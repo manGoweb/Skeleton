@@ -26,9 +26,9 @@ use Nette\Reflection\Method;
 abstract class Control extends NControl
 {
 
-	public function __construct(IContainer $parent = NULL, $name = NULL)
+	public function __construct()
 	{
-		parent::__construct($parent, $name);
+		parent::__construct();
 
 		foreach ($this->getReflection()->getMethods(Method::IS_PUBLIC) as $method)
 		{

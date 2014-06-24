@@ -9,9 +9,9 @@ use Nette\DI\Container;
 use Nextras\Migrations\Drivers\MySqlNetteDbDriver;
 use Nextras\Migrations\Engine\Runner;
 use Nextras\Migrations\Entities\Group;
+use Nextras\Migrations\Extensions;
 use Nextras\Migrations\Printers\Console;
 use Symfony\Component\Console\Input\InputOption;
-use Nextras\Migrations\Extensions;
 
 
 class Migrate extends Command
@@ -23,7 +23,6 @@ class Migrate extends Command
 			->setDescription('Updates database schema by running all new migrations')
 			->addOption('init', 'i', InputOption::VALUE_NONE, 'Create migrations table');
 	}
-
 
 	public function invoke(Container $container, Context $db)
 	{
@@ -37,7 +36,7 @@ class Migrate extends Command
 			$runner->run($runner::MODE_INIT);
 			$sql = ob_get_clean();
 			$db->query($sql);
-			$this->out->writeln("<info>Migrations table created</info>");
+			$this->out->writeln('<info>Migrations table created</info>');
 			return;
 		}
 
@@ -69,7 +68,7 @@ class Migrate extends Command
 			{
 				throw $e;
 			}
-			$this->out->writeln("<error>Migrations table does not exist, init migrations first</error>");
+			$this->out->writeln('<error>Migrations table does not exist, init migrations first</error>');
 		}
 	}
 

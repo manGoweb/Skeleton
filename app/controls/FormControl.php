@@ -3,6 +3,7 @@
 namespace App\Controls;
 
 use App\InvalidArgumentException;
+use Nette\DI\Container;
 use Nette\Reflection\ClassType;
 
 
@@ -24,9 +25,14 @@ class FormControl extends Control
 	private $formClass;
 
 	/**
+	 * @var \Nette\DI\Container
+	 */
+	private $container;
+
+	/**
 	 * @param string $formClass
 	 */
-	public function __construct($formClass)
+	public function __construct($formClass, Container $container)
 	{
 		if (!class_exists($formClass))
 		{
@@ -35,11 +41,12 @@ class FormControl extends Control
 		parent::__construct();
 
 		$this->formClass = $formClass;
+		$this->container = $container;
 	}
 
 	public function createComponentForm()
 	{
-		return new $this->formClass;
+		return $this->container->createInstance($this->formClass);
 	}
 
 	protected function renderDefault()

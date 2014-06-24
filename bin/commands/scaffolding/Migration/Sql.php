@@ -2,7 +2,7 @@
 
 namespace Bin\Commands\Scaffolding\Migration;
 
-use App\Models\Model;
+use App\Models\Orm\Model;
 use Bin\Commands\Scaffolding\Command;
 use Bin\Services\Scaffolding;
 use Bin\Services\SchemaBuilder;
