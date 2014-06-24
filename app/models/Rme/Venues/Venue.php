@@ -12,6 +12,8 @@ use App\Models\Structs\LatLng;
  * @property float $lng
  * @property string $street
  * @property string $city
+ *
+ * @property Marathon[] $marathons {1:m MarathonsRepository $venue}
  */
 class Venue extends Entity
 {

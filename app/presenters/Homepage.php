@@ -8,8 +8,9 @@ class Homepage extends Presenter
 
 	public function renderDefault()
 	{
-		$venue = $this->model->venues->getById(1);
-		$this->template->venue = $venue;
+		$marathon = $this->model->marathons->getLatest();
+
+		$this->template->marathon = $marathon;
 	}
 
 }
