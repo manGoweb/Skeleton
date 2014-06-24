@@ -11,7 +11,7 @@ class Registration extends Form
 		$this->addText('email')
 			->setRequired()
 			->addRule($this::EMAIL);
-		$this->addPassword('password')
+		$this->addText('name')
 			->setRequired();
 
 		$this->addSubmit();

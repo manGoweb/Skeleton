@@ -11,3 +11,10 @@ parameters:
 		user: root
 		password:
 		driver: pdo_mysql
+
+nette:
+	mailer:
+		host: smtp.mandrillapp.com
+		port: 587
+		username: khanovaskola
+		password:

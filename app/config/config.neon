@@ -8,6 +8,11 @@ parameters:
 
 services:
 	router: App\RouterFactory()::createRouter()
+	- App\Models\Services\Mailer
 
 orm:
 	model: App\Models\Model
+
+nette:
+	mailer:
+		smtp: true
