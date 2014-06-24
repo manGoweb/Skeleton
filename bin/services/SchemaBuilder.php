@@ -12,6 +12,7 @@ use Doctrine\DBAL\Schema\Table;
 use Inflect\Inflect;
 use Nette\Object;
 use Nette\Reflection\ClassType;
+use Nextras\Orm\Entity\Reflection\PropertyMetadata;
 use Nextras\Orm\Repository\Repository;
 use Nextras\Orm\StorageReflection\UnderscoredDbStorageReflection;
 
@@ -39,8 +40,23 @@ class SchemaBuilder extends Object
 		$meta = $model->getMetadataStorage()->get($entityClass);
 		foreach ($meta->getProperties() as $param)
 		{
+			if ($param->relationshipType === PropertyMetadata::RELATIONSHIP_ONE_HAS_MANY)
+			{
+				continue;
+			}
+
 			$name = UnderscoredDbStorageReflection::underscore($param->name);
-			$type = array_keys($param->types)[0];
+
+			$type = NULL;
+			foreach (array_keys($param->types) as $type)
+			{
+				if ($type === 'nextras\orm\relationships\manyhasone')
+				{
+					continue;
+				}
+				break;
+				// use current $type
+			}
 
 			if (strpos($type, 'app\\') === 0)
 			{
@@ -60,6 +76,7 @@ class SchemaBuilder extends Object
 				$table->addColumn($name, $type);
 			}
 		}
+
 		$table->setPrimaryKey($meta->primaryKey);
 	}
 

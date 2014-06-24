@@ -2,7 +2,7 @@
 
 namespace Bin\Commands\Schema;
 
-use App\Models\Model;
+use App\Models\Orm\Model;
 use Bin\Commands\Command;
 use Bin\Services\SchemaBuilder;
 use Doctrine\DBAL\Connection;
