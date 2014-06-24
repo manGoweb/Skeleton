@@ -15,7 +15,7 @@ services:
 	- App\Models\Services\Queue(%queue.host%, %queue.tubeId%)
 
 orm:
-	model: App\Models\Model
+	model: App\Models\Orm\Model
 
 nette:
 	mailer:

@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 use App\Controls\FormControl;
-use App\Models\Model;
+use App\Models\Orm\Model;
 use App\Models\Services\Queue;
 use Nette\Application\UI\Presenter as NPresenter;
 use Nette\Bridges\ApplicationLatte\Template;

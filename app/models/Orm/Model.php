@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Orm;
 
 use App\Models\Rme\MarathonsRepository;
 use App\Models\Rme\UsersRepository;

@@ -2,7 +2,7 @@
 
 namespace Bin\Services;
 
-use App\Models\Model;
+use App\Models\Orm\Model;
 use Doctrine\DBAL\Driver\DrizzlePDOMySql\Connection;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Schema\Column;
