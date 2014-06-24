@@ -1,28 +1,40 @@
-input:not([type="submit"])
-  box-sizing border-box
-  font-size 16px
-  line-height 2em
-  height 3em
-  width 100%
-  padding .5em 1.34em
-  margin-bottom 1em
-  background transparent
-  border 1px solid #ccc
-  -webkit-font-smoothing antialiased
-  &::-webkit-input-placeholder
-    transition all .2s cubic-bezier(.55,-0.55,1,1.55)
-    -webkit-transform-origin left
+.jvFloat
+  position relative
+  display inline
+  margin-top 1em
 
-  &:focus
-    border 1px solid #00bafa
-    &::-webkit-input-placeholder
-      color #00bafa
+.jvFloat .placeHolder
+  position absolute
+  top 0
+  left 0
+  min-width 100px
+  color #aaa
+  font-size 10pt
+  font-weight 400
+  z-index 100
+  -webkit-transform translate(0, 0)
+  -moz-transform translate(0, 0)
+  -o-transform translate(0, 0)
+  -ms-transform translate(0, 0)
+  transform translate(0, 0)
+  -webkit-transition -webkit-transform 150ms, opacity 100ms, visibility 100ms
+  transition transform 150ms, opacity 100ms, visibility 100ms
+  opacity 0
+  visibility hidden
+  margin-left 1em
+  text-shadow -1px 0 white, -2px 0 white, -3px  0   white, -4px  0   white, -5px  0   white, 1px  0   white, 2px  0   white, 3px  0   white, 4px  0   white, 5px  0   white, -1px -1px white, -2px -2px white, -3px -3px white, -4px -4px white, -5px -5px white
 
-  &:focus, &:valid
-    outline none
-    color #212121
-    &::-webkit-input-placeholder
-      -webkit-transform translate(0, -75%) scale(.9, .9)
-      visibility visible !important
-      overflow visible
-      text-shadow -1px 0 white, -2px 0 white, -3px  0   white, -4px  0   white, -5px  0   white, 1px  0   white, 2px  0   white, 3px  0   white, 4px  0   white, 5px  0   white, -1px -1px white, -2px -2px white, -3px -3px white, -4px -4px white, -5px -5px white
+  &.active
+    display block
+    visibility visible
+    -webkit-transform translate(0, -1em)
+    -moz-transform translate(0, -1em)
+    -o-transform translate(0, -1em)
+    -ms-transform translate(0, -1em)
+    transform translate(0, -1em)
+    -webkit-transition -webkit-transform 100ms, opacity 120ms, visibility 120ms
+    transition transform 100ms, opacity 120ms, visibility 120ms
+    opacity 1
+
+  &.placeholder-focus
+    color rgb(102, 175, 233)

@@ -14,6 +14,7 @@
     "html5shiv": "latest",
 	"bootstrap-stylus": "https://github.com/hworld/bootstrap-stylus.git#master",
 	"leaflet": "https://github.com/vperron/leaflet-dist.git#v0.7.2",
-	"leaflet-providers": "https://github.com/leaflet-extras/leaflet-providers.git#1.0.5"
+	"leaflet-providers": "https://github.com/leaflet-extras/leaflet-providers.git#1.0.5",
+	"JVFloat": "~1.0.0"
   }
 }
