@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b4e78d5cfbc7ee7a74dc17386ad0187b",
+    "hash": "434ca924edfccdb5ec2a35e8657e6c4b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -894,12 +894,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/caching.git",
-                "reference": "f3a70aaa68b61f475086e21cf69140c810c703f6"
+                "reference": "5938b1b3e02b117e2682d646e2eb535ee78373bf"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/nette/caching/zipball/f3a70aaa68b61f475086e21cf69140c810c703f6",
-                "reference": "f3a70aaa68b61f475086e21cf69140c810c703f6",
+                "reference": "5938b1b3e02b117e2682d646e2eb535ee78373bf",
                 "shasum": ""
             },
             "require": {
@@ -2241,20 +2241,24 @@
         },
         {
             "name": "mikulas/code-sniffs",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikulas/code-sniffs.git",
-                "reference": "f3f796ab3e8976995ef20d63f0c3fbe0a5ea80a2"
+                "reference": "71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikulas/code-sniffs/zipball/f3f796ab3e8976995ef20d63f0c3fbe0a5ea80a2",
-                "reference": "f3f796ab3e8976995ef20d63f0c3fbe0a5ea80a2",
+                "url": "https://api.github.com/repos/mikulas/code-sniffs/zipball/71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81",
+                "reference": "71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.4.0",
+                "squizlabs/php_codesniffer": "~1.5.3"
+            },
+            "require-dev": {
+                "nette/tester": "~1.2.0"
             },
             "type": "library",
             "license": [
@@ -2268,10 +2272,10 @@
             ],
             "description": "Code sniffer rules for Clevis coding standard",
             "support": {
-                "source": "https://github.com/mikulas/code-sniffs/tree/v1.0.0",
+                "source": "https://github.com/mikulas/code-sniffs/tree/v1.1.0",
                 "issues": "https://github.com/mikulas/code-sniffs/issues"
             },
-            "time": "2014-06-23 10:35:27"
+            "time": "2014-06-25 10:04:58"
         },
         {
             "name": "mikulas/lattecs",

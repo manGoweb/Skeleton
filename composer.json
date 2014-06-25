@@ -27,8 +27,7 @@
 	"require-dev": {
 		"nette/tester": "~1.0",
 		"mikulas/lattecs": "~0.3.0-beta",
-		"mikulas/code-sniffs": "~1.0.0",
-		"squizlabs/php_codesniffer": "~1.5.3",
+		"mikulas/code-sniffs": "~1.1.0",
 		"symfony/process": "~2.5.0",
 		"jdorn/sql-formatter": "~1.2.17"
 	},
