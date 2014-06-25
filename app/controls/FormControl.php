@@ -31,6 +31,7 @@ class FormControl extends Control
 
 	/**
 	 * @param string $formClass
+	 * @param Container $container
 	 */
 	public function __construct($formClass, Container $container)
 	{

@@ -19,10 +19,10 @@ class Configurator extends Nette\Configurator
 {
 
 	/** @var array of function(Configurator $sender); Occurs before first Container is created */
-	public $onInit = array();
+	public $onInit = [];
 
 	/** @var array of function(Configurator $sender); Occurs after first Container is created */
-	public $onAfter = array();
+	public $onAfter = [];
 
 
 	/**
