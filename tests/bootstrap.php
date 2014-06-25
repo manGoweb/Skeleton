@@ -45,7 +45,7 @@ function get_php_classes($php_code)
 function runTests($path, Container $container)
 {
 	global $argv;
-
+dump($argv);
 	$tests = $argv;
 	array_shift($tests);
 

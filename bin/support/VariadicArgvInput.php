@@ -57,7 +57,7 @@ class VariadicArgvInput extends Input
 
 	public function getVariadic($n)
 	{
-		return $this->variadic[$n];
+		return isset($this->variadic[$n]) ? $this->variadic[$n] : NULL;
 	}
 
 	public function getVariadics()

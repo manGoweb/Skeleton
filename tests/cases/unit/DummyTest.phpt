@@ -2,7 +2,7 @@
 
 namespace Tests\Cases\Unit;
 
-use App\Models\Model;
+use App\Models\Orm\Model;
 use Tester\Assert;
 use Tests\TestCase;
 
@@ -17,10 +17,10 @@ class DummyTest extends TestCase
 	 */
 	public $model;
 
-	function testSomething()
+	public function testSomething()
 	{
 		echo "something\n";
-		Assert::true(TRUE);
+		Assert::same(TRUE, TRUE);
 	}
 
 }
