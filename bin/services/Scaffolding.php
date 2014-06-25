@@ -26,9 +26,21 @@ class Scaffolding extends Object
 	{
 		$pluralName = Inflect::pluralize($singularName);
 		$path = $this->getRmePath($pluralName) . "/$singularName.php";
+
+		$usings = ['App\Models\Orm\Entity'];
+		foreach ($params as $param)
+		{
+			if ($param === 'DateTime')
+			{
+				$usings[] = 'DateTime';
+			}
+		}
+		sort($usings);
+
 		$this->buildFromTemplate($path, 'rme_entity', [
 			'class' => $singularName,
 			'properties' => $params,
+			'usings' => $usings,
 		]);
 		return $path;
 	}
