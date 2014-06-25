@@ -2,6 +2,7 @@
 
 namespace Bin\Services;
 
+use App\Models\Orm\Mapper;
 use App\Models\Orm\Model;
 use Doctrine\DBAL\Driver\DrizzlePDOMySql\Connection;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
@@ -34,7 +35,10 @@ class SchemaBuilder extends Object
 	{
 		/** @var Repository $repo */
 		$repo = $model->getRepository($repoClass);
-		$tableName = $repo->getMapper()->getTableName();
+		/** @var Mapper $mapper */
+		$mapper = $repo->getMapper();
+
+		$tableName = $mapper->getTableName();
 		$table = $schema->createTable($tableName);
 
 		$meta = $model->getMetadataStorage()->get($entityClass);
@@ -42,6 +46,29 @@ class SchemaBuilder extends Object
 		{
 			if ($param->relationshipType === PropertyMetadata::RELATIONSHIP_ONE_HAS_MANY)
 			{
+				continue;
+			}
+			else if ($param->relationshipType === PropertyMetadata::RELATIONSHIP_MANY_HAS_MANY)
+			{
+				if (!$param->relationshipIsMain)
+				{
+					continue;
+				}
+
+				/** @var Repository $targetRepo */
+				$targetRepo = $model->getRepository($param->relationshipRepository);
+				$joinTableName = $mapper->getStorageReflection()->getManyHasManyStorageName($targetRepo->getMapper());
+				$joinTable = $schema->createTable($joinTableName);
+
+				$columnThis = Inflect::singularize($param->name) . '_id';
+				$joinTable->addColumn($columnThis, 'integer');
+				$joinTable->addForeignKeyConstraint($tableName, [$columnThis], ['id']);
+
+				$columnThat = Inflect::singularize($param->relationshipProperty) . '_id';
+				$joinTable->addColumn($columnThat, 'integer');
+				$joinTable->addForeignKeyConstraint($targetRepo->getMapper()->getTableName(), [$columnThat], ['id']);
+
+				$joinTable->setPrimaryKey([$columnThis, $columnThat]);
 				continue;
 			}
 
