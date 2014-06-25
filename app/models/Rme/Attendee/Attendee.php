@@ -9,6 +9,7 @@ use Nextras\Orm\Relationships\ManyHasMany;
 
 /**
  * @property string $name
+ * @property string $email
  *
  * @property Token[] $tokens {1:m TokensRepository $user}
  * @property ManyHasMany|Marathon[] $marathons {m:m MarathonsRepository primary $attendees}
@@ -18,11 +19,6 @@ class Attendee extends Entity
 
 	/** @var TokenManager */
 	private $tokenManager;
-
-	/**
-	 * @var
-	 */
-	private $email;
 
 	public function __construct($email, $name)
 	{

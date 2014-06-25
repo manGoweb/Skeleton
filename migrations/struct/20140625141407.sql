@@ -1,0 +1,4 @@
+ALTER TABLE
+  attendees
+ADD
+  email VARCHAR(255) NOT NULL;
