@@ -18,55 +18,55 @@ or similar quick command.
 ## Commands
 
 For a complete list, run
-```sh
-php www/index.php --list`
+```
+php www/index.php --list
 ```
 This overview aims to document the most useful features only.
 
 ### Tests
 
 Run all tests:
-```sh
+```
 php www/index.php tests:run
 ```
 
 Run all matching methods on single test:
-```sh
+```
 php tests/cases/unit/DummyTest.phpt something
 ```
 
 Run acceptance tests:
-```sh
+```
 php www/index.php tests:run -c
 ```
 
 ### Scaffolding
 
 Create new RME (Repository, Mapper and Entity):
-```sh
+```
 php www/index.php scaffolding:rme article createdAt:DateTime header:string text:string
 ```
 
 Create new migration from diff between RME and current database:
-```sh
+```
 php www/index.php scaffolding:migration:sql "Added article entity" --from-diff
 ```
 
 ### Migrations
 
 Setup migrations:
-```sh
+```
 php www/index.php migrations:migrate --init
 ```
 
 Run all new migrations:
-```sh
+```
 php www/index.php migrations:migrate
 ```
 
 ### Background worker
 
 Run with
-```sh
+```
 php www/index.php worker
 ```
