@@ -5,7 +5,7 @@ namespace App\Models\Rme;
 use App\Models\Orm\Entity;
 use DateInterval;
 use DateTime;
-use Nette\Utils\Random;
+use Nette\Security\Passwords;
 use Nextras\Orm\Relationships\ManyHasOne;
 
 
@@ -13,16 +13,10 @@ use Nextras\Orm\Relationships\ManyHasOne;
  * @property string $hash
  * @property NULL|DateTime $usedAt
  *
- * @property ManyHasOne|User $user {m:1 UsersRepository}
+ * @property ManyHasOne|Attendee $user {m:1 AttendeesRepository}
  */
 class Token extends Entity
 {
-
-	public function __construct()
-	{
-		parent::__construct();
-		$this->hash = Random::generate(20);
-	}
 
 	/**
 	 * @return bool
@@ -42,6 +36,15 @@ class Token extends Entity
 	public function isUsed()
 	{
 		return (bool) $this->usedAt;
+	}
+
+	/**
+	 * @param string $hash
+	 * @return bool
+	 */
+	public function isHashValid($hash)
+	{
+		return Passwords::verify($hash, $this->hash);
 	}
 
 }

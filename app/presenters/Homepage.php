@@ -2,8 +2,6 @@
 
 namespace App\Presenters;
 
-use App\Models\Tasks\SendRegistrationEmail;
-
 
 class Homepage extends Presenter
 {
