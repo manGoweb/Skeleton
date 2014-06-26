@@ -35,7 +35,7 @@ class Mailer extends Object
 		];
 		$html = $latte->renderToString($this->getTemplatePath('registration'), $args);
 
-		$msg->setFrom('maraton@khanovaskola.cz', 'Khanova škola')
+		$msg->setFrom('youshould@probablychange.this', 'Nazev Appky')
 			->addTo($email, $name)
 			->setHtmlBody($html);
 

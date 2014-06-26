@@ -5,7 +5,7 @@ namespace App\Models\Orm;
 use Orm;
 
 
-class Repository extends Orm\Repository
+abstract class Repository extends Orm\Repository
 {
 
 }

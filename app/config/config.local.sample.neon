@@ -18,7 +18,8 @@ parameters:
 
 nette:
 	mailer:
-		host: smtp.mandrillapp.com
-		port: 587
-		username: khanovaskola
+		host: mailtrap.io
+		secure: tls
+		port: 2525
+		username:
 		password:

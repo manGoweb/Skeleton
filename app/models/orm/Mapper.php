@@ -5,7 +5,7 @@ namespace App\Models\Orm;
 use Orm\DibiMapper;
 
 
-class Mapper extends DibiMapper
+abstract class Mapper extends DibiMapper
 {
 
 	/**

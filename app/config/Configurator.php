@@ -67,7 +67,7 @@ class Configurator extends Nette\Configurator
 	public function onInitConfigs()
 	{
 		$params = $this->getParameters();
-		foreach (['system', 'bin', 'console', 'config', 'config.local'] as $config)
+		foreach (['system', 'bin', 'config', 'config.local'] as $config)
 		{
 			$this->addConfig($params['appDir'] . "/config/$config.neon", FALSE);
 		}

@@ -9,7 +9,7 @@ use Orm;
 /**
  * @property-read DateTime $createdAt {default now}
  */
-class Entity extends Orm\Entity
+abstract class Entity extends Orm\Entity
 {
 
 }

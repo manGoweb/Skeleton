@@ -16,7 +16,7 @@ nette:
 
 services:
   # Router
-	routerFactory: App\RouterFactory
+	routerFactory: App\Models\Factories\RouterFactory
 	router: @routerFactory::createRouter()
 
   # Database / Orm

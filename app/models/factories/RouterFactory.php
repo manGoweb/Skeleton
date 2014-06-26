@@ -1,20 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models\Factories;
 
 use Nette;
 use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
 
 
-/**
- * Router factory.
- */
 class RouterFactory
 {
 
 	/**
-	 * @return \Nette\Application\IRouter
+	 * @return Nette\Application\IRouter
 	 */
 	public function createRouter()
 	{
