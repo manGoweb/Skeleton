@@ -1,5 +1,11 @@
 services:
 	- Bin\Services\Scaffolding(%appDir%)
 	- Bin\Services\SchemaBuilder
-	- Doctrine\DBAL\Configuration
-	- Doctrine\DBAL\DriverManager::getConnection(%database%)
+	- Bin\Services\DoctrineFactory(%database%)
+
+database:
+	dsn: 'mysql:host=127.0.0.1;dbname=%database.database%'
+	user: %database.username%
+	password: %database.password%
+	options:
+		lazy: yes

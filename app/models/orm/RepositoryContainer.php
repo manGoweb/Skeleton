@@ -2,24 +2,26 @@
 
 namespace App\Models\Orm;
 
+use App;
 use Nette\Reflection;
 use Orm;
 use Orm\IRepository;
+use Orm\RepositoryAlreadyRegisteredException;
 use Orm\RepositoryNotFoundException;
 
 
 /**
- * Collection of IRepository.
- *
- * Cares about repository initialization.
- * It is the entry point into model from other parts of application.
- * Stores container of services which other objects may need.
+ * @property-read App\Models\Rme\ArticlesRepository $articles
+ * @property-read App\Models\Rme\AuthorsRepository $authors
+ * @property-read App\Models\Rme\TagsRepository $tags
  */
 class RepositoryContainer extends Orm\RepositoryContainer
 {
 
 	/** @var array */
 	private $aliases = [];
+
+	protected $repositoryClasses = [];
 
 	/**
 	 * Automatically registers repository aliases
@@ -42,6 +44,27 @@ class RepositoryContainer extends Orm\RepositoryContainer
 				$this->aliases[$alias] = $repositoryClass;
 			}
 		}
+	}
+
+	/**
+	 * @param string
+	 * @param string
+	 * @return self
+	 * @throws RepositoryAlreadyRegisteredException
+	 */
+	public function register($alias, $repositoryClass)
+	{
+		$res = parent::register($alias, $repositoryClass);
+		$this->repositoryClasses[] = $repositoryClass;
+		return $res;
+	}
+
+	/**
+	 * @return string[] of class names
+	 */
+	public function getRepositoryClasses()
+	{
+		return $this->repositoryClasses;
 	}
 
 	/**

@@ -3,7 +3,10 @@
 namespace Bin\Commands\Schema;
 
 use App\Models\Orm\Model;
+use App\Models\Orm\RepositoryContainer;
+use App\Models\Orm\ServiceContainerFactory;
 use Bin\Commands\Command;
+use Bin\Services\DoctrineFactory;
 use Bin\Services\SchemaBuilder;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
@@ -20,10 +23,10 @@ class Diff extends Command
 			->setDescription('Builds database schema from mappers');
 	}
 
-	public function invoke(Connection $connection, Model $model, SchemaBuilder $schema)
+	public function invoke(DoctrineFactory $factory, SchemaBuilder $schema)
 	{
-		$current = $connection->getSchemaManager()->createSchema();
-		$target = $schema->create($model);
+		$current = $factory->create()->getSchemaManager()->createSchema();
+		$target = $schema->create();
 		$sqls = Comparator::compareSchemas($current, $target)->toSql(new MySqlPlatform());
 		foreach ($sqls as $sql)
 		{

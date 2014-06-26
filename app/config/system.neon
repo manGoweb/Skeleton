@@ -23,4 +23,4 @@ services:
 	dibiConnection: DibiConnection(%database%)
 	serviceContainerFactory: App\Models\Orm\ServiceContainerFactory(@dibiConnection, @performanceHelperCache)
 	performanceHelperCache: Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
-	orm: App\Models\Orm\RepositoryContainer(@serviceContainerFactory, %repositories%, @container)
+	orm: App\Models\Orm\RepositoryContainer(@serviceContainerFactory, [], @container)

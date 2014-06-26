@@ -2,109 +2,206 @@
 
 namespace Bin\Services;
 
+use App\InvalidArgumentException;
 use App\Models\Orm\Mapper;
-use App\Models\Orm\Model;
-use Doctrine\DBAL\Driver\DrizzlePDOMySql\Connection;
-use Doctrine\DBAL\Platforms\MySqlPlatform;
-use Doctrine\DBAL\Schema\Column;
-use Doctrine\DBAL\Schema\MySqlSchemaManager;
+use App\Models\Orm\Repository;
+use App\Models\Orm\RepositoryContainer;
+use App\Models\Orm\SqlConventional;
+use App\NotImplementedException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
 use Inflect\Inflect;
 use Nette\Object;
+use Nette\Reflection\AnnotationsParser as NAnnotationsParser;
 use Nette\Reflection\ClassType;
-use Nextras\Orm\Entity\Reflection\PropertyMetadata;
-use Nextras\Orm\Repository\Repository;
-use Nextras\Orm\StorageReflection\UnderscoredDbStorageReflection;
+use Orm\AnnotationMetaData;
+use Orm\AnnotationsParser;
+use Orm\MetaData;
+use Orm\RelationshipMetaData;
+use Orm\RelationshipMetaDataManyToMany;
+use Orm\RelationshipMetaDataManyToOne;
+use Orm\RelationshipMetaDataOneToMany;
 
 
 class SchemaBuilder extends Object
 {
 
-	public function create(Model $model)
+
+	/**
+	 * @var RepositoryContainer
+	 */
+	private $repos;
+
+	/**
+	 * @var AnnotationsParser
+	 */
+	private $parser;
+
+	public function __construct(RepositoryContainer $repos)
+	{
+		$this->repos = $repos;
+		$this->parser = $this->repos->getContext()->getService('annotationsParser');
+	}
+
+	public function create()
 	{
 		$schema = new Schema();
-		foreach ($model->getRepositories()['entity'] as $entityClass => $repoClass)
+		foreach ($this->repos->getRepositoryClasses() as $repoClass)
 		{
-			$this->createTable($schema, $model, $entityClass, $repoClass);
+			/** @var Repository $repo */
+			$repo = $this->repos->getRepository($repoClass);
+
+			$this->createTable($schema, $repo);
 		}
 		return $schema;
 	}
 
-	protected function createTable(Schema $schema, Model $model, $entityClass, $repoClass)
+	/**
+	 * @param string $entityClass
+	 * @return MetaData
+	 */
+	private function getEntityMetaData($entityClass)
 	{
-		/** @var Repository $repo */
-		$repo = $model->getRepository($repoClass);
+		$meta = new MetaData($entityClass);
+		AnnotationMetaData::getMetaData($meta, $this->parser);
+		return $meta;
+	}
+
+	protected function createTable(Schema $schema, Repository $repo)
+	{
 		/** @var Mapper $mapper */
 		$mapper = $repo->getMapper();
+
+		$conventional = new SqlConventional($mapper);
 
 		$tableName = $mapper->getTableName();
 		$table = $schema->createTable($tableName);
 
-		$meta = $model->getMetadataStorage()->get($entityClass);
-		foreach ($meta->getProperties() as $param)
+		$repoReflection = ClassType::from($repo);
+
+		$meta = $this->getEntityMetaData($repo->getEntityClassName());
+
+		foreach ($meta->toArray() as $paramName => $param)
 		{
-			if ($param->relationshipType === PropertyMetadata::RELATIONSHIP_ONE_HAS_MANY)
+			$name = $this->toUnderscoreCase($paramName);
+			$options = ['notnull' => !isset($param['types']['null'])];
+
+			unset($param['types']['null']);
+
+			/** @var NULL|RelationshipMetaData $relation */
+			$relation = $param['relationshipParam'];
+			if ($relation instanceof RelationshipMetaDataOneToMany)
 			{
+				// no change to this table
 				continue;
 			}
-			else if ($param->relationshipType === PropertyMetadata::RELATIONSHIP_MANY_HAS_MANY)
+			else if ($relation instanceof RelationshipMetaDataManyToMany)
 			{
-				if (!$param->relationshipIsMain)
+				// no change to this table, but want to create a join table
+				/** @var NULL|RelationshipMetaDataManyToMany $relation */
+
+				if ($relation->getWhereIsMapped() === RelationshipMetaDataManyToMany::MAPPED_THERE)
 				{
 					continue;
 				}
+				// mapped here, create mapping table
 
 				/** @var Repository $targetRepo */
-				$targetRepo = $model->getRepository($param->relationshipRepository);
-				$joinTableName = $mapper->getStorageReflection()->getManyHasManyStorageName($targetRepo->getMapper());
+				$childRepo = $this->repos->getRepository($relation->getChildRepository());
+				$joinTableName = $conventional->getManyToManyTable($repo, $childRepo);
 				$joinTable = $schema->createTable($joinTableName);
 
-				$columnThis = Inflect::singularize($param->name) . '_id';
-				$joinTable->addColumn($columnThis, 'integer');
+				$columnThis = Inflect::singularize($paramName) . '_id';
+				$joinTable->addColumn($columnThis, 'integer', ['unsigned' => TRUE]);
 				$joinTable->addForeignKeyConstraint($tableName, [$columnThis], ['id']);
 
-				$columnThat = Inflect::singularize($param->relationshipProperty) . '_id';
-				$joinTable->addColumn($columnThat, 'integer');
-				$joinTable->addForeignKeyConstraint($targetRepo->getMapper()->getTableName(), [$columnThat], ['id']);
+				$columnThat = Inflect::singularize($relation->getChildParam()) . '_id';
+				$joinTable->addColumn($columnThat, 'integer', ['unsigned' => TRUE]);
+				$joinTable->addForeignKeyConstraint($childRepo->getMapper()->getTableName(), [$columnThat], ['id']);
 
 				$joinTable->setPrimaryKey([$columnThis, $columnThat]);
 				continue;
 			}
-
-			$name = UnderscoredDbStorageReflection::underscore($param->name);
-
-			$type = NULL;
-			foreach (array_keys($param->types) as $type)
+			else if ($relation instanceof RelationshipMetaDataManyToOne)
 			{
-				if ($type === 'nextras\orm\relationships\manyhasone')
+				// add foo_id
+				/** @var NULL|RelationshipMetaDataManyToOne $relation */
+				$table->addColumn("{$paramName}_id", 'integer', $options);
+			}
+			else if ($relation === NULL && isset($param['types']['id']))
+			{
+				$table->addColumn($name, 'integer', $options + ['unsigned' => TRUE, 'autoincrement' => TRUE]);
+			}
+			else if ($relation === NULL)
+			{
+				$typesByPriority = ['id', 'datetime', 'string', 'float', 'integer'];
+
+				foreach ($typesByPriority as $type)
 				{
-					continue;
+					if (isset($param['types'][$type]))
+					{
+						$table->addColumn($name, $type, $options);
+						break;
+					}
 				}
-				break;
-				// use current $type
-			}
-
-			if (strpos($type, 'app\\') === 0)
-			{
-				$name = "{$name}_id";
-				$table->addColumn($name, 'integer');
-
-				$fTable = Inflect::pluralize(ClassType::from($type)->getShortName());
-				$table->addForeignKeyConstraint($fTable, [$name], ['id']);
-			}
-			else if ($param->name === 'id')
-			{
-				$type = 'integer';
-				$table->addColumn($name, 'integer', ['autoincrement' => TRUE]);
 			}
 			else
 			{
-				$table->addColumn($name, $type);
+				throw new NotImplementedException;
 			}
 		}
 
-		$table->setPrimaryKey($meta->primaryKey);
+		$table->setPrimaryKey(['id']);
+	}
+
+	/**
+	 * @param Table $table
+	 * @param string $name
+	 * @param array $param
+	 * @return string
+	 */
+	private function createColumn(Table $table, $name, $param)
+	{
+		$typesByPriority = ['id', 'datetime', 'string', 'float', 'integer'];
+
+		$options = ['nullable' => isset($param['types']['null'])];
+		unset($param['types']['null']);
+
+		foreach ($typesByPriority as $type)
+		{
+			if (isset($param['types'][$type]))
+			{
+				if ($type === 'id')
+				{
+					$table->addColumn($name, 'integer', $options + ['autoincrement' => TRUE]);
+					return;
+				}
+				$table->addColumn($name, $type, $options);
+				return;
+			}
+		}
+
+		if (count($param['types']) !== 1)
+		{
+			// TODO pick one at random (preferably string) and warn about it
+			throw new InvalidArgumentException('Ambiguous resolution');
+		}
+		$type = NULL;
+		foreach ($param['types'] as $type) { /* assign $type */ }
+		$table->addColumn("{$name}_id", 'integer', $options);
+		var_dump($name);
+		var_dump($param['relationshipParam']);die;
+//		$table->addForeignKeyConstraint();
+	}
+
+	/**
+	 * @param string $key
+	 * @return string
+	 */
+	private function toUnderscoreCase($key)
+	{
+		$s = preg_replace('#(.)(?=[A-Z])#', '$1_', $key);
+		return strtolower($s);
 	}
 
 }
