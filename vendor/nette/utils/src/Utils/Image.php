@@ -161,35 +161,26 @@ class Image extends Nette\Object
 
 		$info = @getimagesize($file); // @ - files smaller than 12 bytes causes read error
 
-		set_error_handler(function ($severity, $message) {
-			restore_error_handler();
-			throw new ImageException($message);
-		});
 		switch ($format = $info[2]) {
 			case self::JPEG:
-				$resource = imagecreatefromjpeg($file);
-				break;
+				return new static(imagecreatefromjpeg($file));
 
 			case self::PNG:
-				$resource = imagecreatefrompng($file);
-				break;
+				return new static(imagecreatefrompng($file));
 
 			case self::GIF:
-				$resource = imagecreatefromgif($file);
-				break;
+				return new static(imagecreatefromgif($file));
 
 			default:
-				restore_error_handler();
 				throw new UnknownImageFileException("Unknown image type or file '$file' not found.");
 		}
-		restore_error_handler();
-
-		return new static($resource);
 	}
 
 
 	/**
-	 * @deprecated
+	 * Get format from the image stream in the string.
+	 * @param  string
+	 * @return mixed  detected image format
 	 */
 	public static function getFormatFromString($s)
 	{
@@ -211,18 +202,9 @@ class Image extends Nette\Object
 			throw new Nette\NotSupportedException('PHP extension GD is not loaded.');
 		}
 
-		if (func_num_args() > 1) {
-			$format = static::getFormatFromString($s);
-		}
+		$format = static::getFormatFromString($s);
 
-		set_error_handler(function ($severity, $message) {
-			restore_error_handler();
-			throw new ImageException($message);
-		});
-		$resource = imagecreatefromstring($s);
-		restore_error_handler();
-
-		return new static($resource);
+		return new static(imagecreatefromstring($s));
 	}
 
 
@@ -559,7 +541,7 @@ class Image extends Nette\Object
 				return imagegif($this->image, $file);
 
 			default:
-				throw new Nette\InvalidArgumentException('Unsupported image type \'$type\'.');
+				throw new Nette\InvalidArgumentException('Unsupported image type.');
 		}
 	}
 
@@ -604,7 +586,7 @@ class Image extends Nette\Object
 	public function send($type = self::JPEG, $quality = NULL)
 	{
 		if ($type !== self::GIF && $type !== self::PNG && $type !== self::JPEG) {
-			throw new Nette\InvalidArgumentException('Unsupported image type \'$type\'.');
+			throw new Nette\InvalidArgumentException('Unsupported image type.');
 		}
 		header('Content-Type: ' . image_type_to_mime_type($type));
 		return $this->save(NULL, $quality, $type);
@@ -655,16 +637,8 @@ class Image extends Nette\Object
 
 
 /**
- * The exception that is thrown when an image error occurs.
- */
-class ImageException extends \Exception
-{
-}
-
-
-/**
  * The exception that indicates invalid image file.
  */
-class UnknownImageFileException extends ImageException
+class UnknownImageFileException extends \Exception
 {
 }

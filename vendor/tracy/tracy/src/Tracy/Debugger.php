@@ -23,7 +23,7 @@ use Tracy,
 class Debugger
 {
 	/** @var string */
-	public static $version = '2.3-dev';
+	public static $version = '2.2.2';
 
 	/** @var bool in production mode is suppressed any debugging output */
 	public static $productionMode = self::DETECT;
@@ -172,14 +172,15 @@ class Debugger
 		if ($email !== NULL) {
 			self::$email = $email;
 		}
-		if ($logDirectory !== NULL) {
-			self::$logDirectory = $logDirectory;
+		if (is_string($logDirectory)) {
+			self::$logDirectory = realpath($logDirectory);
+			if (self::$logDirectory === FALSE) {
+				self::_exceptionHandler(new \RuntimeException("Log directory is not found or is not directory."));
+			}
+		} elseif ($logDirectory === FALSE) {
+			self::$logDirectory = NULL;
 		}
 		if (self::$logDirectory) {
-			if (!is_dir(self::$logDirectory) || !preg_match('#([a-z]:)?[/\\\\]#Ai', self::$logDirectory)) {
-				self::$logDirectory = NULL;
-				self::_exceptionHandler(new \RuntimeException('Logging directory not found or is not absolute path.'));
-			}
 			ini_set('error_log', self::$logDirectory . '/php_error.log');
 		}
 

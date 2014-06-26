@@ -184,13 +184,61 @@ class ContainerBuilder extends Nette\Object
 	{
 		$this->classes = FALSE;
 
+		// prepare generated factories
 		foreach ($this->definitions as $name => $def) {
-			// prepare generated factories
-			if ($def->implement) {
-				$this->resolveImplement($def, $name);
+			if (!$def->implement) {
+				continue;
 			}
 
-			// complete class-factory pairs
+			if (!interface_exists($def->implement)) {
+				throw new ServiceCreationException("Interface $def->implement has not been found.");
+			}
+			$rc = Reflection\ClassType::from($def->implement);
+			$method = $rc->hasMethod('create') ? $rc->getMethod('create') : ($rc->hasMethod('get') ? $rc->getMethod('get') : NULL);
+			if (count($rc->getMethods()) !== 1 || !$method || $method->isStatic()) {
+				throw new ServiceCreationException("Interface $def->implement must have just one non-static method create() or get().");
+			}
+			$def->implement = $rc->getName();
+			$def->implementType = $rc->hasMethod('create') ? 'create' : 'get';
+
+			if (!$def->class && empty($def->factory->entity)) {
+				$returnType = $method->getAnnotation('return');
+				if (!$returnType) {
+					throw new ServiceCreationException("Method $method has not @return annotation.");
+				}
+
+				$returnType = Reflection\AnnotationsParser::expandClassName(preg_replace('#[|\s].*#', '', $returnType), $rc);
+				if (!class_exists($returnType)) {
+					throw new ServiceCreationException("Please check a @return annotation of the $method method. Class '$returnType' cannot be found.");
+				}
+				$def->setClass($returnType);
+			}
+
+			if ($method->getName() === 'get') {
+				if ($method->getParameters()) {
+					throw new ServiceCreationException("Method $method must have no arguments.");
+				}
+				if (empty($def->factory->entity)) {
+					$def->setFactory('@\\' . ltrim($def->class, '\\'));
+				} elseif (!$this->getServiceName($def->factory->entity)) {
+					throw new ServiceCreationException("Invalid factory in service '$name' definition.");
+				}
+			}
+
+			if (!$def->parameters) {
+				foreach ($method->getParameters() as $param) {
+					$paramDef = ($param->isArray() ? 'array' : $param->getClassName()) . ' ' . $param->getName();
+					if ($param->isOptional()) {
+						$def->parameters[$paramDef] = $param->getDefaultValue();
+					} else {
+						$def->parameters[] = $paramDef;
+					}
+				}
+			}
+		}
+
+		// complete class-factory pairs
+		foreach ($this->definitions as $name => $def) {
 			if (!$def->factory || !$def->factory->entity) {
 				if (!$def->class) {
 					throw new ServiceCreationException("Class and factory are missing in service '$name' definition.");
@@ -201,19 +249,31 @@ class ContainerBuilder extends Nette\Object
 					$def->factory = new Statement($def->class);
 				}
 			}
+		}
 
-			// auto-disable autowiring for aliases
-			if (($alias = $this->getServiceName($def->factory->entity)) &&
-				(!$def->implement || (!Strings::contains($alias, '\\') && $this->definitions[$alias]->implement))
-			) {
-				$def->autowired = FALSE;
+		// check if services are instantiable
+		foreach ($this->definitions as $name => $def) {
+			$factory = $def->factory->entity = $this->normalizeEntity($def->factory->entity);
+
+			if (is_string($factory) && preg_match('#^[\w\\\\]+\z#', $factory) && $factory !== self::THIS_SERVICE) {
+				if (!class_exists($factory) || !Reflection\ClassType::from($factory)->isInstantiable()) {
+					throw new ServiceCreationException("Class $factory used in service '$name' has not been found or is not instantiable.");
+				}
 			}
 		}
 
-		// resolve and check classes
+		// complete classes
 		foreach ($this->definitions as $name => $def) {
-			$this->resolveServiceClass($name);
+			$this->resolveClass($name);
+
+			if (!$def->class) {
+				continue;
+			} elseif (!class_exists($def->class) && !interface_exists($def->class)) {
+				throw new ServiceCreationException("Class or interface $def->class used in service '$name' has not been found.");
+			} else {
+				$def->class = Reflection\ClassType::from($def->class)->getName();
 			}
+		}
 
 		//  build auto-wiring list
 		$this->classes = array();
@@ -232,57 +292,7 @@ class ContainerBuilder extends Nette\Object
 	}
 
 
-	private function resolveImplement(ServiceDefinition $def, $name)
-	{
-		if (!interface_exists($def->implement)) {
-			throw new ServiceCreationException("Interface $def->implement used in service '$name' has not been found.");
-		}
-		$rc = Reflection\ClassType::from($def->implement);
-		$method = $rc->hasMethod('create') ? $rc->getMethod('create') : ($rc->hasMethod('get') ? $rc->getMethod('get') : NULL);
-		if (count($rc->getMethods()) !== 1 || !$method || $method->isStatic()) {
-			throw new ServiceCreationException("Interface $def->implement used in service '$name' must have just one non-static method create() or get().");
-		}
-		$def->implement = $rc->getName();
-		$def->implementType = $rc->hasMethod('create') ? 'create' : 'get';
-
-		if (!$def->class && empty($def->factory->entity)) {
-			$returnType = $method->getAnnotation('return');
-			if (!$returnType) {
-				throw new ServiceCreationException("Method $method used in service '$name' has not @return annotation.");
-			}
-
-			$returnType = Reflection\AnnotationsParser::expandClassName(preg_replace('#[|\s].*#', '', $returnType), $rc);
-			if (!class_exists($returnType)) {
-				throw new ServiceCreationException("Please check a @return annotation of the $method method used in service '$name'. Class '$returnType' cannot be found.");
-			}
-			$def->setClass($returnType);
-		}
-
-		if ($method->getName() === 'get') {
-			if ($method->getParameters()) {
-				throw new ServiceCreationException("Method $method used in service '$name' must have no arguments.");
-			}
-			if (empty($def->factory->entity)) {
-				$def->setFactory('@\\' . ltrim($def->class, '\\'));
-			} elseif (!$this->getServiceName($def->factory->entity)) {
-				throw new ServiceCreationException("Invalid factory in service '$name' definition.");
-			}
-		}
-
-		if (!$def->parameters) {
-			foreach ($method->getParameters() as $param) {
-				$paramDef = ($param->isArray() ? 'array' : $param->getClassName()) . ' ' . $param->getName();
-				if ($param->isOptional()) {
-					$def->parameters[$paramDef] = $param->getDefaultValue();
-				} else {
-					$def->parameters[] = $paramDef;
-				}
-			}
-		}
-	}
-
-
-	private function resolveServiceClass($name, $recursive = array())
+	private function resolveClass($name, $recursive = array())
 	{
 		if (isset($recursive[$name])) {
 			throw new ServiceCreationException(sprintf('Circular reference detected for services: %s.', implode(', ', array_keys($recursive))));
@@ -290,55 +300,52 @@ class ContainerBuilder extends Nette\Object
 		$recursive[$name] = TRUE;
 
 		$def = $this->definitions[$name];
-		$class = $this->resolveEntityClass($def->factory->entity, $recursive); // call always to check entities
-		if ($def->class = $def->class ?: $class) {
-			if (!class_exists($def->class) && !interface_exists($def->class)) {
-				throw new ServiceCreationException("Class or interface $def->class used in service '$name' has not been found.");
-			}
-			$def->class = Reflection\ClassType::from($def->class)->getName();
-		}
-		return $def->class;
-	}
+		$factory = $def->factory->entity;
 
+		if ($def->class) {
+			return $def->class;
 
-	private function resolveEntityClass($entity, $recursive = array())
-	{
-		$entity = $this->normalizeEntity($entity instanceof Statement ? $entity->entity : $entity);
-
-		if (is_array($entity)) {
-			if (($service = $this->getServiceName($entity[0])) || $entity[0] instanceof Statement) {
-				$entity[0] = $this->resolveEntityClass($entity[0], $recursive);
-				if (!$entity[0]) {
-					return;
-				} elseif (!empty($this->definitions[$service]->implement)) { // @Implement::create
-					return $entity[1] === 'create' ? $this->resolveServiceClass($service, $recursive) : NULL;
+		} elseif (is_array($factory)) { // method calling
+			if ($service = $this->getServiceName($factory[0])) {
+				if (Strings::contains($service, '\\')) { // @\Class
+					$factory[0] = $service;
+				} else {
+					$factory[0] = $this->resolveClass($service, $recursive);
+					if (!$factory[0]) {
+						return;
+					}
+					if ($this->definitions[$service]->implement && $factory[1] === 'create') {
+						return $def->class = $factory[0];
+					}
 				}
 			}
-
+			if (!is_callable($factory)) {
+				throw new ServiceCreationException(sprintf("Factory '%s' is not callable.", Nette\Utils\Callback::toString($factory)));
+			}
 			try {
-				$reflection = Nette\Utils\Callback::toReflection($entity);
+				$reflection = Nette\Utils\Callback::toReflection($factory);
 			} catch (\ReflectionException $e) {
-				$name = array_slice(array_keys($recursive), -1);
-				throw new ServiceCreationException(sprintf("Factory '%s' used in service '%s' is not callable.", Nette\Utils\Callback::toString($entity), $name[0]));
+				throw new ServiceCreationException(sprintf("Missing factory '%s'.", Nette\Utils\Callback::toString($factory)));
 			}
-			$class = preg_replace('#[|\s].*#', '', $reflection->getAnnotation('return'));
-			if ($class && $reflection instanceof \ReflectionMethod) {
-				$class = Reflection\AnnotationsParser::expandClassName($class, $reflection->getDeclaringClass());
+			$def->class = preg_replace('#[|\s].*#', '', $reflection->getAnnotation('return'));
+			if ($def->class && $reflection instanceof \ReflectionMethod) {
+				$def->class = Reflection\AnnotationsParser::expandClassName($def->class, $reflection->getDeclaringClass());
 			}
-			return $class;
 
-		} elseif ($service = $this->getServiceName($entity)) { // alias or factory
+		} elseif ($service = $this->getServiceName($factory)) { // alias or factory
+			if (!$def->implement) {
+				$def->autowired = FALSE;
+			}
 			if (Strings::contains($service, '\\')) { // @\Class
-				return $service;
+				return $def->class = $service;
 			}
-			return $this->definitions[$service]->implement ?: $this->resolveServiceClass($service, $recursive);
+			if ($this->definitions[$service]->implement) {
+				$def->autowired = FALSE;
+			}
+			return $def->class = $this->definitions[$service]->implement ?: $this->resolveClass($service, $recursive);
 
-		} elseif (is_string($entity)) {
-			if (!class_exists($entity) || !Reflection\ClassType::from($entity)->isInstantiable()) {
-				$name = array_slice(array_keys($recursive), -1);
-				throw new ServiceCreationException("Class $entity used in service '$name[0]' has not been found or is not instantiable.");
-			}
-			return $entity;
+		} else {
+			return $def->class = $factory; // class name
 		}
 	}
 
@@ -535,9 +542,6 @@ class ContainerBuilder extends Nette\Object
 		if (is_string($entity) && Strings::contains($entity, '?')) { // PHP literal
 			return $this->formatPhp($entity, $arguments);
 
-		} elseif ($entity instanceof Statement) {
-			return $this->formatPhp("call_user_func_array(?, ?)", array($entity, $arguments));
-
 		} elseif ($service = $this->getServiceName($entity)) { // factory calling
 			$params = array();
 			foreach ($this->definitions[$service]->parameters as $k => $v) {
@@ -564,9 +568,6 @@ class ContainerBuilder extends Nette\Object
 
 		} elseif ($entity[0] === '') { // globalFunc
 			return $this->formatPhp("$entity[1](?*)", array($arguments));
-
-		} elseif ($entity[0] instanceof Statement) {
-			return $this->formatPhp("call_user_func_array(?, ?)", array($entity, $arguments));
 
 		} elseif (Strings::contains($entity[1], '$')) { // property setter
 			Validators::assert($arguments, 'list:1', "setup arguments for '" . Nette\Utils\Callback::toString($entity) . "'");
@@ -671,7 +672,7 @@ class ContainerBuilder extends Nette\Object
 		} elseif (is_array($entity) && $entity[0] === $this) { // [$this, ...] -> [@container, ...]
 			$entity[0] = '@' . ContainerBuilder::THIS_CONTAINER;
 		}
-		return $entity; // Class, @service, [Class, member], [@service, member], [, globalFunc], Statement
+		return $entity; // Class, @service, [Class, member], [@service, member], [, globalFunc]
 	}
 
 
@@ -681,7 +682,6 @@ class ContainerBuilder extends Nette\Object
 	 */
 	public function getServiceName($arg)
 	{
-		$arg = $this->normalizeEntity($arg);
 		if (!is_string($arg) || !preg_match('#^@[\w\\\\.].*\z#', $arg)) {
 			return FALSE;
 		}

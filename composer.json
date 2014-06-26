@@ -1,9 +1,8 @@
 {
-	"name": "khanovaskola/maraton",
-	"description": "Event registration system",
-	"homepage": "https://maraton.khanovaskola.cz",
+	"name": "clevis/project",
+	"description": "Default files for new projects (formerly  skeleton)",
 	"type": "project",
-	"license": ["MIT"],
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "David Grudl",
@@ -12,26 +11,32 @@
 		{
 			"name": "Nette Community",
 			"homepage": "http://nette.org/contributors"
+		},
+		{
+			"name": "Clevis s.r.o.",
+			"homepage": "http://clevis.cz"
 		}
 	],
 	"require": {
 		"php": "~5.5",
-		"nextras/nette-framework": "~2.2.0",
-		"nextras/orm": "@dev",
-		"kdyby/console": "@dev",
-		"doctrine/dbal": "@dev",
-		"kdyby/monolog": "@dev",
+		"nette/nette": "~2.2.0",
+		"dibi/dibi": "~2.2.0",
+		"petrp/orm": "~0.4.0",
+		"kdyby/console": "dev-master#9564ff1",
+		"kdyby/monolog": "dev-master#451c83c",
+		"doctrine/dbal": "~2.4.0",
 		"nextras/migrations": "~2.3.0",
 		"pda/pheanstalk": "~3.0.0"
 	},
 	"require-dev": {
-		"nette/tester": "~1.0",
+		"nette/tester": "~1.2.0",
 		"mikulas/lattecs": "~0.3.0-beta",
 		"mikulas/code-sniffs": "~1.1.0",
 		"symfony/process": "~2.5.0",
-		"jdorn/sql-formatter": "~1.2.17"
+		"jdorn/sql-formatter": "~1.2.17",
+		"oodle/inflect": "~0.2.0"
 	},
-	"minimum-stability": "dev",
+	"minimum-stability": "stable",
 	"scripts": {
 		"post-update-cmd": ["echo Warning: Deleting all .git dirs under vendor ", "rm -rf vendor/**/**/.git"],
 		"post-install-cmd": ["echo Warning: Deleting all .git dirs under vendor", "rm -rf vendor/**/**/.git"]
@@ -39,11 +44,11 @@
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "https://github.com/mikulas/monolog"
+			"url": "https://github.com/mikulas/code-sniffs"
 		},
 		{
-			"type": "vcs",
-			"url": "https://github.com/mikulas/code-sniffs"
+			"type": "composer",
+			"url": "http://orm.petrprochazka.com/composer"
 		}
 	]
 }

@@ -15,7 +15,7 @@ use Nette;
  *
  * @author     David Grudl
  *
- * @method Statement setEntity(string|array|Nette\DI\Statement)
+ * @method Statement setEntity(string|array)
  * @method string getEntity()
  */
 class Statement extends Nette\Object

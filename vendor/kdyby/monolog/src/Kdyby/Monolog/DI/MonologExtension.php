@@ -87,10 +87,12 @@ class MonologExtension extends CompilerExtension
 		$config = $this->getConfig(array('registerFallback' => empty($handlers)) + $this->getConfig($this->defaults));
 
 		if ($config['registerFallback']) {
-			$code = new Code\PhpLiteral('Tracy\Debugger::getLogger()');
+			$code = method_exists('Nette\Diagnostics\Debugger', 'getLogger')
+				? 'Nette\Diagnostics\Debugger::getLogger()'
+				: 'Nette\Diagnostics\Debugger::$logger';
 
 			$logger->addSetup('pushHandler', array(
-				new Statement('Kdyby\Monolog\Handler\FallbackNetteHandler', array($code))
+				new Statement('Kdyby\Monolog\Handler\FallbackNetteHandler', array(new Code\PhpLiteral($code)))
 			));
 		}
 	}
@@ -104,7 +106,13 @@ class MonologExtension extends CompilerExtension
 		if ($config['hookToTracy'] === TRUE) {
 			$initialize = $class->methods['initialize'];
 
-			$code = '\Tracy\Debugger::setLogger($this->getService(?));';
+			if (method_exists('Nette\Diagnostics\Debugger', 'setLogger')) {
+				$code = '\Nette\Diagnostics\Debugger::setLogger($this->getService(?));';
+
+			} else {
+				$code = '\Nette\Diagnostics\Debugger::$logger = $this->getService(?);';
+			}
+
 			$initialize->addBody($code, array($this->prefix('adapter')));
 		}
 	}

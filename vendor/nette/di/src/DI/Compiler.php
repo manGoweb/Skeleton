@@ -181,7 +181,7 @@ class Compiler extends Nette\Object
 		foreach ($all as $origName => $def) {
 			if ((string) (int) $origName === (string) $origName) {
 				$name = count($builder->getDefinitions())
-					. preg_replace('#\W+#', '_', $def instanceof Statement ? ".$def->entity" : (is_scalar($def) ? ".$def" : ''));
+					. preg_replace('#\W+#', '_', $def instanceof \stdClass ? ".$def->value" : (is_scalar($def) ? ".$def" : ''));
 			} elseif (array_key_exists($origName, $services) && array_key_exists($origName, $factories)) {
 				throw new ServiceCreationException("It is not allowed to use services and factories with the same name: '$origName'.");
 			} else {
@@ -239,10 +239,10 @@ class Compiler extends Nette\Object
 		} elseif (is_string($config) && interface_exists($config)) {
 			$config = array('class' => NULL, 'implement' => $config);
 
-		} elseif ($config instanceof Statement && is_string($config->entity) && interface_exists($config->entity)) {
-			$config = array('class' => NULL, 'implement' => $config->entity, 'factory' => array_shift($config->arguments));
+		} elseif ($config instanceof \stdClass && interface_exists($config->value)) {
+			$config = array('class' => NULL, 'implement' => $config->value, 'factory' => array_shift($config->attributes));
 
-		} elseif (!is_array($config) || isset($config[0], $config[1])) {
+		} elseif (!is_array($config)) {
 			$config = array('class' => NULL, 'create' => $config);
 		}
 
@@ -256,12 +256,10 @@ class Compiler extends Nette\Object
 			throw new Nette\InvalidStateException(sprintf("Unknown or deprecated key '%s' in definition of service.", implode("', '", $error)));
 		}
 
-		$config = self::filterArguments($config);
-
 		$arguments = array();
 		if (array_key_exists('arguments', $config)) {
 			Validators::assertField($config, 'arguments', 'array');
-			$arguments = $config['arguments'];
+			$arguments = self::filterArguments($config['arguments']);
 			$definition->setArguments($arguments);
 		}
 
@@ -271,16 +269,21 @@ class Compiler extends Nette\Object
 		}
 
 		if (array_key_exists('class', $config)) {
-			Validators::assertField($config, 'class', 'string|Nette\DI\Statement|null');
-			if (!$config['class'] instanceof Statement) {
-				$definition->setClass($config['class']);
+			Validators::assertField($config, 'class', 'string|stdClass|null');
+			if ($config['class'] instanceof \stdClass) {
+				$definition->setClass($config['class']->value, self::filterArguments($config['class']->attributes));
+			} else {
+				$definition->setClass($config['class'], $arguments);
 			}
-			$definition->setFactory($config['class'], $arguments);
 		}
 
 		if (array_key_exists('create', $config)) {
-			Validators::assertField($config, 'create', 'callable|Nette\DI\Statement|null');
-			$definition->setFactory($config['create'], $arguments);
+			Validators::assertField($config, 'create', 'callable|stdClass|null');
+			if ($config['create'] instanceof \stdClass) {
+				$definition->setFactory($config['create']->value, self::filterArguments($config['create']->attributes));
+			} else {
+				$definition->setFactory($config['create'], $arguments);
+			}
 		}
 
 		if (isset($config['setup'])) {
@@ -289,8 +292,13 @@ class Compiler extends Nette\Object
 			}
 			Validators::assertField($config, 'setup', 'list');
 			foreach ($config['setup'] as $id => $setup) {
-				Validators::assert($setup, 'callable|Nette\DI\Statement', "setup item #$id");
-				$definition->addSetup($setup);
+				Validators::assert($setup, 'callable|stdClass', "setup item #$id");
+				if ($setup instanceof \stdClass) {
+					Validators::assert($setup->value, 'callable', "setup item #$id");
+					$definition->addSetup($setup->value, self::filterArguments($setup->attributes));
+				} else {
+					$definition->addSetup($setup);
+				}
 			}
 		}
 
@@ -336,7 +344,7 @@ class Compiler extends Nette\Object
 
 
 	/**
-	 * Removes ... recursively.
+	 * Removes ... and replaces entities with Statement.
 	 * @return array
 	 */
 	public static function filterArguments(array $args)
@@ -346,9 +354,8 @@ class Compiler extends Nette\Object
 				unset($args[$k]);
 			} elseif (is_array($v)) {
 				$args[$k] = self::filterArguments($v);
-			} elseif ($v instanceof Statement) {
-				$tmp = self::filterArguments(array($v->entity));
-				$args[$k] = new Statement($tmp[0], self::filterArguments($v->arguments));
+			} elseif ($v instanceof \stdClass && isset($v->value, $v->attributes)) {
+				$args[$k] = new Statement($v->value, self::filterArguments($v->attributes));
 			}
 		}
 		return $args;

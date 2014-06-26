@@ -157,11 +157,7 @@ class Decoder
 						$this->error();
 					}
 					$n++;
-					if ($value instanceof Entity && $value->value === Neon::CHAIN) {
-						end($value->attributes)->attributes = $this->parse(FALSE, array());
-					} else {
-						$value = new Entity($value, $this->parse(FALSE, array()));
-					}
+					$value = new Entity($value, $this->parse(FALSE, array()));
 				} else {
 					$n++;
 					$value = $this->parse(FALSE, array());
@@ -230,16 +226,10 @@ class Decoder
 					}
 				}
 
-			} elseif ($hasValue) { // Value
-				if ($value instanceof Entity) { // Entity chaining
-					if ($value->value !== Neon::CHAIN) {
-						$value = new Entity(Neon::CHAIN, array($value));
-					}
-					$value->attributes[] = new Entity($t);
-				} else {
+			} else { // Value
+				if ($hasValue) {
 					$this->error();
 				}
-			} else { // Value
 				static $consts = array(
 					'true' => TRUE, 'True' => TRUE, 'TRUE' => TRUE, 'yes' => TRUE, 'Yes' => TRUE, 'YES' => TRUE, 'on' => TRUE, 'On' => TRUE, 'ON' => TRUE,
 					'false' => FALSE, 'False' => FALSE, 'FALSE' => FALSE, 'no' => FALSE, 'No' => FALSE, 'NO' => FALSE, 'off' => FALSE, 'Off' => FALSE, 'OFF' => FALSE,

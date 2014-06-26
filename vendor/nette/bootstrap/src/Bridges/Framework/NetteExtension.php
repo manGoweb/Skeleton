@@ -69,7 +69,7 @@ class NetteExtension extends Nette\DI\CompilerExtension
 		),
 		'container' => array(
 			'debugger' => FALSE,
-			'accessors' => FALSE,
+			'accessors' => TRUE,
 		),
 		'debugger' => array(
 			'email' => NULL,
@@ -95,6 +95,7 @@ class NetteExtension extends Nette\DI\CompilerExtension
 			$config['latte']['xhtml'] = $config['xhtml'];
 			unset($config['xhtml']);
 		}
+		$container->addDefinition('nette')->setClass('Nette\Bridges\Framework\NetteAccessor', array('@container'));
 
 		$this->validate($config, $this->defaults, 'nette');
 
@@ -128,7 +129,8 @@ class NetteExtension extends Nette\DI\CompilerExtension
 		$container->addDefinition($this->prefix('cache'))
 			->setClass('Nette\Caching\Cache', array(1 => $container::literal('$namespace')))
 			->addSetup('::trigger_error', array('Service cache is deprecated.', E_USER_DEPRECATED))
-			->setParameters(array('namespace' => NULL));
+			->setParameters(array('namespace' => NULL))
+			->setAutowired(FALSE);
 	}
 
 
@@ -284,9 +286,8 @@ class NetteExtension extends Nette\DI\CompilerExtension
 		$container->addDefinition($this->prefix('templateFactory'))
 			->setClass('Nette\Bridges\ApplicationLatte\TemplateFactory');
 
-		$latte = $container->addDefinition($this->prefix('latte'))
+		$latte = $container->addDefinition($this->prefix('latte')) // deprecated
 			->setClass('Latte\Engine')
-			->addSetup('::trigger_error', array('Service nette.latte is deprecated, implement Nette\Bridges\ApplicationLatte\ILatteFactory.', E_USER_DEPRECATED))
 			->addSetup('setTempDirectory', array($container->expand('%tempDir%/cache/latte')))
 			->addSetup('setAutoRefresh', array($container->parameters['debugMode']))
 			->addSetup('setContentType', array($config['xhtml'] ? Latte\Compiler::CONTENT_XHTML : Latte\Compiler::CONTENT_HTML))
@@ -303,9 +304,8 @@ class NetteExtension extends Nette\DI\CompilerExtension
 		}
 
 		if (class_exists('Nette\Templating\FileTemplate')) {
-			$container->addDefinition($this->prefix('template'))
+			$container->addDefinition($this->prefix('template')) // deprecated
 				->setClass('Nette\Templating\FileTemplate')
-				->addSetup('::trigger_error', array('Service nette.template is deprecated.', E_USER_DEPRECATED))
 				->addSetup('registerFilter', array(new Nette\DI\Statement(array($latteFactory, 'create'))))
 				->addSetup('registerHelperLoader', array('Nette\Templating\Helpers::loader'))
 				->setAutowired(FALSE);

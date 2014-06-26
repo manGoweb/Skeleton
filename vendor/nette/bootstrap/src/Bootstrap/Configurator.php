@@ -22,7 +22,11 @@ use Nette,
  */
 class Configurator extends Object
 {
-	const AUTO = TRUE,
+	const AUTO = TRUE;
+
+	/** @deprecated */
+	const DEVELOPMENT = 'development',
+		PRODUCTION = 'production',
 		NONE = FALSE;
 
 	/** @var array of function(Configurator $sender, DI\Compiler $compiler); Occurs after the compiler is created */
@@ -150,7 +154,8 @@ class Configurator extends Object
 	{
 		if ($section === NULL && $this->parameters['debugMode']) { // back compatibility
 			try {
-				$this->createLoader()->load($file, $this->parameters['environment']);
+				$loader = new DI\Config\Loader;
+				$loader->load($file, $this->parameters['environment']);
 				trigger_error("Config file '$file' has sections, call addConfig() with second parameter Configurator::AUTO.", E_USER_WARNING);
 				$section = $this->parameters['environment'];
 			} catch (\Exception $e) {}
@@ -207,7 +212,7 @@ class Configurator extends Object
 	protected function getCacheDirectory()
 	{
 		if (empty($this->parameters['tempDir'])) {
-			throw new Nette\InvalidStateException("Set path to temporary directory using setTempDirectory().");
+			throw new Nette\InvalidStateException('Set path to temporary directory using setTempDirectory().');
 		}
 		$dir = $this->parameters['tempDir'] . '/cache';
 		if (!is_dir($dir)) {

@@ -48,9 +48,6 @@ class Compiler extends Object
 	/** @var string */
 	private $templateId;
 
-	/** @var mixed */
-	private $lastAttrValue;
-
 	/** Context-aware escaping content types */
 	const CONTENT_HTML = 'html',
 		CONTENT_XHTML = 'xhtml',
@@ -208,12 +205,10 @@ class Compiler extends Object
 
 	private function processText(Token $token)
 	{
-		if (in_array($this->context[0], array(self::CONTEXT_SINGLE_QUOTED_ATTR, self::CONTEXT_DOUBLE_QUOTED_ATTR), TRUE)) {
-			if ($token->text === $this->context[0]) {
-				$this->setContext(self::CONTEXT_UNQUOTED_ATTR);
-			} elseif ($this->lastAttrValue === '') {
-				$this->lastAttrValue = $token->text;
-			}
+		if (in_array($this->context[0], array(self::CONTEXT_SINGLE_QUOTED_ATTR, self::CONTEXT_DOUBLE_QUOTED_ATTR), TRUE)
+			&& $token->text === $this->context[0]
+		) {
+			$this->setContext(self::CONTEXT_UNQUOTED_ATTR);
 		}
 		$this->output .= $token->text;
 	}
@@ -221,10 +216,6 @@ class Compiler extends Object
 
 	private function processMacroTag(Token $token)
 	{
-		if (in_array($this->context[0], array(self::CONTEXT_SINGLE_QUOTED_ATTR, self::CONTEXT_DOUBLE_QUOTED_ATTR, self::CONTEXT_UNQUOTED_ATTR), TRUE)) {
-			$this->lastAttrValue = TRUE;
-		}
-
 		$isRightmost = !isset($this->tokens[$this->position + 1])
 			|| substr($this->tokens[$this->position + 1]->text, 0, 1) === "\n";
 
@@ -307,15 +298,14 @@ class Compiler extends Object
 			$htmlNode->closing = TRUE;
 		}
 
-		$this->setContext(NULL);
-
-		if ($htmlNode->closing) {
-			$this->htmlNode = $this->htmlNode->parentNode;
-
-		} elseif ((($lower = strtolower($htmlNode->name)) === 'script' || $lower === 'style')
-			&& (!isset($htmlNode->attrs['type']) || preg_match('#(java|j|ecma|live)script|css#i', $htmlNode->attrs['type']))
-		) {
+		$lower = strtolower($htmlNode->name);
+		if (!$htmlNode->closing && ($lower === 'script' || $lower === 'style')) {
 			$this->setContext($lower === 'script' ? self::CONTENT_JS : self::CONTENT_CSS);
+		} else {
+			$this->setContext(NULL);
+			if ($htmlNode->closing) {
+				$this->htmlNode = $this->htmlNode->parentNode;
+			}
 		}
 	}
 
@@ -334,16 +324,12 @@ class Compiler extends Object
 			return;
 		}
 
-		$this->lastAttrValue = & $this->htmlNode->attrs[$token->name];
+		$this->htmlNode->attrs[$token->name] = TRUE;
 		$this->output .= $token->text;
 
-		if (in_array($token->value, array(self::CONTEXT_SINGLE_QUOTED_ATTR, self::CONTEXT_DOUBLE_QUOTED_ATTR), TRUE)) {
-			$this->lastAttrValue = '';
-			$contextMain = $token->value;
-		} else {
-			$this->lastAttrValue = $token->value;
-			$contextMain = self::CONTEXT_UNQUOTED_ATTR;
-		}
+		$contextMain = in_array($token->value, array(self::CONTEXT_SINGLE_QUOTED_ATTR, self::CONTEXT_DOUBLE_QUOTED_ATTR), TRUE)
+			? $token->value
+			: self::CONTEXT_UNQUOTED_ATTR;
 
 		$context = NULL;
 		if (in_array($this->contentType, array(self::CONTENT_HTML, self::CONTENT_XHTML), TRUE)) {
