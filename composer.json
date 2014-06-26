@@ -36,6 +36,10 @@
 		"jdorn/sql-formatter": "~1.2.17",
 		"oodle/inflect": "~0.2.0"
 	},
+	"config": {
+		"preferred-install": "dist",
+		"optimize-autoloader": true
+	},
 	"minimum-stability": "stable",
 	"scripts": {
 		"post-update-cmd": ["echo Warning: Deleting all .git dirs under vendor ", "rm -rf vendor/**/**/.git"],
