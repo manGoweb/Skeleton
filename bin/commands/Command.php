@@ -2,7 +2,7 @@
 
 namespace Bin\Commands;
 
-use App\IncompleteDefinitionException;
+use App\ImplementationException;
 use Bin\Support\VariadicArgvInput;
 use Nette\DI\Container;
 use Symfony\Component\Console\Command\Command as SCommand;
@@ -32,7 +32,7 @@ abstract class Command extends SCommand
 		if (!method_exists($this, 'invoke'))
 		{
 			$class = get_class($this);
-			throw new IncompleteDefinitionException("Command $class must define method 'invoke'.");
+			throw new ImplementationException("Command $class must define method 'invoke'.");
 		}
 
 		/** @var Container $container */

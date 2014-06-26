@@ -2,13 +2,9 @@
 
 namespace Bin\Commands\Schema;
 
-use App\Models\Orm\Model;
-use App\Models\Orm\RepositoryContainer;
-use App\Models\Orm\ServiceContainerFactory;
 use Bin\Commands\Command;
 use Bin\Services\DoctrineFactory;
 use Bin\Services\SchemaBuilder;
-use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Schema\Comparator;
 use SqlFormatter;

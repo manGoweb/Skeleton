@@ -2,13 +2,10 @@
 
 namespace Bin\Commands\Scaffolding\Migration;
 
-use App\Models\Orm\Model;
-use App\Models\Orm\RepositoryContainer;
 use Bin\Commands\Scaffolding\Command;
 use Bin\Services\DoctrineFactory;
 use Bin\Services\Scaffolding;
 use Bin\Services\SchemaBuilder;
-use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Schema\Comparator;
 use SqlFormatter;

@@ -139,10 +139,10 @@ class RepositoryContainer extends Orm\RepositoryContainer
 	}
 
 	/**
-	 * Black magic. Work-arround pro nefunkční Repository::clean()
+	 * Black magic. Work-around pro nefunkční Repository::clean()
 	 * Vymaže změny v repozitáři (zapomene nové, změněné a načtené entity)
 	 *
-	 * @param Orm\Repository
+	 * @param Orm\Repository $repository
 	 */
 	public function purgeRepository(Orm\Repository $repository)
 	{

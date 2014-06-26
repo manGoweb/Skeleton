@@ -12,7 +12,6 @@ use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
 use Inflect\Inflect;
 use Nette\Object;
-use Nette\Reflection\AnnotationsParser as NAnnotationsParser;
 use Nette\Reflection\ClassType;
 use Orm\AnnotationMetaData;
 use Orm\AnnotationsParser;
@@ -77,8 +76,6 @@ class SchemaBuilder extends Object
 		$tableName = $mapper->getTableName();
 		$table = $schema->createTable($tableName);
 
-		$repoReflection = ClassType::from($repo);
-
 		$meta = $this->getEntityMetaData($repo->getEntityClassName());
 
 		foreach ($meta->toArray() as $paramName => $param)
@@ -117,7 +114,10 @@ class SchemaBuilder extends Object
 
 				$columnThat = Inflect::singularize($relation->getChildParam()) . '_id';
 				$joinTable->addColumn($columnThat, 'integer', ['unsigned' => TRUE]);
-				$joinTable->addForeignKeyConstraint($childRepo->getMapper()->getTableName(), [$columnThat], ['id']);
+
+				/** @var Mapper $childMapper */
+				$childMapper = $childRepo->getMapper();
+				$joinTable->addForeignKeyConstraint($childMapper->getTableName(), [$columnThat], ['id']);
 
 				$joinTable->setPrimaryKey([$columnThis, $columnThat]);
 				continue;
@@ -152,46 +152,6 @@ class SchemaBuilder extends Object
 		}
 
 		$table->setPrimaryKey(['id']);
-	}
-
-	/**
-	 * @param Table $table
-	 * @param string $name
-	 * @param array $param
-	 * @return string
-	 */
-	private function createColumn(Table $table, $name, $param)
-	{
-		$typesByPriority = ['id', 'datetime', 'string', 'float', 'integer'];
-
-		$options = ['nullable' => isset($param['types']['null'])];
-		unset($param['types']['null']);
-
-		foreach ($typesByPriority as $type)
-		{
-			if (isset($param['types'][$type]))
-			{
-				if ($type === 'id')
-				{
-					$table->addColumn($name, 'integer', $options + ['autoincrement' => TRUE]);
-					return;
-				}
-				$table->addColumn($name, $type, $options);
-				return;
-			}
-		}
-
-		if (count($param['types']) !== 1)
-		{
-			// TODO pick one at random (preferably string) and warn about it
-			throw new InvalidArgumentException('Ambiguous resolution');
-		}
-		$type = NULL;
-		foreach ($param['types'] as $type) { /* assign $type */ }
-		$table->addColumn("{$name}_id", 'integer', $options);
-		var_dump($name);
-		var_dump($param['relationshipParam']);die;
-//		$table->addForeignKeyConstraint();
 	}
 
 	/**

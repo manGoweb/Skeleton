@@ -56,6 +56,8 @@ class Run extends Command
 				return $r;
 			}
 		}
+
+		return 0;
 	}
 
 	private function callSystem($args)

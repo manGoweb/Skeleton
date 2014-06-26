@@ -2,7 +2,6 @@
 
 namespace App\Models\Orm;
 
-use Nette\Reflection\ClassType;
 use Orm;
 
 
@@ -30,8 +29,8 @@ class SqlConventional extends Orm\SqlConventional
 
 			// transform camelCase to snake_case
 			$this->tableCache[$class] = strtolower(
-				preg_replace('/([A-Z]+)([A-Z])/','\1_\2',
-					preg_replace('/([a-z\d])([A-Z])/','\1_\2', $name)));
+				preg_replace('/([A-Z]+)([A-Z])/', '\1_\2',
+					preg_replace('/([a-z\d])([A-Z])/', '\1_\2', $name)));
 		}
 
 		return $this->tableCache[$class];
