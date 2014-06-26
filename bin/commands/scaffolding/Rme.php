@@ -40,7 +40,7 @@ class Rme extends Command
 		$this->out->writeln("\n<comment>Don't forget to add repository to your Model class</comment>");
 
 		$plural = Inflect::pluralize($name);
-		$repoClass = ucFirst($plural) . 'Repository';
+		$repoClass = 'App\\Models\\Rme\\' . ucFirst($plural) . 'Repository';
 		$param = lcFirst($plural);
 		$this->out->writeln(" * @property-read $repoClass \$$param");
 	}

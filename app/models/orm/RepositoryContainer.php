@@ -11,9 +11,6 @@ use Orm\RepositoryNotFoundException;
 
 
 /**
- * @property-read App\Models\Rme\ArticlesRepository $articles
- * @property-read App\Models\Rme\AuthorsRepository $authors
- * @property-read App\Models\Rme\TagsRepository $tags
  */
 class RepositoryContainer extends Orm\RepositoryContainer
 {
