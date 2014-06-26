@@ -2,7 +2,7 @@
 
 namespace Tests\Cases\Unit;
 
-use App\Models\Orm\Model;
+use App\Models\Orm\RepositoryContainer;
 use Tester\Assert;
 use Tests\TestCase;
 
@@ -13,9 +13,9 @@ class DummyTest extends TestCase
 {
 
 	/**
-	 * @var Model @inject
+	 * @var RepositoryContainer @inject
 	 */
-	public $model;
+	public $repos;
 
 	public function testSomething()
 	{

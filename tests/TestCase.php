@@ -30,7 +30,9 @@ class TestCase extends Tester\TestCase
 		$this->setUp();
 		try {
 			call_user_func_array(array($this, $name), $args);
-		} catch (\Exception $e) {}
+		} catch (\Exception $e) {
+			// method does not exist
+		}
 
 		try
 		{
@@ -53,7 +55,7 @@ class TestCase extends Tester\TestCase
 		foreach (ClassType::from($this)->getMethods(Method::IS_PUBLIC) as $method)
 		{
 			$name = $method->getShortName();
-			if (preg_match(TestCase::METHOD_PATTERN, $name))
+			if (preg_match(static::METHOD_PATTERN, $name))
 			{
 				$tests[] = $name;
 			}
