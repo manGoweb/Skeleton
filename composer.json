@@ -2,7 +2,7 @@
 	"name": "clevis/project",
 	"description": "Default files for new projects (formerly  skeleton)",
 	"type": "project",
-	"license": "MIT",
+	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 	"authors": [
 		{
 			"name": "David Grudl",

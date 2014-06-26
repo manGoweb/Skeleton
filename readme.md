@@ -1,11 +1,12 @@
-Nette Framework Sandbox
-=======================
+Clevis Skeleton 22
+==================
 
 ## Requirements
 
-- nodejs
-- phantomjs
-- casperjs
+- beanstalkd (task queuing)
+- nodejs (building frontend)
+- phantomjs (acceptance tests)
+- casperjs (acceptance tests)
 
 ## Pro-tips
 
@@ -14,6 +15,8 @@ Nette Framework Sandbox
 or similar quick command.
 
 **Autocomplete:** for zsh https://github.com/zsh-users/zsh-completions/blob/master/src/_console#L42-L53
+
+# Backend
 
 ## Commands
 
@@ -69,4 +72,16 @@ php www/index.php migrations:migrate
 Run with
 ```
 php www/index.php worker
+```
+
+# Frontend
+
+Build all
+```
+grunt
+```
+
+Build all without uglifying, watch for changes and live reload:
+```
+grunt dev
 ```
