@@ -7,10 +7,14 @@
 
 parameters:
 	database:
-		dbname: marathons
-		user: root
+		driver: mysqli
+		host: localhost
+		username:
 		password:
-		driver: pdo_mysql
+		database:
+		charset: utf8
+		sqlmode: TRADITIONAL
+		profiler: on
 
 nette:
 	mailer:

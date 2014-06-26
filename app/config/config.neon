@@ -5,17 +5,14 @@
 # http://nette.org/security-warning
 #
 parameters:
+	repositories: []
 	queue:
 		tubeId: maraton-tasks
 		host: localhost
 
 services:
-	router: App\RouterFactory()::createRouter()
 	- App\Models\Services\Mailer
 	- App\Models\Services\Queue(%queue.host%, %queue.tubeId%)
-
-orm:
-	model: App\Models\Orm\Model
 
 nette:
 	mailer:

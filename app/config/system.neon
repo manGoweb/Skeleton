@@ -1,5 +1,4 @@
 extensions:
-	orm: Nextras\Orm\DI\OrmExtension
 	console: Kdyby\Console\DI\ConsoleExtension
 	monolog: Kdyby\Monolog\DI\MonologExtension
 
@@ -15,9 +14,13 @@ nette:
 	session:
 		expiration: 14 days
 
-database:
-	dsn: 'mysql:host=127.0.0.1;dbname=%database.dbname%'
-	user: %database.user%
-	password: %database.password%
-	options:
-		lazy: yes
+services:
+  # Router
+	routerFactory: App\RouterFactory
+	router: @routerFactory::createRouter()
+
+  # Database / Orm
+	dibiConnection: DibiConnection(%database%)
+	orm: App\Models\Orm\RepositoryContainer(@serviceContainerFactory, %repositories%, @container)
+	serviceContainerFactory: App\Models\Orm\ServiceContainerFactory(@dibiConnection, @performanceHelperCache)
+	performanceHelperCache: Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
