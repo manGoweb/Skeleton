@@ -5,7 +5,8 @@
 # http://nette.org/security-warning
 #
 parameters:
-	repositories: []
+	repositories:
+		articles: App\Models\Rme\ArticlesRepository
 	queue:
 		tubeId: maraton-tasks
 		host: localhost
