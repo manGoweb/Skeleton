@@ -1,2 +1,20 @@
 {block content}
-	<h1>Homepage:default</h1>
+	{**
+	* @param array $version
+	*}
+
+	<style n:syntax="off">
+		.container { width: 920px; margin: 50px auto 0; }
+		.logo { height: 140px; margin-left: 18px; }
+		ul.versions { list-style: none; font-size: 14pt; font-family: 'Monaco', 'Courier New', serif; }
+	</style>
+	<div class="container">
+		<img src="{$basePath}/img/clevis.svg" class="logo">
+
+		<ul class="versions">
+			<li>Nette Framework {$version->nette}</li>
+			<li>Petrp Orm {$version->porm}</li>
+			<li>PHP {$version->php}</li>
+			<li>Server {$version->server}</li>
+		</ul>
+	</div>
