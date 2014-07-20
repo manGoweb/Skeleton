@@ -6,6 +6,7 @@ use Tests\TestCase;
 
 
 $container = require __DIR__ . '/../app/bootstrap.php';
+Tester\Environment::setup();
 return $container;
 
 
