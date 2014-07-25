@@ -7,6 +7,7 @@ use Bin\Commands\Command;
 use Nette\Database\Context;
 use Nette\DI\Container;
 use Nextras\Migrations\Drivers\MySqlNetteDbDriver;
+use Nextras\Migrations\Drivers\NetteDbDriver;
 use Nextras\Migrations\Engine\Runner;
 use Nextras\Migrations\Entities\Group;
 use Nextras\Migrations\Extensions;
@@ -21,25 +22,13 @@ class Migrate extends Command
 	{
 		$this->setName('migrations:migrate')
 			->setDescription('Updates database schema by running all new migrations')
-			->addOption('init', 'i', InputOption::VALUE_NONE, 'Create migrations table')
 			->addOption('reset', 'r', InputOption::VALUE_NONE, 'Drop all tables prior to running all migrations');
 	}
 
 	public function invoke(Container $container, Context $db)
 	{
 		$driver = new MySqlNetteDbDriver($db, 'migrations');
-		$printer = new Console;
-		$runner = new Runner($driver, $printer);
-
-		if ($this->in->getOption('init'))
-		{
-			ob_start();
-			$runner->run($runner::MODE_INIT);
-			$sql = ob_get_clean();
-			$db->query($sql);
-			$this->out->writeln('<info>Migrations table created</info>');
-			return;
-		}
+		$runner = new Runner($driver, new Console);
 
 		$g = new Group();
 		$g->directory = __DIR__ . '/../../../migrations/struct';
@@ -52,6 +41,11 @@ class Migrate extends Command
 			'db' => $db,
 		], $container));
 
+		$this->runMigrations($db, $runner, $driver);
+	}
+
+	private function runMigrations(Context $db, Runner $runner, NetteDbDriver $driver)
+	{
 		try
 		{
 			$mode = $this->in->getOption('reset') ? Runner::MODE_RESET : Runner::MODE_CONTINUE;
@@ -69,8 +63,21 @@ class Migrate extends Command
 			{
 				throw $e;
 			}
-			$this->out->writeln('<error>Migrations table does not exist, init migrations first</error>');
+
+			// migrations table not found, create and run again
+			$this->initMigrations($db, $runner);
+			$driver->unlock();
+			$this->runMigrations($db, $runner, $driver);
 		}
+	}
+
+	private function initMigrations(Context $db, Runner $runner)
+	{
+		ob_start();
+		$runner->run($runner::MODE_INIT);
+		$sql = ob_get_clean();
+		$db->query($sql);
+		$this->out->writeln('<info>Migrations table created</info>');
 	}
 
 }
