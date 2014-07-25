@@ -97,13 +97,10 @@ abstract class Presenter extends NPresenter
 	public function formatTemplateFiles()
 	{
 		$name = $this->getName();
-		$presenter = substr($name, strrpos(':' . $name, ':'));
-		$dir = dirname($this->getReflection()->getFileName());
-		$dir = is_dir("$dir/templates") ? $dir : dirname($dir);
-		return array(
-			"$dir/templates/views/$presenter/$this->view.latte",
-			"$dir/templates/views/$presenter.$this->view.latte",
-		);
+		$root = $this->context->getParameters()['appDir'] . '/templates/views';
+		return [
+			"$root/" . implode('/', explode(':', $name)) . "/$this->view.latte",
+		];
 	}
 
 	public function formatLayoutTemplateFiles()
