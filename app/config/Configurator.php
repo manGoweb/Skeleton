@@ -37,6 +37,7 @@ class Configurator extends Nette\Configurator
 
 		$this->setTempDirectory(realpath("$root/temp"));
 		$this->addParameters((array) $params + array_map('realpath', [
+			'testMode' => FALSE,
 			'appDir' => "$root/app",
 			'binDir' => "$root/bin",
 			'libsDir' => "$root/vendor",
@@ -69,7 +70,7 @@ class Configurator extends Nette\Configurator
 		$params = $this->getParameters();
 
 		$this->addConfig($params['appDir'] . "/config/system.neon", FALSE);
-		if ($this->isConsole())
+		if ($this->isConsoleMode())
 		{
 			$this->addConfig($params['appDir'] . "/config/bin.neon", FALSE);
 		}
@@ -106,16 +107,16 @@ class Configurator extends Nette\Configurator
 		$loader = parent::createRobotLoader();
 		$loader->addDirectory($params['appDir']);
 
-		if ($this->isConsole())
+		if ($this->isConsoleMode())
 		{
 			$loader->addDirectory($params['binDir']);
+			$loader->addDirectory($params['appDir'] . '/../migrations');
 		}
 
-		// TODO only add when tests are run
-		$loader->addDirectory($params['appDir'] . '/../tests');
-
-		// TODO only add when migrations are run
-		$loader->addDirectory($params['appDir'] . '/../migrations');
+		if ($this->isTestMode())
+		{
+			$loader->addDirectory($params['appDir'] . '/../tests');
+		}
 
 		return $loader;
 	}
@@ -158,9 +159,14 @@ class Configurator extends Nette\Configurator
 		}
 	}
 
-	protected function isConsole()
+	protected function isConsoleMode()
 	{
 		return $this->parameters['consoleMode'];
+	}
+
+	protected function isTestMode()
+	{
+		return $this->parameters['testMode'];
 	}
 
 }
