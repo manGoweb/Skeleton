@@ -6,6 +6,7 @@
 #
 
 parameters:
+	# forceDebug: on # off
 	database:
 		driver: mysqli
 		host: localhost

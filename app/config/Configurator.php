@@ -9,6 +9,7 @@ use Nette\FileNotFoundException;
 use Nette\Loaders\RobotLoader;
 use RuntimeException;
 use SystemContainer;
+use Tracy\Debugger;
 
 
 /**
@@ -70,6 +71,18 @@ class Configurator extends Nette\Configurator
 		foreach (['system', 'bin', 'config', 'config.local'] as $config)
 		{
 			$this->addConfig($params['appDir'] . "/config/$config.neon", FALSE);
+		}
+	}
+
+	public function onAfterDebug(SystemContainer $c)
+	{
+		$p = $c->parameters;
+		if (isset($p['forceDebug']))
+		{
+			$mode = $p['forceDebug'] === FALSE
+				? Debugger::PRODUCTION
+				: Debugger::DEVELOPMENT;
+			Debugger::enable($mode);
 		}
 	}
 
