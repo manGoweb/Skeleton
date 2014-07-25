@@ -1,3 +1,7 @@
+#
+# Only loaded in console mode
+#
+
 services:
   # Services
 	- Bin\Services\DoctrineFactory(%database%)

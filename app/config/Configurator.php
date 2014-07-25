@@ -27,7 +27,6 @@ class Configurator extends Nette\Configurator
 
 
 	/**
-	 * @param string|NULL null mean autodetect
 	 * @param array|NULL $params
 	 */
 	public function __construct(array $params = NULL)
@@ -68,10 +67,14 @@ class Configurator extends Nette\Configurator
 	public function onInitConfigs()
 	{
 		$params = $this->getParameters();
-		foreach (['system', 'bin', 'config', 'config.local'] as $config)
+
+		$this->addConfig($params['appDir'] . "/config/system.neon", FALSE);
+		if ($this->isConsole())
 		{
-			$this->addConfig($params['appDir'] . "/config/$config.neon", FALSE);
+			$this->addConfig($params['appDir'] . "/config/bin.neon", FALSE);
 		}
+		$this->addConfig($params['appDir'] . "/config/config.neon", FALSE);
+		$this->addConfig($params['appDir'] . "/config/config.local.neon", FALSE);
 	}
 
 	public function onAfterDebug(SystemContainer $c)
@@ -86,13 +89,11 @@ class Configurator extends Nette\Configurator
 		}
 	}
 
-	public function onAfterConsole($c)
+	public function onAfterConsole(SystemContainer $c)
 	{
-		/** @var SystemContainer $c */
-		$s = 'console.router';
-		if ($c->hasService($s))
+		if ($this->parameters['consoleMode'])
 		{
-			$c->getService($s)->setInput(new VariadicArgvInput());
+			$c->getService('console.router')->setInput(new VariadicArgvInput());
 		}
 	}
 
@@ -105,8 +106,10 @@ class Configurator extends Nette\Configurator
 		$loader = parent::createRobotLoader();
 		$loader->addDirectory($params['appDir']);
 
-		// TODO only add when bin is called
-		$loader->addDirectory($params['binDir']);
+		if ($this->isConsole())
+		{
+			$loader->addDirectory($params['binDir']);
+		}
 
 		// TODO only add when tests are run
 		$loader->addDirectory($params['appDir'] . '/../tests');
@@ -153,6 +156,11 @@ class Configurator extends Nette\Configurator
 				throw $e;
 			}
 		}
+	}
+
+	protected function isConsole()
+	{
+		return $this->parameters['consoleMode'];
 	}
 
 }
