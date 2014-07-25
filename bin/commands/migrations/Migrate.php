@@ -21,7 +21,8 @@ class Migrate extends Command
 	{
 		$this->setName('migrations:migrate')
 			->setDescription('Updates database schema by running all new migrations')
-			->addOption('init', 'i', InputOption::VALUE_NONE, 'Create migrations table');
+			->addOption('init', 'i', InputOption::VALUE_NONE, 'Create migrations table')
+			->addOption('reset', 'r', InputOption::VALUE_NONE, 'Drop all tables prior to running all migrations');
 	}
 
 	public function invoke(Container $container, Context $db)
@@ -53,8 +54,8 @@ class Migrate extends Command
 
 		try
 		{
-			$runner->run();
-			return;
+			$mode = $this->in->getOption('reset') ? Runner::MODE_RESET : Runner::MODE_CONTINUE;
+			$runner->run($mode);
 		}
 		catch (\PDOException $e)
 		{
