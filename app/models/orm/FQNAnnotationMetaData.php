@@ -317,9 +317,9 @@ class FQNAnnotationMetaData extends Object
 	public function builtParamsManyToMany($string)
 	{
 		$arr = $this->builtParamsOneToMany($string, 3);
-		if (isset($arr[2]) AND stripos($arr[2], 'map') !== false)
+		if (isset($arr[2]) AND stripos($arr[2], 'map') !== FALSE)
 		{
-			$arr[2] = true;
+			$arr[2] = TRUE;
 		}
 		else
 		{
@@ -441,7 +441,7 @@ class FQNAnnotationMetaData extends Object
 		{
 			$value = constant($value);
 		}
-		else if (strpos($value, '::') !== false)
+		else if (strpos($value, '::') !== FALSE)
 		{
 			throw new AnnotationMetaDataException("'{$this->class}' '$errorMessage': Constant $value not exists");
 		}

@@ -69,13 +69,13 @@ class Configurator extends Nette\Configurator
 	{
 		$params = $this->getParameters();
 
-		$this->addConfig($params['appDir'] . "/config/system.neon", FALSE);
+		$this->addConfig($params['appDir'] . '/config/system.neon', FALSE);
 		if ($this->isConsoleMode())
 		{
-			$this->addConfig($params['appDir'] . "/config/bin.neon", FALSE);
+			$this->addConfig($params['appDir'] . '/config/bin.neon', FALSE);
 		}
-		$this->addConfig($params['appDir'] . "/config/config.neon", FALSE);
-		$this->addConfig($params['appDir'] . "/config/config.local.neon", FALSE);
+		$this->addConfig($params['appDir'] . '/config/config.neon', FALSE);
+		$this->addConfig($params['appDir'] . '/config/config.local.neon', FALSE);
 	}
 
 	public function onAfterDebug(SystemContainer $c)
