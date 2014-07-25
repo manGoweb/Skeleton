@@ -3,7 +3,10 @@ Clevis Skeleton 22
 
 ## Requirements
 
-- beanstalkd (task queuing)
+**production:**
+- beanstalkd (task queuing, optional)
+
+**dev:**
 - nodejs (building frontend)
 - phantomjs (acceptance tests)
 - casperjs (acceptance tests)
@@ -15,6 +18,13 @@ Clevis Skeleton 22
 or similar quick command.
 
 **Autocomplete:** for zsh https://github.com/zsh-users/zsh-completions/blob/master/src/_console#L42-L53
+
+# Usage
+
+## Module support
+
+Create new directory under `app/presenters/NewModuleName` with presenter under `App\Presenters\NewModuleName` namespace.
+Templates go to `app/templates/views/NewModuleName/PresenterName/view.latte`.
 
 # Backend
 
@@ -56,11 +66,6 @@ php www/index.php scaffolding:migration:sql "Added article entity" --from-diff
 ```
 
 ### Migrations
-
-Setup migrations:
-```
-php www/index.php migrations:migrate --init
-```
 
 Run all new migrations:
 ```
