@@ -22,6 +22,8 @@ class Migrate extends Command
 	{
 		$this->setName('migrations:migrate')
 			->setDescription('Updates database schema by running all new migrations')
+			->setHelp("If table 'migrations' does not exist in current database," .
+				"it is created automatically.")
 			->addOption('reset', 'r', InputOption::VALUE_NONE, 'Drop all tables prior to running all migrations');
 	}
 
