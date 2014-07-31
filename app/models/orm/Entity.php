@@ -2,7 +2,7 @@
 
 namespace App\Models\Orm;
 
-use Nette\Utils\DateTime;
+use DateTime;
 use Orm;
 
 
