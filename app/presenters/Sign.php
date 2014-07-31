@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 
-class Sign extends Presenter
+class Auth extends Presenter
 {
 
 }
