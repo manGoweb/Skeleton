@@ -36,13 +36,18 @@ class Configurator extends Nette\Configurator
 		$root = __DIR__ . '/../..';
 
 		$this->setTempDirectory(realpath("$root/temp"));
-		$this->addParameters((array) $params + array_map('realpath', [
-			'testMode' => FALSE,
+
+		$defaults = array_map('realpath', [
 			'appDir' => "$root/app",
 			'binDir' => "$root/bin",
 			'libsDir' => "$root/vendor",
 			'wwwDir' => "$root/www",
-		]));
+		]);
+		$defaults += [
+			'testMode' => FALSE,
+		];
+
+		$this->addParameters((array) $params + $defaults);
 
 		foreach (get_class_methods($this) as $name)
 		{
