@@ -41,7 +41,11 @@ class Run extends Command
 
 		if ($runAll || $this->in->getOption('unit'))
 		{
-			$tester = ["$root/vendor/bin/tester", "$root/tests/cases/unit"];
+			$tester = [
+				"$root/vendor/bin/tester",
+				'-p', 'php', // enable console mode with fake url by running as php-cli instead of php-cgi
+				"$root/tests/cases/unit"
+			];
 			if ($r = $this->callSystem($tester))
 			{
 				return $r;
