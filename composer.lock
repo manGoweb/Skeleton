@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7cb06dac60e5df43f827adc31231d0c7",
+    "hash": "11bd92e6a47f9471647d20988771899c",
     "packages": [
         {
             "name": "dibi/dibi",
-            "version": "v2.2.1",
+            "version": "v2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dg/dibi.git",
-                "reference": "c32251357dcc8a45b748ecf9bbc99b449de98be3"
+                "reference": "a118c2cf96a796d8118b3b0d2811c70aee9fd6c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dg/dibi/zipball/c32251357dcc8a45b748ecf9bbc99b449de98be3",
-                "reference": "c32251357dcc8a45b748ecf9bbc99b449de98be3",
+                "url": "https://api.github.com/repos/dg/dibi/zipball/a118c2cf96a796d8118b3b0d2811c70aee9fd6c9",
+                "reference": "a118c2cf96a796d8118b3b0d2811c70aee9fd6c9",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,8 @@
                 "dg/dibi": "self.version"
             },
             "require-dev": {
-                "nette/tester": "~1.1"
+                "nette/tester": "~1.1",
+                "tracy/tracy": "~2.2"
             },
             "type": "library",
             "extra": {
@@ -66,7 +67,7 @@
                 "postgresql",
                 "sqlite"
             ],
-            "time": "2014-06-11 14:16:32"
+            "time": "2014-06-30 15:08:04"
         },
         {
             "name": "doctrine/annotations",
@@ -545,37 +546,34 @@
         },
         {
             "name": "kdyby/console",
-            "version": "dev-master",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Console.git",
-                "reference": "9564ff1"
+                "reference": "e191401cb6feab836e519afd5777aa1bdab969ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Console/zipball/9564ff112f62639c3caede786d05c19824bceb31",
-                "reference": "9564ff1",
+                "url": "https://api.github.com/repos/Kdyby/Console/zipball/e191401cb6feab836e519afd5777aa1bdab969ff",
+                "reference": "e191401cb6feab836e519afd5777aa1bdab969ff",
                 "shasum": ""
             },
             "require": {
                 "nette/application": "~2.2@dev",
                 "nette/di": "~2.2@dev",
                 "nette/http": "~2.2@dev",
-                "symfony/console": "~2.4"
+                "symfony/console": "~2.5"
             },
             "require-dev": {
                 "jakub-onderka/php-parallel-lint": "~0.6",
                 "kdyby/events": "@dev",
                 "latte/latte": "~2.2@dev",
-                "nette/application": "~2.2@dev",
                 "nette/bootstrap": "~2.2@dev",
                 "nette/caching": "~2.2@dev",
                 "nette/component-model": "~2.2@dev",
                 "nette/database": "~2.2@dev",
-                "nette/di": "~2.2@dev",
                 "nette/finder": "~2.2@dev",
                 "nette/forms": "~2.2@dev",
-                "nette/http": "~2.2@dev",
                 "nette/mail": "~2.2@dev",
                 "nette/neon": "~2.2@dev",
                 "nette/nette": "~2.2@dev",
@@ -625,7 +623,7 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2014-06-24 11:59:09"
+            "time": "2014-07-27 15:00:37"
         },
         {
             "name": "kdyby/monolog",
@@ -633,12 +631,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Monolog.git",
-                "reference": "451c83c"
+                "reference": "e45b7c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Monolog/zipball/451c83c56c94fac6041f44eb6e9d2d6540615098",
-                "reference": "451c83c",
+                "url": "https://api.github.com/repos/Kdyby/Monolog/zipball/e45b7c37f23128528240514e22ab4212c1149e11",
+                "reference": "e45b7c3",
                 "shasum": ""
             },
             "require": {
@@ -647,7 +645,7 @@
                 "tracy/tracy": "~2.2@dev"
             },
             "require-dev": {
-                "jakub-onderka/php-parallel-lint": "~0.6",
+                "jakub-onderka/php-parallel-lint": "~0.7",
                 "latte/latte": "~2.2@dev",
                 "nette/application": "~2.2@dev",
                 "nette/bootstrap": "~2.2@dev",
@@ -672,11 +670,6 @@
                 "tracy/tracy": "~2.2@dev"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.1-dev"
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "Kdyby\\Monolog\\": "src/"
@@ -708,7 +701,7 @@
                 "monolog",
                 "nette"
             ],
-            "time": "2014-06-24 11:59:09"
+            "time": "2014-07-27 16:09:23"
         },
         {
             "name": "latte/latte",
@@ -1419,12 +1412,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "245c202134054693b455c60dbce6f54ca3affdf4"
+                "reference": "8f701b9b625105af928eeefcd978a8b637b07df7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/245c202134054693b455c60dbce6f54ca3affdf4",
-                "reference": "245c202134054693b455c60dbce6f54ca3affdf4",
+                "url": "https://api.github.com/repos/nette/nette/zipball/8f701b9b625105af928eeefcd978a8b637b07df7",
+                "reference": "8f701b9b625105af928eeefcd978a8b637b07df7",
                 "shasum": ""
             },
             "require": {
@@ -1488,7 +1481,7 @@
                 "mvc",
                 "templating"
             ],
-            "time": "2014-06-24 12:00:07"
+            "time": "2014-06-26 12:30:40"
         },
         {
             "name": "nette/php-generator",
@@ -2021,32 +2014,34 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.4.6",
+            "version": "v2.5.2",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "24f723436e62598c9dddee2a8573d6992504dc5d"
+                "reference": "386fa63407805959bd2c5fe540294721ad4224c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/24f723436e62598c9dddee2a8573d6992504dc5d",
-                "reference": "24f723436e62598c9dddee2a8573d6992504dc5d",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/386fa63407805959bd2c5fe540294721ad4224c8",
+                "reference": "386fa63407805959bd2c5fe540294721ad4224c8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
+                "psr/log": "~1.0",
                 "symfony/event-dispatcher": "~2.1"
             },
             "suggest": {
+                "psr/log": "For using the console logger",
                 "symfony/event-dispatcher": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -2072,7 +2067,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-14 21:48:29"
+            "time": "2014-07-15 14:15:12"
         },
         {
             "name": "tracy/tracy",
@@ -2182,16 +2177,16 @@
         },
         {
             "name": "mikulas/code-sniffs",
-            "version": "v1.1.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mikulas/code-sniffs.git",
-                "reference": "71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81"
+                "url": "https://github.com/Mikulas/code-sniffs.git",
+                "reference": "99386c00bc7eebef36b4ac191fa3304d0557f378"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikulas/code-sniffs/zipball/71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81",
-                "reference": "71ace4d0e5e76ea5d82b64d8dffced5a21d9ff81",
+                "url": "https://api.github.com/repos/Mikulas/code-sniffs/zipball/99386c00bc7eebef36b4ac191fa3304d0557f378",
+                "reference": "99386c00bc7eebef36b4ac191fa3304d0557f378",
                 "shasum": ""
             },
             "require": {
@@ -2202,40 +2197,38 @@
                 "nette/tester": "~1.2.0"
             },
             "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Mikulas Dite",
+                    "name": "Mikuláš Dítě",
                     "email": "mikulas@dite.pro"
                 }
             ],
             "description": "Code sniffer rules for Clevis coding standard",
-            "support": {
-                "source": "https://github.com/mikulas/code-sniffs/tree/v1.1.0",
-                "issues": "https://github.com/mikulas/code-sniffs/issues"
-            },
-            "time": "2014-06-25 10:04:58"
+            "time": "2014-07-11 16:39:11"
         },
         {
             "name": "mikulas/lattecs",
-            "version": "v0.3.0-beta",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mikulas/nette-lattecs.git",
-                "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c"
+                "reference": "35e010dd028dc53c0ab15019e12be900dfc53223"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
-                "reference": "6b7799b8440037a2fefe8612f1bad7ffb933fd3c",
+                "url": "https://api.github.com/repos/Mikulas/nette-lattecs/zipball/35e010dd028dc53c0ab15019e12be900dfc53223",
+                "reference": "35e010dd028dc53c0ab15019e12be900dfc53223",
                 "shasum": ""
             },
             "require": {
-                "latte/latte": "~2.2-rc2",
-                "nette/finder": "~2.2-rc1",
-                "symfony/console": "~2.4.4"
+                "latte/latte": "~2.2.0",
+                "nette/finder": "~2.2.0",
+                "nette/neon": "~2.2.0",
+                "symfony/console": "~2.4"
             },
             "require-dev": {
                 "nette/tester": "~1.1.0"
@@ -2249,7 +2242,6 @@
                     "Mikulas\\LatteCS\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2261,8 +2253,8 @@
             ],
             "description": "Coding standard validator for Latte templates",
             "keywords": [
-                "Coding Standard",
                 "checker",
+                "coding standard",
                 "console",
                 "cs",
                 "latte",
@@ -2270,7 +2262,11 @@
                 "tool",
                 "validator"
             ],
-            "time": "2014-05-02 16:39:29"
+            "support": {
+                "source": "https://github.com/Mikulas/nette-lattecs/tree/v0.3.1",
+                "issues": "https://github.com/Mikulas/nette-lattecs/issues"
+            },
+            "time": "2014-07-31 10:10:13"
         },
         {
             "name": "nette/tester",
@@ -2507,9 +2503,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kdyby/console": 20,
-        "kdyby/monolog": 20,
-        "mikulas/lattecs": 10
+        "kdyby/monolog": 20
     },
     "platform": {
         "php": "~5.5"

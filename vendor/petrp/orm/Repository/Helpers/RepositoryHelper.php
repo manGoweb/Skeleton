@@ -37,7 +37,6 @@ class RepositoryHelper extends Object
 			}
 			$this->normalizeRepositoryCache[$repositoryClass] = $name;
 		}
-
 		return $this->normalizeRepositoryCache[$repositoryClass];
 	}
 
