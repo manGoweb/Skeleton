@@ -5,10 +5,10 @@ namespace App\Config;
 use Bin\Support\VariadicArgvInput;
 use Nette;
 use Nette\DI;
+use Nette\DI\Container;
 use Nette\FileNotFoundException;
 use Nette\Loaders\RobotLoader;
 use RuntimeException;
-use SystemContainer;
 use Tracy\Debugger;
 
 
@@ -83,7 +83,7 @@ class Configurator extends Nette\Configurator
 		$this->addConfig($params['appDir'] . '/config/config.local.neon', FALSE);
 	}
 
-	public function onAfterDebug(SystemContainer $c)
+	public function onAfterDebug(Container $c)
 	{
 		$p = $c->parameters;
 		if (isset($p['forceDebug']))
@@ -95,7 +95,7 @@ class Configurator extends Nette\Configurator
 		}
 	}
 
-	public function onAfterConsole(SystemContainer $c)
+	public function onAfterConsole(Container $c)
 	{
 		if ($this->parameters['consoleMode'])
 		{
@@ -138,7 +138,7 @@ class Configurator extends Nette\Configurator
 	 * @throws MissingLocalConfigException
 	 * @throws \Exception
 	 * @throws \Nette\FileNotFoundException
-	 * @return SystemContainer
+	 * @return Container
 	 */
 	public function createContainer()
 	{
