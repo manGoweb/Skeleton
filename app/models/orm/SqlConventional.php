@@ -8,8 +8,10 @@ use Orm;
 class SqlConventional extends Orm\SqlConventional
 {
 
-	/** @var string[] */
-	private $tableCache = array();
+	/**
+	 * @var string[]
+	 */
+	private $tableCache = [];
 
 
 	/**

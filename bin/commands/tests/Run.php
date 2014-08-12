@@ -80,6 +80,7 @@ class Run extends Command
 		}
 
 		$p = new Process($q);
+		/** @noinspection PhpUnusedParameterInspection */
 		$p->run(function($type, $buffer) {
 			echo "$buffer";
 		});

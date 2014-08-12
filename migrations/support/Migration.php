@@ -13,7 +13,8 @@ abstract class Migration extends Object
 {
 
 	/**
-	 * @var Context @inject
+	 * @var Context
+	 * @inject
 	 */
 	public $db;
 

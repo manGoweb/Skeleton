@@ -15,7 +15,9 @@ use Orm\RepositoryNotFoundException;
 class RepositoryContainer extends Orm\RepositoryContainer
 {
 
-	/** @var array */
+	/**
+	 * @var array
+	 */
 	private $aliases = [];
 
 	protected $repositoryClasses = [];
@@ -23,7 +25,7 @@ class RepositoryContainer extends Orm\RepositoryContainer
 	/**
 	 * Automatically registers repository aliases
 	 *
-	 * @param Orm\IServiceContainerFactory|Orm\IServiceContainer|NULL
+	 * @param NULL|Orm\IServiceContainerFactory|Orm\IServiceContainer
 	 * @param array ($alias => $className)
 	 */
 	public function __construct($containerFactory = NULL, $repositories = [])

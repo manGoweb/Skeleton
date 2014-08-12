@@ -3,7 +3,6 @@
 namespace Bin\Commands\Scaffolding;
 
 use Bin\Services\Scaffolding;
-use Inflect\Inflect;
 use Symfony\Component\Console\Input\InputArgument;
 
 

@@ -26,7 +26,7 @@ class Worker extends Command
 				$this->out->writeln(get_class($task));
 				try
 				{
-					$result = $container->callMethod([$task, 'run']);
+					$container->callMethod([$task, 'run']);
 					$next();
 				}
 				catch (Exception $e)

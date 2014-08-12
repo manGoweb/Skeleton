@@ -2,6 +2,7 @@
 
 namespace App\Models\Services;
 
+use Exception;
 use Latte\Engine;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
@@ -24,6 +25,7 @@ class Mailer extends Object
 	/**
 	 * @param string $email
 	 * @param string $name
+	 * @throws Exception
 	 */
 	public function sendEventRegistration($email, $name)
 	{

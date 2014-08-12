@@ -29,7 +29,7 @@ class TestCase extends Tester\TestCase
 		$this->container->callInjects($this);
 		$this->setUp();
 		try {
-			call_user_func_array(array($this, $name), $args);
+			call_user_func_array([$this, $name], $args);
 		} catch (\Exception $e) {
 			// method does not exist
 		}

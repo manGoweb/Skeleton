@@ -7,7 +7,7 @@ require __DIR__ . '/../app/config/Configurator.php';
 umask(0);
 
 $config = new \App\Config\Configurator([
-	'testMode' => TRUE,
+	'testMode' => TRUE
 ]);
 $container = $config->createContainer();
 Tester\Environment::setup();

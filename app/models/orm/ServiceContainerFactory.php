@@ -18,15 +18,19 @@ use Orm;
 class ServiceContainerFactory extends Object implements Orm\IServiceContainerFactory
 {
 
-	/** @var DibiConnection */
+	/**
+	 * @var DibiConnection
+	 */
 	private $dibiConnection;
 
-	/** @var Cache */
+	/**
+	 * @var Cache
+	 */
 	private $cache;
 
 	/**
 	 * @param DibiConnection $dibiConnection
-	 * @param Cache|NULL $cache for Orm\PerformanceHelper or null to disable the cache
+	 * @param NULL|Cache $cache for Orm\PerformanceHelper or null to disable the cache
 	 */
 	public function __construct(DibiConnection $dibiConnection, Cache $cache = NULL)
 	{
@@ -41,8 +45,8 @@ class ServiceContainerFactory extends Object implements Orm\IServiceContainerFac
 	{
 		$container = new Orm\ServiceContainer();
 		$container->addService('annotationsParser', 'Orm\AnnotationsParser');
-		$container->addService('annotationClassParser', array($this, 'createAnnotationClassParser'));
-		$container->addService('mapperFactory', array($this, 'createMapperFactory'));
+		$container->addService('annotationClassParser', [$this, 'createAnnotationClassParser']);
+		$container->addService('mapperFactory', [$this, 'createMapperFactory']);
 		$container->addService('repositoryHelper', 'Orm\RepositoryHelper');
 		$container->addService('dibi', $this->dibiConnection);
 

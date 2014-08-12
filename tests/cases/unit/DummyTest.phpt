@@ -13,7 +13,8 @@ class DummyTest extends TestCase
 {
 
 	/**
-	 * @var RepositoryContainer @inject
+	 * @var RepositoryContainer
+	 * @inject
 	 */
 	public $repos;
 

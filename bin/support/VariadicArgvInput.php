@@ -36,9 +36,10 @@ class VariadicArgvInput extends Input
 	 *
 	 * @api
 	 */
-	public function __construct(array $argv = null, InputDefinition $definition = null)
+	public function __construct(array $argv = NULL, InputDefinition $definition = NULL)
 	{
-		if (null === $argv) {
+		if (NULL === $argv)
+		{
 			$argv = $_SERVER['argv'];
 		}
 
@@ -70,18 +71,28 @@ class VariadicArgvInput extends Input
 	 */
 	protected function parse()
 	{
-		$parseOptions = true;
+		$parseOptions = TRUE;
 		$this->parsed = $this->tokens;
-		while (null !== $token = array_shift($this->parsed)) {
-			if ($parseOptions && '' == $token) {
+		while (NULL !== $token = array_shift($this->parsed))
+		{
+			if ($parseOptions && '' == $token)
+			{
 				$this->parseArgument($token);
-			} elseif ($parseOptions && '--' == $token) {
-				$parseOptions = false;
-			} elseif ($parseOptions && 0 === strpos($token, '--')) {
+			}
+			else if ($parseOptions && '--' == $token)
+			{
+				$parseOptions = FALSE;
+			}
+			else if ($parseOptions && 0 === strpos($token, '--'))
+			{
 				$this->parseLongOption($token);
-			} elseif ($parseOptions && '-' === $token[0] && '-' !== $token) {
+			}
+			else if ($parseOptions && '-' === $token[0] && '-' !== $token)
+			{
 				$this->parseShortOption($token);
-			} else {
+			}
+			else
+			{
 				$this->parseArgument($token);
 			}
 		}
@@ -96,15 +107,21 @@ class VariadicArgvInput extends Input
 	{
 		$name = substr($token, 1);
 
-		if (strlen($name) > 1) {
-			if ($this->definition->hasShortcut($name[0]) && $this->definition->getOptionForShortcut($name[0])->acceptValue()) {
+		if (strlen($name) > 1)
+		{
+			if ($this->definition->hasShortcut($name[0]) && $this->definition->getOptionForShortcut($name[0])->acceptValue())
+			{
 				// an option with a value (with no space)
 				$this->addShortOption($name[0], substr($name, 1));
-			} else {
+			}
+			else
+			{
 				$this->parseShortOptionSet($name);
 			}
-		} else {
-			$this->addShortOption($name, null);
+		}
+		else
+		{
+			$this->addShortOption($name, NULL);
 		}
 	}
 
@@ -118,18 +135,23 @@ class VariadicArgvInput extends Input
 	private function parseShortOptionSet($name)
 	{
 		$len = strlen($name);
-		for ($i = 0; $i < $len; $i++) {
-			if (!$this->definition->hasShortcut($name[$i])) {
+		for ($i = 0; $i < $len; $i++)
+		{
+			if (!$this->definition->hasShortcut($name[$i]))
+			{
 				throw new \RuntimeException(sprintf('The "-%s" option does not exist.', $name[$i]));
 			}
 
 			$option = $this->definition->getOptionForShortcut($name[$i]);
-			if ($option->acceptValue()) {
-				$this->addLongOption($option->getName(), $i === $len - 1 ? null : substr($name, $i + 1));
+			if ($option->acceptValue())
+			{
+				$this->addLongOption($option->getName(), $i === $len - 1 ? NULL : substr($name, $i + 1));
 
 				break;
-			} else {
-				$this->addLongOption($option->getName(), null);
+			}
+			else
+			{
+				$this->addLongOption($option->getName(), NULL);
 			}
 		}
 	}
@@ -143,10 +165,13 @@ class VariadicArgvInput extends Input
 	{
 		$name = substr($token, 2);
 
-		if (false !== $pos = strpos($name, '=')) {
+		if (FALSE !== $pos = strpos($name, '='))
+		{
 			$this->addLongOption(substr($name, 0, $pos), substr($name, $pos + 1));
-		} else {
-			$this->addLongOption($name, null);
+		}
+		else
+		{
+			$this->addLongOption($name, NULL);
 		}
 	}
 
@@ -162,17 +187,22 @@ class VariadicArgvInput extends Input
 		$c = count($this->arguments);
 
 		// if input is expecting another argument, add it
-		if ($this->definition->hasArgument($c)) {
+		if ($this->definition->hasArgument($c))
+		{
 			$arg = $this->definition->getArgument($c);
-			$this->arguments[$arg->getName()] = $arg->isArray()? array($token) : $token;
+			$this->arguments[$arg->getName()] = $arg->isArray()? [$token] : $token;
 
 			// if last argument isArray(), append token to last argument
-		} elseif ($this->definition->hasArgument($c - 1) && $this->definition->getArgument($c - 1)->isArray()) {
+		}
+		else if ($this->definition->hasArgument($c - 1) && $this->definition->getArgument($c - 1)->isArray())
+		{
 			$arg = $this->definition->getArgument($c - 1);
 			$this->arguments[$arg->getName()][] = $token;
 
 			// variadic
-		} else {
+		}
+		else
+		{
 			$this->variadic[] = $token;
 		}
 	}
@@ -187,7 +217,8 @@ class VariadicArgvInput extends Input
 	 */
 	private function addShortOption($shortcut, $value)
 	{
-		if (!$this->definition->hasShortcut($shortcut)) {
+		if (!$this->definition->hasShortcut($shortcut))
+		{
 			throw new \RuntimeException(sprintf('The "-%s" option does not exist.', $shortcut));
 		}
 
@@ -204,47 +235,62 @@ class VariadicArgvInput extends Input
 	 */
 	private function addLongOption($name, $value)
 	{
-		if (!$this->definition->hasOption($name)) {
+		if (!$this->definition->hasOption($name))
+		{
 			throw new \RuntimeException(sprintf('The "--%s" option does not exist.', $name));
 		}
 
 		$option = $this->definition->getOption($name);
 
-		// Convert false values (from a previous call to substr()) to null
-		if (false === $value) {
-			$value = null;
+		// Convert FALSE values (from a previous call to substr()) to NULL
+		if (FALSE === $value)
+		{
+			$value = NULL;
 		}
 
-		if (null !== $value && !$option->acceptValue()) {
+		if (NULL !== $value && !$option->acceptValue())
+		{
 			throw new \RuntimeException(sprintf('The "--%s" option does not accept a value.', $name, $value));
 		}
 
-		if (null === $value && $option->acceptValue() && count($this->parsed)) {
+		if (NULL === $value && $option->acceptValue() && count($this->parsed))
+		{
 			// if option accepts an optional or mandatory argument
 			// let's see if there is one provided
 			$next = array_shift($this->parsed);
-			if (isset($next[0]) && '-' !== $next[0]) {
+			if (isset($next[0]) && '-' !== $next[0])
+			{
 				$value = $next;
-			} elseif (empty($next)) {
+			}
+			else if (empty($next))
+			{
 				$value = '';
-			} else {
+			}
+			else
+			{
 				array_unshift($this->parsed, $next);
 			}
 		}
 
-		if (null === $value) {
-			if ($option->isValueRequired()) {
+		if (NULL === $value)
+		{
+			if ($option->isValueRequired())
+			{
 				throw new \RuntimeException(sprintf('The "--%s" option requires a value.', $name));
 			}
 
-			if (!$option->isArray()) {
-				$value = $option->isValueOptional() ? $option->getDefault() : true;
+			if (!$option->isArray())
+			{
+				$value = $option->isValueOptional() ? $option->getDefault() : TRUE;
 			}
 		}
 
-		if ($option->isArray()) {
+		if ($option->isArray())
+		{
 			$this->options[$name][] = $value;
-		} else {
+		}
+		else
+		{
 			$this->options[$name] = $value;
 		}
 	}
@@ -252,42 +298,49 @@ class VariadicArgvInput extends Input
 	/**
 	 * Returns the first argument from the raw parameters (not parsed).
 	 *
-	 * @return string The value of the first argument or null otherwise
+	 * @return string The value of the first argument or NULL otherwise
 	 */
 	public function getFirstArgument()
 	{
-		foreach ($this->tokens as $token) {
-			if ($token && '-' === $token[0]) {
+		foreach ($this->tokens as $token)
+		{
+			if ($token && '-' === $token[0])
+			{
 				continue;
 			}
 
 			return $token;
 		}
+
+		return NULL;
 	}
 
 	/**
-	 * Returns true if the raw parameters (not parsed) contain a value.
+	 * Returns TRUE if the raw parameters (not parsed) contain a value.
 	 *
 	 * This method is to be used to introspect the input parameters
 	 * before they have been validated. It must be used carefully.
 	 *
 	 * @param string|array $values The value(s) to look for in the raw parameters (can be an array)
 	 *
-	 * @return bool    true if the value is contained in the raw parameters
+	 * @return bool    TRUE if the value is contained in the raw parameters
 	 */
 	public function hasParameterOption($values)
 	{
 		$values = (array) $values;
 
-		foreach ($this->tokens as $token) {
-			foreach ($values as $value) {
-				if ($token === $value || 0 === strpos($token, $value.'=')) {
-					return true;
+		foreach ($this->tokens as $token)
+		{
+			foreach ($values as $value)
+			{
+				if ($token === $value || 0 === strpos($token, $value . '='))
+				{
+					return TRUE;
 				}
 			}
 		}
 
-		return false;
+		return FALSE;
 	}
 
 	/**
@@ -301,15 +354,19 @@ class VariadicArgvInput extends Input
 	 *
 	 * @return mixed The option value
 	 */
-	public function getParameterOption($values, $default = false)
+	public function getParameterOption($values, $default = FALSE)
 	{
 		$values = (array) $values;
 
 		$tokens = $this->tokens;
-		while ($token = array_shift($tokens)) {
-			foreach ($values as $value) {
-				if ($token === $value || 0 === strpos($token, $value.'=')) {
-					if (false !== $pos = strpos($token, '=')) {
+		while ($token = array_shift($tokens))
+		{
+			foreach ($values as $value)
+			{
+				if ($token === $value || 0 === strpos($token, $value . '='))
+				{
+					if (FALSE !== $pos = strpos($token, '='))
+					{
 						return substr($token, $pos + 1);
 					}
 
@@ -329,12 +386,15 @@ class VariadicArgvInput extends Input
 	public function __toString()
 	{
 		$self = $this;
-		$tokens = array_map(function ($token) use ($self) {
-			if (preg_match('{^(-[^=]+=)(.+)}', $token, $match)) {
+		$tokens = array_map(function ($token) use ($self)
+		{
+			if (preg_match('{^(-[^=]+=)(.+)}', $token, $match))
+			{
 				return $match[1] . $self->escapeToken($match[2]);
 			}
 
-			if ($token && $token[0] !== '-') {
+			if ($token && $token[0] !== '-')
+			{
 				return $self->escapeToken($token);
 			}
 

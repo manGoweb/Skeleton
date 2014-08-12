@@ -2,17 +2,14 @@
 
 namespace Bin\Services;
 
-use App\InvalidArgumentException;
 use App\Models\Orm\Mapper;
 use App\Models\Orm\Repository;
 use App\Models\Orm\RepositoryContainer;
 use App\Models\Orm\SqlConventional;
 use App\NotImplementedException;
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\DBAL\Schema\Table;
 use Inflect\Inflect;
 use Nette\Object;
-use Nette\Reflection\ClassType;
 use Orm\AnnotationMetaData;
 use Orm\AnnotationsParser;
 use Orm\MetaData;
@@ -110,6 +107,7 @@ class SchemaBuilder extends Object
 
 				$columnThis = Inflect::singularize($paramName) . '_id';
 				$joinTable->addColumn($columnThis, 'integer', ['unsigned' => TRUE]);
+				/** @noinspection PhpParamsInspection */
 				$joinTable->addForeignKeyConstraint($tableName, [$columnThis], ['id']);
 
 				$columnThat = Inflect::singularize($relation->getChildParam()) . '_id';
@@ -117,6 +115,7 @@ class SchemaBuilder extends Object
 
 				/** @var Mapper $childMapper */
 				$childMapper = $childRepo->getMapper();
+				/** @noinspection PhpParamsInspection */
 				$joinTable->addForeignKeyConstraint($childMapper->getTableName(), [$columnThat], ['id']);
 
 				$joinTable->setPrimaryKey([$columnThis, $columnThat]);

@@ -19,15 +19,19 @@ use Tracy\Debugger;
 class Configurator extends Nette\Configurator
 {
 
-	/** @var array of function(Configurator $sender); Occurs before first Container is created */
+	/**
+	 * @var array of function(Configurator $sender); Occurs before first Container is created
+	 */
 	public $onInit = [];
 
-	/** @var array of function(Configurator $sender); Occurs after first Container is created */
+	/**
+	 * @var array of function(Configurator $sender); Occurs after first Container is created
+	 */
 	public $onAfter = [];
 
 
 	/**
-	 * @param array|NULL $params
+	 * @param NULL|array $params
 	 */
 	public function __construct(array $params = NULL)
 	{

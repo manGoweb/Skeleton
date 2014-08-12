@@ -110,10 +110,10 @@ abstract class Presenter extends NPresenter
 		$layout = $this->layout ? $this->layout : 'layout';
 		$dir = dirname($this->getReflection()->getFileName());
 		$dir = is_dir("$dir/templates/views") ? $dir : dirname($dir);
-		$list = array(
+		$list = [
 			"$dir/templates/views/$presenter/@$layout.latte",
 			"$dir/templates/views/$presenter.@$layout.latte",
-		);
+		];
 		do {
 			$list[] = "$dir/templates/views/@$layout.latte";
 			$dir = dirname($dir);

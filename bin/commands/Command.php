@@ -11,6 +11,9 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
+/**
+ * @method invoke() with arguments filled from container
+ */
 abstract class Command extends SCommand
 {
 

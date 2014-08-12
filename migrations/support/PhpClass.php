@@ -27,7 +27,10 @@ class PhpClass extends SimplePhp
 		$version = (int) basename($sql->name, '.php');
 		$class = "App\\Migrations\\Migration$version";
 		extract($this->getParameters());
+
+		/** @noinspection PhpIncludeInspection */
 		include $sql->getPath();
+
 		/** @var Migration $migration */
 		$migration = new $class();
 		$this->container->callInjects($migration);

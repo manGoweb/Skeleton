@@ -18,7 +18,9 @@ use Pheanstalk\Job;
 abstract class Task extends Object
 {
 
-	/** @var Job */
+	/**
+	 * @var Job
+	 */
 	private $job;
 
 	public function __construct()

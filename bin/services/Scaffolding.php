@@ -199,7 +199,7 @@ class Scaffolding extends Object
 
 		$templateFile = "$templateDir/default.latte";
 		$this->buildFileFromTemplate($templateFile, 'rme_view', [
-			'name' => implode(':', $parts) . ":default",
+			'name' => implode(':', $parts) . ':default',
 		]);
 
 		return $templateFile;

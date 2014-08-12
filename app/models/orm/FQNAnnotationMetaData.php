@@ -9,6 +9,7 @@ use Orm\AnnotationsParser;
 use Orm\Callback;
 use Orm\IEntity;
 use Orm\MetaData;
+use Orm\MetaDataProperty;
 use Orm\Object;
 use Orm\OneToMany;
 use ReflectionClass;
@@ -55,7 +56,7 @@ class FQNAnnotationMetaData extends Object
 
 	/**
 	 * Temporary save
-	 * @var array|NULL array(string, MetaDataProperty)
+	 * @var NULL|array array(string, MetaDataProperty)
 	 * @see self::callOnMacro()
 	 */
 	private $property;
@@ -63,7 +64,7 @@ class FQNAnnotationMetaData extends Object
 	/**
 	 * Fill MetaData from annotation.
 	 * @param MetaData|string|IEntity class name or object
-	 * @param AnnotationsParser|NULL $parser
+	 * @param NULL|AnnotationsParser $parser
 	 * @return MetaData
 	 */
 	public static function getMetaData($metaData, AnnotationsParser $parser = NULL)
@@ -130,7 +131,7 @@ class FQNAnnotationMetaData extends Object
 	 */
 	private function getClasses($class)
 	{
-		$classes = array($class);
+		$classes = [$class];
 		while ($class = get_parent_class($class))
 		{
 			$i = class_implements($class);
@@ -213,8 +214,8 @@ class FQNAnnotationMetaData extends Object
 		$type = implode('|', $parts);
 
 		$property = $metaData->addProperty($propertyName, $type, $mode, $class);
-		$this->property = array($propertyName, $property);
-		$string = preg_replace_callback('#\{\s*([^\s\}\{]+)(?:\s+([^\}\{]*))?\s*\}#si', array($this, 'callOnMacro'), $string);
+		$this->property = [$propertyName, $property];
+		$string = preg_replace_callback('#\{\s*([^\s\}\{]+)(?:\s+([^\}\{]*))?\s*\}#si', [$this, 'callOnMacro'], $string);
 		$this->property = NULL;
 
 		if (preg_match('#\{|\}#', $string))
@@ -239,6 +240,7 @@ class FQNAnnotationMetaData extends Object
 		$method = "set{$name}";
 		if (!method_exists($property, $method))
 		{
+			/** @var MetaDataProperty $property */
 			$class = $property->getSince();
 			throw new AnnotationMetaDataException("Unknown annotation macro '{{$match[1]}}' in $class::\$$propertyName");
 		}
@@ -250,9 +252,9 @@ class FQNAnnotationMetaData extends Object
 		}
 		else
 		{
-			$params = array($params);
+			$params = [$params];
 		}
-		call_user_func_array(array($property, $method), $params);
+		call_user_func_array([$property, $method], $params);
 	}
 
 	/**
@@ -288,15 +290,15 @@ class FQNAnnotationMetaData extends Object
 	 * repositoryName paramName
 	 * </code>
 	 *
-	 * @param string
-	 * @param int internal
+	 * @param string $string
+	 * @param int $slice internal
 	 * @return array
 	 * @see MetaDataProperty::setOneToMany()
 	 */
 	public function builtParamsOneToMany($string, $slice = 2)
 	{
 		$string = preg_replace('#\s+#', ' ', trim($string));
-		$arr = array_slice(array_filter(array_map('trim', explode(' ', $string, 3))), 0, $slice) + array(NULL, NULL);
+		$arr = array_slice(array_filter(array_map('trim', explode(' ', $string, 3))), 0, $slice) + [NULL, NULL];
 		if ($arr[1])
 		{
 			$arr[1] = ltrim($arr[1], '$');
@@ -349,13 +351,14 @@ class FQNAnnotationMetaData extends Object
 	{
 		if (preg_match('#^([a-z0-9_\\\\]+::[a-z0-9_]+)\(\)$#si', trim($string), $tmp))
 		{
+			/** @noinspection PhpUndefinedMethodInspection */
 			$enum = Callback::create($this->parseSelf($tmp[1]))->invoke();
 			if (!is_array($enum)) throw new AnnotationMetaDataException("'{$this->class}' '{enum {$string}}': callback must return array, " . (is_object($enum) ? get_class($enum) : gettype($enum)) . ' given');
 			$original = $enum = array_keys($enum);
 		}
 		else
 		{
-			$original = $enum = array();
+			$original = $enum = [];
 			foreach (explode(',', $string) as $d)
 			{
 				$d = $this->parseSelf($d);
@@ -364,7 +367,7 @@ class FQNAnnotationMetaData extends Object
 				$original[] = $d;
 			}
 		}
-		return array($enum, implode(', ', $original));
+		return [$enum, implode(', ', $original)];
 	}
 
 	/**
@@ -387,7 +390,7 @@ class FQNAnnotationMetaData extends Object
 	{
 		$string = $this->parseSelf($string);
 		$string = $this->parseString($string, "{default {$string}}");
-		return array($string);
+		return [$string];
 	}
 
 	/**
@@ -398,7 +401,7 @@ class FQNAnnotationMetaData extends Object
 	 */
 	public function builtParamsInjection($string)
 	{
-		return array(rtrim($this->parseSelf($string), '()'));
+		return [rtrim($this->parseSelf($string), '()')];
 	}
 
 	/**
@@ -423,7 +426,7 @@ class FQNAnnotationMetaData extends Object
 	 * Na hodnutu konstanty, cislo nebo string
 	 * @param string
 	 * @param string
-	 * @return scalar
+	 * @return mixed scalar
 	 * @see self::builtParamsEnum()
 	 * @see self::builtParamsDefault()
 	 */

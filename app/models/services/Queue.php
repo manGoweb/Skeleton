@@ -12,13 +12,19 @@ use Pheanstalk\Pheanstalk;
 class Queue extends Object
 {
 
-	/** @var Pheanstalk */
+	/**
+	 * @var Pheanstalk
+	 */
 	private $stalk;
 
-	/** @var string url */
+	/**
+	 * @var string url
+	 */
 	private $host;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $tubeId;
 
 	public function __construct($host, $tubeId)
