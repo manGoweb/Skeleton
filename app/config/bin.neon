@@ -17,6 +17,7 @@ console:
 		- Bin\Commands\Scaffolding\Rme
 		- Bin\Commands\Scaffolding\Test\Unit
 		- Bin\Commands\Schema\Diff
+		- Bin\Commands\Tests\Data
 		- Bin\Commands\Tests\Run
 		- Bin\Commands\Worker
 
