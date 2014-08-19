@@ -3,9 +3,6 @@ Clevis Skeleton 22
 
 ## Requirements
 
-**production:**
-- beanstalkd (task queuing, optional)
-
 **dev:**
 - nodejs (building frontend)
 - phantomjs (acceptance tests)
