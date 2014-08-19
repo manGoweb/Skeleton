@@ -24,3 +24,11 @@ services:
 	serviceContainerFactory: App\Models\Orm\ServiceContainerFactory(@dibiConnection, @performanceHelperCache)
 	performanceHelperCache: Nette\Caching\Cache(@cacheStorage, Orm.PerformanceHelper)
 	orm: App\Models\Orm\RepositoryContainer(@serviceContainerFactory, [], @container)
+
+  # Queue
+	zmq.context: ZMQContext
+	zmq.socket.pub:
+		class: ZMQSocket(@zmq.context, ZMQ::SOCKET_PUSH)
+		setup:
+			- connect('tcp://127.0.0.1:5557')
+	- App\Models\Services\QueuePublisher(@zmq.socket.pub)

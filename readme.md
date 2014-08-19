@@ -3,6 +3,10 @@ Clevis Skeleton 22
 
 ## Requirements
 
+**production:**
+- ZeroMQ
+- zmq.so (http://pecl.php.net/package/zmq)
+
 **dev:**
 - nodejs (building frontend)
 - phantomjs (acceptance tests)

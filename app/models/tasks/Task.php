@@ -4,7 +4,6 @@ namespace App\Models\Tasks;
 
 use App\ImplementationException;
 use Nette\Object;
-use Pheanstalk\Job;
 
 
 /**
@@ -17,12 +16,6 @@ use Pheanstalk\Job;
  */
 abstract class Task extends Object
 {
-
-	/**
-	 * @var Job
-	 */
-	private $job;
-
 	public function __construct()
 	{
 		if (!method_exists($this, 'run'))
@@ -30,16 +23,6 @@ abstract class Task extends Object
 			$class = get_class($this);
 			throw new ImplementationException("Task '$class' does not implement required method 'run'.");
 		}
-	}
-
-	public function setJob(Job $job)
-	{
-		$this->job = $job;
-	}
-
-	public function getJob()
-	{
-		return $this->job;
 	}
 
 }

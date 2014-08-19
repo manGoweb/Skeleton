@@ -1,12 +1,6 @@
 
-parameters:
-	queue:
-		tubeId: CHANGEME_APPNAME-tasks
-		host: localhost
-
 services:
 	- App\Models\Services\Mailer
-	- App\Models\Services\Queue(%queue.host%, %queue.tubeId%)
 
 nette:
 	mailer:

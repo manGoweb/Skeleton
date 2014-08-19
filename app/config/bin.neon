@@ -7,6 +7,12 @@ services:
 	- Bin\Services\Scaffolding(%appDir%)
 	- Bin\Services\SchemaBuilder
 
+	zmq.socket.sub:
+		class: ZMQSocket(@zmq.context, ZMQ::SOCKET_PULL)
+		setup:
+			- bind('tcp://*:5557')
+	- App\Models\Services\QueueSubscriber(@zmq.socket.sub)
+
 console:
 	url: http://localhost.dev/
 	commands:

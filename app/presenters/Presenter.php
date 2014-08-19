@@ -4,7 +4,7 @@ namespace App\Presenters;
 
 use App\Controls\FormControl;
 use App\Models\Orm\RepositoryContainer;
-use App\Models\Services\Queue;
+use App\Models\Services\QueuePublisher;
 use Nette\Application\UI\Presenter as NPresenter;
 use Nette\Bridges\ApplicationLatte\Template;
 
@@ -28,7 +28,7 @@ abstract class Presenter extends NPresenter
 	public $repos;
 
 	/**
-	 * @var Queue
+	 * @var QueuePublisher
 	 * @inject
 	 */
 	public $queue;
