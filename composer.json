@@ -33,7 +33,8 @@
 		"mikulas/code-sniffs": "~1.3",
 		"symfony/process": "~2.4",
 		"jdorn/sql-formatter": "~1.2.17",
-		"oodle/inflect": "~0.2.0"
+		"oodle/inflect": "~0.2.0",
+		"clevis/config-version-extension": "~1.0"
 	},
 	"config": {
 		"preferred-install": "dist",

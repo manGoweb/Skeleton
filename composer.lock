@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "549bc33bae2275cc9402313168521148",
+    "hash": "9e059900a872abe8792e75a5afe259d2",
     "packages": [
         {
             "name": "dibi/dibi",
@@ -2075,6 +2075,45 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "clevis/config-version-extension",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Clevis/config-version-extension.git",
+                "reference": "c6f7b8241a1b772f739b1bc3bdb297538a3083e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Clevis/config-version-extension/zipball/c6f7b8241a1b772f739b1bc3bdb297538a3083e7",
+                "reference": "c6f7b8241a1b772f739b1bc3bdb297538a3083e7",
+                "shasum": ""
+            },
+            "require": {
+                "nette/di": "~2.2.0",
+                "nette/neon": "~2.2.0",
+                "php": ">=5.4",
+                "tracy/tracy": "~2.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Clevis\\Version\\DI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikulas Dite",
+                    "email": "mikulas@dite.pro"
+                }
+            ],
+            "description": "Versions for sample/local Nette configuration files",
+            "time": "2014-08-22 16:53:33"
+        },
         {
             "name": "jdorn/sql-formatter",
             "version": "v1.2.17",
