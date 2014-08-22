@@ -1,6 +1,7 @@
 extensions:
 	console: Kdyby\Console\DI\ConsoleExtension
 	monolog: Kdyby\Monolog\DI\MonologExtension
+	version: Clevis\Version\DI\VersionExtension
 
 php:
 	date.timezone: Europe/Prague

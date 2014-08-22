@@ -5,6 +5,8 @@
 # http://nette.org/security-warning
 #
 
+version: [1]
+
 parameters:
 	# forceDebug: on # off
 	database:

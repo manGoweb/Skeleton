@@ -13,3 +13,6 @@ In load order (later overrides former)
 	<dt>`config.local`</dt>
 		<dd>Machine level configuration. Must not define new services, only overrides  are allowed.</dd>
 </dl>
+
+Also, since we use clevis/config-version-extension, be sure to update version in sample config whenever you
+introduce a back compatibility breaking change.
