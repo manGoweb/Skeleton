@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9e059900a872abe8792e75a5afe259d2",
+    "hash": "60b2e27f712e81e5483be9f98b50e1bf",
     "packages": [
         {
             "name": "dibi/dibi",
@@ -2163,6 +2163,46 @@
                 "sql"
             ],
             "time": "2014-01-12 16:20:24"
+        },
+        {
+            "name": "mikulas/adminer-package",
+            "version": "v4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mikulas/adminer-package.git",
+                "reference": "2863bb6138d44a6b8f5da953fb468c57a88c9efe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mikulas/adminer-package/zipball/2863bb6138d44a6b8f5da953fb468c57a88c9efe",
+                "reference": "2863bb6138d44a6b8f5da953fb468c57a88c9efe",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0",
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Mikulas Dite"
+                },
+                {
+                    "name": "Jakub Vrána",
+                    "homepage": "http://www.vrana.cz/"
+                }
+            ],
+            "description": "Adminer as a convinient package",
+            "homepage": "http://www.adminer.org/",
+            "keywords": [
+                "adminer",
+                "database",
+                "mysql",
+                "postgres",
+                "psql"
+            ],
+            "time": "2014-09-03 14:25:01"
         },
         {
             "name": "mikulas/code-sniffs",
