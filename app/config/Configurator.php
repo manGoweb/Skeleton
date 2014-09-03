@@ -69,8 +69,6 @@ class Configurator extends Nette\Configurator
 			}
 		}
 
-		$this->enableDebugger("$root/log");
-
 		$this->createRobotLoader()->register();
 	}
 
