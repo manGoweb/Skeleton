@@ -9,3 +9,4 @@ app/config/config.local.neon
 /.idea
 /node_modules
 /notes
+/tests/php.ini
