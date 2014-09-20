@@ -23,11 +23,11 @@ class Mailer extends Object
 	}
 
 	/**
-	 * @param string $email
+	 * @param string $email address
 	 * @param string $name
 	 * @throws Exception
 	 */
-	public function sendEventRegistration($email, $name)
+	public function sendBootstrap($email, $name)
 	{
 		$msg = new Message();
 
@@ -35,9 +35,9 @@ class Mailer extends Object
 		$args = [
 			'email' => $msg,
 		];
-		$html = $latte->renderToString($this->getTemplatePath('registration'), $args);
+		$html = $latte->renderToString($this->getTemplatePath('bootstrap'), $args);
 
-		$msg->setFrom('youshould@probablychange.this', 'Nazev Appky')
+		$msg->setFrom('foo@bar.dev', 'Application Name')
 			->addTo($email, $name)
 			->setHtmlBody($html);
 
