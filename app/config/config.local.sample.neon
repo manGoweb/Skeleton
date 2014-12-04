@@ -26,3 +26,7 @@ nette:
 		port: 2525
 		username:
 		password:
+
+	debugger:
+		email:
+			- error@clevis.cz
