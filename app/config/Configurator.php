@@ -93,8 +93,12 @@ class Configurator extends Nette\Configurator
 			$mode = $p['forceDebug'] === FALSE
 				? Debugger::PRODUCTION
 				: Debugger::DEVELOPMENT;
-			Debugger::enable($mode);
 		}
+		else
+		{
+			$mode = Debugger::DETECT;
+		}
+		Debugger::enable($mode, __DIR__ . '/../../log');
 	}
 
 	public function onAfterConsole(Container $c)
