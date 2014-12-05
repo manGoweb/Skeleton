@@ -29,8 +29,19 @@ class Migrate extends Command
 
 	public function invoke(Container $container, Context $db)
 	{
-		$driver = new MySqlNetteDbDriver($db, 'migrations');
-		$runner = new Runner($driver, new Console);
+		try
+		{
+			$driver = new MySqlNetteDbDriver($db, 'migrations');
+			$runner = new Runner($driver, new Console);
+		}
+		catch (\PDOException $e)
+		{
+			if ($e->getMessage() == 'could not find driver') //exception code is null
+			{
+				throw new \PDOException('PDO could not find driver, perhaps you have different php.ini for console and apache?', 0, $e);
+			}
+			throw $e;
+		}
 
 		$g = new Group();
 		$g->directory = __DIR__ . '/../../../migrations/struct';
